@@ -1,14 +1,15 @@
-import AboutOphthall from "@/Conference/AboutOphthall";
-import AssociatePartner from "@/Conference/AssociatePartner";
-import ConferenceBanner from "@/Conference/ConferenceBanner";
-import ConferenceHightlights from "@/Conference/ConferenceHighlights";
-import ForWhom from "@/Conference/ForWhom";
-import JoinOphthall from "@/Conference/JoinOphthall";
-import OrganizingChairman from "@/Conference/OrganizingChairman";
-import Speakers from "@/Conference/speakers";
-import VenueDetails from "@/Conference/VenueDetails";
-import WhatYouLearn from "@/Conference/WhatYouLearn";
+import AboutOphthall from "@/Component/Conference/AboutOphthall";
+import AssociatePartner from "@/Component/Conference/AssociatePartner";
+import ConferenceBanner from "@/Component/Conference/ConferenceBanner";
+import ConferenceHightlights from "@/Component/Conference/ConferenceHighlights";
+import ForWhom from "@/Component/Conference/ForWhom";
+import JoinOphthall from "@/Component/Conference/JoinOphthall";
+import OrganizingChairman from "@/Component/Conference/OrganizingChairman";
+import Speakers from "@/Component/Conference/speakers";
+import VenueDetails from "@/Component/Conference/VenueDetails";
+import WhatYouLearn from "@/Component/Conference/WhatYouLearn";
 import { conferenceData } from "@/Constant/Conference/constant";
+
 
 const ConferencePageComponent = () => {
   return (
