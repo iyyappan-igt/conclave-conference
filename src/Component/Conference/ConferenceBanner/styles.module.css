@@ -1,0 +1,310 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans[wght].ttf");
+}
+@font-face {
+  font-family: "Anton";
+  src: url("/fonts/anton.ttf");
+}
+.container {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  color: #fff;
+  padding: 0px !important;
+}
+.videoBackground{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  /* overflow: hidden; */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+.bannerContent {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Plus Jakarta Sans";
+  z-index: 2;
+}
+
+.content {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.content p {
+  margin: 30px 0px 20px;
+  font-weight: bold;
+}
+.description1 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 122%;
+  letter-spacing: -1%;
+  width: 65%;
+  text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.title {
+  font-family: "Anton" !important;
+  font-weight: 400;
+  font-size: 92px;
+  line-height: 115%;
+  letter-spacing: 0%;
+  color: #ffffff;
+  margin: 6px auto;
+  text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.description2 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 122%;
+  letter-spacing: -1%;
+  width: 70%;
+}
+
+.bannerImage {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bannerImage img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+}
+.button {
+  padding: 23px 56px;
+  border-radius: 50px;
+  font-size: 20px;
+}
+
+/* 1200px breakpoint */
+@media (max-width: 1400px) {
+  .container {
+    min-height: 100vh;
+  }
+  
+  .title {
+    font-size: 100px;
+  }
+  
+  .description1 {
+    font-size: 26px;
+    width: 62%;
+  }
+  
+  .description2 {
+    font-size: 17px;
+    width: 68%;
+  }
+  
+  .button {
+    padding: 24px 58px;
+    font-size: 21px;
+  }
+}
+@media (max-width: 1200px) {
+  .title {
+    font-size: 85px;
+  }
+  
+  .description1 {
+    font-size: 22px;
+    width: 70%;
+  }
+  
+  .description2 {
+    font-size: 16px;
+    width: 75%;
+  }
+  
+  .button {
+    padding: 22px 54px;
+    font-size: 19px;
+  }
+}
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+  }
+  .bannerContent {
+    width: 100%;
+    text-align: start;
+  }
+  .content {
+    width: 85%;
+  }
+  .content p {
+    margin: 40px 0px 20px;
+  }
+  .title {
+    font-size: 60px;
+    margin: 30px auto;
+  }
+  .description1 {
+    font-size: 20px;
+    width: 75%;
+  }
+  .description2 {
+    font-size: 15px;
+    width: 100%;
+  }
+  .bannerImage {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    order: 2;
+  }
+
+  .bannerImage img {
+    height: auto;
+    width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
+  .button {
+    background-color: #00a0e3;
+    padding: 20px 50px;
+    border-radius: 50px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+.container {
+  position: relative;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 !important;
+}
+.videoBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 540px;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+  .bannerContent {
+    width: 100%;
+    text-align: center;
+    padding: 10px 10px;
+  }
+  .title {
+    font-size: 60px;
+    margin: 15px auto;
+  }
+  .description1 {
+    font-size: 16px;
+    width: 75%;
+  }
+  .description2 {
+    font-size: 14px;
+    width: 100%;
+  }
+}
+.bannerImage img {
+  max-width: 90%;
+}
+
+@media (max-width: 576px) {
+  .bannerImage img {
+    max-width: 100%;
+  }
+  .videoBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 550px;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+  .title{
+    font-size: 55px;
+  }
+}
+
+
+@media (max-width: 576px) {
+  .container {
+    min-height: 55vh;
+  }
+  
+  .title {
+    font-size: 45px;
+    margin: 10px auto;
+  }
+  
+  .description1 {
+    font-size: 14px;
+    width: 85%;
+  }
+  
+  .description2 {
+    font-size: 12px;
+    width: 90%;
+    margin-bottom: 15px;
+  }
+  
+  .button {
+    padding: 16px 40px;
+    font-size: 16px;
+  }
+  
+  .content p {
+    margin: 20px 0px 15px;
+  }
+  
+  .bannerImage img {
+    max-width: 95%;
+  }
+  
+  .videoBackground {
+    height: 580px;
+  }
+}

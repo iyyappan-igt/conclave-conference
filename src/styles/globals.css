@@ -1,0 +1,154 @@
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans[wght].ttf');
+}
+
+
+
+html,
+:root {
+  --background-blue: #0382f6;
+  --background-white: #ffffff;
+  --background-black: #000000;
+  --background-red: #cb0202;
+
+  --text-white: #ffffff;
+  --text-black: #000000;
+  --text-gray: #3c3c43;
+}
+
+html{
+  overflow-x: hidden !important; 
+}
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* overflow-x: hidden !important; */
+  width: 100%;
+  font-family: 'Plus Jakarta Sans' !important;
+
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+.container1 {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0px auto;
+}
+
+.close-bar {
+  width: 30px;
+  top: 12px;
+  right: 14px;
+  cursor: pointer;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #ffffff !important;
+  color: #0382f6;
+  border-radius: none;
+  border-bottom: 7px solid #0382f6;
+}
+
+.rb {
+  margin: 40px 0px;
+}
+
+.slick-slide {
+  padding: 0 10px;
+  /* Adjust spacing (10px on left & right) */
+  box-sizing: border-box;
+}
+
+.slick-list {
+  margin: 0 -10px;
+  /* Compensate for padding to keep total width */
+}
+
+.optinput {
+  width: 50px !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+
+  background-color: none !important;
+  border-color: none !important;
+  border: 1px solid #E5E5EA !important;
+  outline: 0;
+  box-shadow: none !important
+}
+
+.swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+@media (width < 1200px) {
+  .rb {
+    margin: 20px 0px;
+  }
+}
+
+@media (width < 992px) {
+  .offcanvas.offcanvas-end {
+    padding: 15px 30px;
+    background-color: rgb(0 47 66);
+  }
+
+  .navbar-nav .nav-link {
+    text-align: start;
+    font-size: 16px;
+    font-weight: 550;
+    padding: 18px 0px;
+    color: #fff !important;
+  }
+
+  .mbicon {
+    width: 25px;
+  }
+}
+
+@media (max-width:768px){
+  .swiper{
+    height: 260px !important;
+  }
+  div.swiper-slide{
+    height: 85px !important;
+  }
+}
+
+@media (width < 576px) {
+  .offcanvas.offcanvas-end {
+    width: 280px !important;
+  }
+
+  .navbar-nav .nav-link {
+    text-align: start;
+    font-size: 15px;
+    padding: 5px 10px;
+    margin: 10px 0px;
+  }
+}

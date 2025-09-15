@@ -1,0 +1,13 @@
+/* styles.module.css */
+.patreonsimg img{
+    width: 95px;
+    height: 75px;
+    object-fit: contain;
+}
+.OurPatreons{
+    margin-top: 20px;
+}
+
+.patreonslider{
+    padding : 15px 0px 15px;
+}

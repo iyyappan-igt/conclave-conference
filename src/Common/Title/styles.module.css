@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Anton';
+    src: url('/fonts/anton.ttf');
+}
+
+.titles {
+    display: flex;
+    justify-content: center;
+}
+
+.titles h2 {
+    font-family: 'Anton' !important;
+    font-size: 60px;
+    color: rgba(0, 47, 66, 1);
+    font-weight: 400;
+    min-width: 700px;
+    width: auto;
+    text-align: center;
+}
+
+
+@media (width < 769px) {
+    .titles h2{
+        width: 100%;
+         min-width: 100%;
+        font-size: 50px;
+    }
+    
+    
+}
+
+@media (width < 576px) {
+       .titles h2{
+        font-size: 35px;
+         min-width: 100%;
+        width: 100%;
+    }
+    
+    
+}

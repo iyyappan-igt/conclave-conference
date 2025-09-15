@@ -1,0 +1,121 @@
+.forwhomsec {
+  padding: 100px 0px;
+}
+
+.fwicon img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  background-color: #03c0ff;
+  padding: 10px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.forwhomlist h4 {
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.attendimg,
+.attendimg img {
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.forwhom {
+  margin-top: 100px;
+}
+
+.fwicon img:hover {
+  background-color: #002f42;
+  transition: all o.5s ease-in-out;
+}
+
+.forwhoslider {
+  padding-left: 30px;
+}
+
+@media (max-width: 992px) {
+  .forwhomsec {
+    padding: 80px 0;
+  }
+
+  .fwicon img {
+    width: 60px;
+    height: 60px;
+  }
+  .attendimg img {
+    height: 400px !important;
+  }
+  .swiperContent {
+    margin-top: 30px !important;
+  }
+  .forwhomlist h4 {
+    font-size: 18px;
+  }
+
+  .forwhoslider {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .forwhomsec {
+    padding: 60px 0 30px;
+    
+  }
+  .forwhomlist{
+    gap: 15px !important;
+  }
+ .fwicon {
+  width: 60px;
+  height: 60px;
+  display: flex;      
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; 
+  background: #fff;   
+}
+
+.fwicon img {
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: contain;  
+}
+  .attendimg img {
+    height: 330px !important;
+  }
+  .forwhomlist h4 {
+    font-size: 13.5px;
+    text-align: start;
+  }
+
+  .forwhoslider {
+    padding-left: 10px;
+  }
+
+  .forwhom {
+    margin-top: 60px;
+  }
+}
+
+
+@media (max-width:420px){
+      .fwicon {
+  min-width: 60px;
+  min-height: 60px;
+  display: flex;      
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; 
+  background: #fff;   
+}
+
+.fwicon img {
+   width: 60px;
+   height: 60px;
+  object-fit: contain;
+}
+}

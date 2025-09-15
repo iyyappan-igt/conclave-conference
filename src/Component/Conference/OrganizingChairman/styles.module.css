@@ -1,0 +1,318 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans[wght].ttf");
+}
+@font-face {
+  font-family: "Anton";
+  src: url("/fonts/anton.ttf");
+}
+
+.container {
+  margin-top: 90px;
+  text-align: center;
+    font-family: "Plus Jakarta Sans";;
+  width: 100%;
+}
+.title {
+  font-family: "Anton";
+  font-size: 60px;
+}
+.containerContent {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  margin-top: 60px;
+  gap: 70px;
+}
+.welcomeCards {
+  width: 55%;
+  /* height: 400px; */
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  text-align: start;
+  border-radius: 40px;
+  position: relative;
+  /* border:1px solid #3fb7ea;  */
+}
+.cardImage{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 40px;
+  z-index:0;
+}
+.overlay{
+    position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 40px;
+}
+.quotationImage{
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  bottom: 40px;
+  right:40px;
+  z-index: 3;
+}
+.welcomeCards .profile,.welcomeCards p{
+  z-index: 3;
+}
+.cardContent{
+    width: 64%;
+  /* height: 320px; */
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  text-align: start;
+  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+  background-color: #00a0e3;
+  padding: 15px 35px;
+  color: #fff;
+  border-radius: 40px;
+  top: 90px;
+  left: 290px;
+  z-index: 4;
+    font-size: 14px;
+  position: absolute;
+  /* border:1px solid #3fb7ea;  */
+}
+.cardImageContainer{
+  position: relative;
+  width: 70%;
+  height: 430px;
+  margin-left: 30px;
+}
+
+.profile{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.profile img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.profile h5{
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+.profile p{
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  margin: 15px 0;
+  width: 82%;
+  background: linear-gradient(90deg, #ebebeb 0%, #ffffff 100%);
+  padding: 20px;
+}
+.content p {
+  margin-bottom: 0 !important;
+  font-size: 18px;
+  text-align: start;
+}
+.contentimg {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+.keynote{
+    width: 40%;
+    text-align: start;
+}
+.keynote h4{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+@media (max-width:1400px) {
+  .title {
+    font-size: 55px;
+  }
+  .welcomeCards{
+    width: 55%;
+  }
+  .keynote{
+    width: 45%;
+  }
+  .cardContent {
+    width: 50%;
+    top: 130px;
+    left: 260px;
+    padding: 30px 25px;
+  }
+  .containerContent{
+    gap: 10px;
+  }
+  .cardImageContainer {
+    height: 450px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .title {
+    font-size: 50px;
+  }
+
+  .cardContent {
+    width: 60%;
+    padding: 25px;
+    left: 230px;
+    top: 120px;
+  }
+.containerContent{
+  gap: 40px;
+}
+  .cardImageContainer {
+    width: 80%;
+    height: 420px;
+  }
+
+  .welcomeCards {
+    width: 70%;
+  }
+
+  .keynote {
+    width: 55%;
+  }
+  .quotationImage{
+    bottom: 10%;
+    right: 7%;
+  }
+}
+
+@media (max-width:992px){
+      .content{
+    text-align: start;
+    gap: 10px;
+    width: 95%;
+    margin: 10px 0;
+  }
+  .content p {
+  margin-bottom: 0 !important;
+  font-size: 16px;
+}
+.containerContent{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.cardImageContainer{
+  margin-left: 0px;
+  width: 80%;
+}
+.welcomeCards{
+    width: 90% !important;
+}
+.keynote{
+    width: 80%;
+    text-align: start;
+}
+.keynote h4{
+    margin-bottom: 20px;
+}
+  .cardContent {
+    width: 70%;
+    left: 300px;
+    top: 100px;
+    padding: 30px;
+  }
+}
+
+
+@media (max-width:768px){
+  .containerContent{
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+    .title{
+        font-size: 30px;
+    }
+    .welcomeCards{
+      flex-direction: column;
+    width: 100% !important;
+}
+.keynote{
+  margin-top: 40px;
+    width: 100%;
+    text-align: start;
+}
+.quotationImage{
+  bottom: 50px;
+  right:40px;
+}
+.cardContent{
+    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  text-align: start;
+  margin-top: 30px;
+  background-color: #00a0e3;
+  padding: 35px;
+  color: #fff;
+  border-radius: 40px;
+  z-index: 4;
+  top: unset;
+  left :unset;
+  font-size: 20px;
+  position: relative !important;
+}
+.cardImageContainer{
+  width: 100%;
+  height: 450px;
+}
+}
+@media(max-width:576px){
+  .cardContent{
+    width: 100%;
+  height: auto;
+  padding: 25px;
+  font-size: 16px;
+}
+.cardImageContainer{
+  width: 100%;
+  height: 380px;
+}
+.keynote{
+  margin-top: 40px;
+}
+  .quotationImage{
+  bottom: 30px;
+  right:40px;
+}
+}
+@media (max-width:420px){
+  .quotationImage{
+  bottom: 30px;
+  right:30px;
+}
+.cardContent{
+  padding: 25px;
+}
+}

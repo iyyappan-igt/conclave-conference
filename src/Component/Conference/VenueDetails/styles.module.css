@@ -1,0 +1,243 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans[wght].ttf");
+}
+@font-face {
+  font-family: "Anton";
+  src: url("/fonts/anton.ttf");
+}
+
+.mainContainer {
+  margin-top: 90px;
+  --bs-gutter-x: 0rem;
+}
+
+.container {
+  margin-top: 50px;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bgImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.title {
+  font-family: "Anton";
+  font-size: clamp(32px, 4vw, 60px);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.contentContainer {
+  position: relative; 
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.ctdetail {
+  font-family: "Plus Jakarta Sans";
+  text-align: start;
+  margin: 0;
+  width: 100%;
+  background-color: transparent;
+  padding: 30px 40px 35px;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.ctdetail h3 {
+  font-weight: 700;
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.ctdetail p {
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-top: 30px;
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.tag {
+  flex: 1 1 200px;
+  background-color: #fff;
+  color: gray;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  min-width: 35%;
+}
+
+.tag p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.image {
+  width: 25px;
+  height: 25px;
+}
+
+.mapContainer {
+  padding: 10px;
+}
+
+.ctmap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.iframeTag {
+  width: 100%;
+  aspect-ratio: 16 / 12;
+  border-radius: 20px;
+  border: 0;
+}
+
+.number {
+  text-align: center;
+}
+
+.number h5 {
+  font-size: 25px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.number a {
+  font-weight: 400;
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.contactnum {
+  background-color: #002f42;
+  color: #fff;
+  padding: 30px;
+  border-radius: 25px;
+  margin: 50px 0;
+}
+
+.ContactDetail {
+  margin-top: 50px;
+}
+
+@media (max-width: 1200px) {
+    .container{
+    min-height: 550px;
+  }
+  .ctdetail {
+    padding: 30px 20px;
+  }
+
+  .number h5 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .contentContainer {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+
+  .ctdetail {
+    padding: 20px;
+  }
+  .ctmap {
+    justify-content: start;
+    margin-left: 0;
+  }
+  .iframeTag{
+    aspect-ratio: 16/9;
+  }
+  .tag {
+    min-width: 40%;
+    padding: 10px 14px;
+  }
+
+  .tag p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ctdetail {
+    padding: 0px;
+  }
+
+  .iframeTag {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .ctdetail p {
+    font-size: 14px;
+  }
+
+  .mapContainer {
+    padding: 0;
+  }
+
+  .tag {
+    flex: 0 0 400px;
+    justify-content: start;
+  }
+
+  .iframeTag {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+
+@media (max-width:450px){
+  .tag {
+    flex: 0 0 100%;
+    justify-content: start;
+  }
+}

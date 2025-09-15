@@ -1,0 +1,152 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans[wght].ttf");
+}
+@font-face {
+  font-family: "Anton";
+  src: url("/fonts/anton.ttf");
+}
+
+.container{
+    margin-top: 90px;
+    text-align: center;
+}
+
+.title{
+     font-family: "Anton";
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.contentContainer{
+    width: 85%;
+    margin: 70px auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 65px;
+}
+
+.contentCount {
+background: linear-gradient(135deg, #29c26e, #84ffaf);
+  color: white;
+  width: 60px; 
+  height:60px; 
+  aspect-ratio: 1 / 1;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 28px;
+  font-family: "Arial", sans-serif;
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+}
+
+.description{
+    font-size: 18px;
+    margin-bottom: 0;
+    text-align: start;
+    font-weight: 500;
+}
+
+
+@media (width < 992px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .ContactDetail {
+        margin-top: 50px;
+    }
+    .contentContainer{
+        width: 95%;
+    }
+    .contactnum {
+        margin: 50px 0px;
+    }
+
+    .number h5  , .ctdetail p{
+        font-size: 16px;
+    }
+
+    .number a {
+        font-size: 14px;
+    }
+    .ctdetail{
+        width: 100%;
+    }
+
+    .ctdetail h3 {
+        font-size: 22px;
+    }
+    .tag{
+        padding: 8px 8px;
+    }
+    .tag p{
+        font-size: 12px;
+    }
+    .image{
+        width: 25px;
+        height: 25px;
+    }
+
+}
+
+
+@media (width < 768px) {
+    .title{
+            font-size: 32px;
+    }
+    .contactnum{
+        padding: 30px 10px;
+    }
+    .contentContainer{
+    width: 100%;
+    margin: 70px auto 0;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 55px;
+}
+     .tag{
+        padding: 8px 8px;
+    }
+    .tag p{
+        font-size: 12px;
+    }
+    .image{
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (width < 576px) {
+    .contentContainer{
+        width: 85%;
+    }
+    .ctdetail p{
+        font-size: 15px;
+    }
+    .number h5{
+        font-size: 20px;
+    }
+
+    .number a{
+        font-size: 18px;
+    }
+     .tag{
+        padding: 8px 8px;
+    }
+    .tag p{
+        font-size: 12px;
+    }
+    .image{
+        width: 25px;
+        height: 25px;
+    }
+}
