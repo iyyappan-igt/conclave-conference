@@ -1,0 +1,26 @@
+.programmcard {
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #757373;
+}
+
+.programmhead h4{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.programmhead h5{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.programminfo h4{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.programminfo h6 , .programminfo p{
+    font-size: 550;
+    font-size: 15px;
+     color: #757373;
+}
