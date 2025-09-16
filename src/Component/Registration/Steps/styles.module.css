@@ -1,0 +1,59 @@
+
+.stepwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    background-color: #c0e4f4;
+    padding: 20px 0px;
+}
+
+.stepactive span {
+    background-color: #00a0e3;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.stepactive p {
+    font-weight: 700;
+    color: #00a0e3;
+}
+
+.stepactive p,
+.stepinactive p {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+
+.stepinactive span {
+    background-color: #e5e5ea;
+    color: black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+
+}
+
+.stepactive,
+.stepinactive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    margin: 0 10px;
+    cursor: pointer;
+
+}

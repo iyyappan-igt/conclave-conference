@@ -1,0 +1,86 @@
+@font-face {
+  font-family: "Anybody";
+  src: url("/fonts/Anybody[wdth\,wght].ttf");
+}
+
+.footer {
+  background-color: rgba(1, 6, 15, 1);
+  color: #fff;
+  font-family: "Anybody" !important;
+  margin-top: 50px;
+}
+
+.footerlogo img {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.footerlogo p {
+  font-size: 16px;
+  padding-top: 20px;
+  margin: 0px;
+  color: #dfdada !important;
+  letter-spacing: 1.6px;
+}
+
+.footerpage h5,
+.footersocialpage h5 {
+  margin: 10px 0px 40px 0px;
+}
+
+.footerpage a {
+  margin: 19px 0px;
+  font-weight: 400;
+  font-size: 15px;
+  color: #dfdada !important;
+  text-decoration: none !important;
+  display: block;
+}
+
+.footersocialpage div {
+  margin: 17px 0px;
+}
+
+.footersocialpage div h6 {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.footersocialpage a {
+  color: #dfdada !important;
+}
+
+.footerlogo p {
+  font-size: 14px;
+}
+
+@media (width < 1400px) {
+  .footerpage h5,
+  .footersocialpage h5 {
+    font-size: 18px;
+  }
+}
+
+@media (width < 576px) {
+  .footersocialpage div {
+    margin: 10px;
+  }
+
+  .footerpage h6 {
+    margin: 15px 0px;
+  }
+
+  .footersocialpage div h6,
+  .footerpage h6 {
+    font-size: 15px;
+  }
+}
+
+
+@media (max-width:768px){
+  .footer{
+      margin-top: 80px;
+  }
+}

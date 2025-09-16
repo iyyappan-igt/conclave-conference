@@ -1,0 +1,12 @@
+.membershipwrapper h2 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.membershipwrapper p {
+    font-size: 14px;
+}
+
+.membershipwrapper {
+    margin: 50px 0px;
+}

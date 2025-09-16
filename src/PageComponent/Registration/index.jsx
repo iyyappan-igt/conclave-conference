@@ -1,9 +1,11 @@
-import PersonalDetail from "@/Component/Registration/Register/PersonalDetail";
+
+import Steps from "@/Component/Registration/Steps";
 
 const RegistrationPageComponent = () => {
   return (
     <>
-      <PersonalDetail />
+      <Steps />
+
     </>
   );
 };

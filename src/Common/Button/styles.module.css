@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter-Regular.otf");
+}
+
+.button {
+    font-family: "Inter" !important;
+    padding: 10px 30px !important;
+    font-weight: 400 !important;    
+}
+
+.commonbutton button:focus{
+    box-shadow: none !important;
+}
+
+@media (width < 992px) {
+    .button {
+        padding: 8px 18px !important;
+        font-weight: 400 !important;
+        font-size: 13px;
+    }
+
+}
