@@ -77,9 +77,8 @@ const Steps = () => {
           </div>
         </div>
 
-        <div className={styles.layoutWrapper} ref={layoutRef}   style={{
-    gridTemplateColumns: stepnumber >= 3 ? "1fr 350px" : "1fr"
-  }}>
+        <div className={`${styles.layoutWrapper} ${stepnumber >= 3 ? styles.rightSticky : ""}`} ref={layoutRef} 
+  >
           <div className={styles.formWrapper}>
             <div className={styles.stepcontent}>
               {stepnumber === 1 ? (
@@ -96,7 +95,6 @@ const Steps = () => {
           {stepnumber >= 3 && (
             <aside
               className={styles.rightColumn}
-              style={{ top: `60px` }}
             >
               <SummarySticky
                 membershipPrice={2000}

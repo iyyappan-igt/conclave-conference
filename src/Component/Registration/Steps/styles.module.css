@@ -48,7 +48,7 @@
 }
 .layoutWrapper {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr;
   gap: 1rem;
   align-items: flex-start;
 }
@@ -64,21 +64,42 @@
 .rightColumn {
   width: 330px; 
   margin-top: 30px;
+  top:60px;
   align-self: flex-start;
   position: sticky;
   height: fit-content;
 }
-
+.rightSticky {
+  grid-template-columns: 1fr 350px;
+}
 @media (max-width: 991px) {
   .layoutWrapper {
     grid-template-columns: 1fr;
   }
+  .rightSticky {
+    grid-template-columns: 1fr; 
+  }
   .rightColumn {
+    position: fixed;
     width: 100%;
-    margin-top: 1rem;
+    /* left: 0;
+    right: 0; */
+    bottom: 0;
+    top: unset;
+  z-index: 1000;
+  background: white; /* ensure it stands out */
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px;
   }
   .stepwrapperTop {
     gap: 16px;
     padding: 12px 8px;
   }
+
+
+/* optional: make the SummarySticky container itself adapt nicely */
+.rightColumn > * {
+  max-width: 600px;
+  margin: 0 auto;
+}
 }
