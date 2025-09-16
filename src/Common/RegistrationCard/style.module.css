@@ -1,0 +1,109 @@
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans[wght].ttf');
+}
+
+
+.cardimg {
+    width: 85px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.discount{
+
+    font-size: 14px !important;
+}
+.price P{
+    margin-bottom: 0;
+}
+.card {
+  box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
+  padding: 30px 25px;
+  border-radius: 20px;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  font-family: Plus Jakarta Sans !important;
+}
+
+.iconlife{
+    min-width: 50px;
+    min-height: 50px;
+    background-color:#00a0e3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.price{
+    font-size: 33px;
+    font-weight: 700;
+    margin: 8px 0 15px;
+}
+.discountIcon{
+    margin-right: 5px;
+}
+.price .gst{
+    font-size: 16px;
+    color: #6c757d;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.oldPrice{
+    font-size: 20px;
+    text-decoration: line-through;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.included h6{
+    font-size: 18px;
+    font-weight: 700;
+    ;
+}
+.includedList{
+    margin-top: 16px;
+    list-style: none;
+    padding-left: 0;
+
+}
+
+.tick{
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+}
+.includedList p{
+    font-size: 16px;
+}
+
+.recommendedBadge{
+    background-color: #56bfec;
+    color: #fff;
+    padding: 7px 15px;
+    font-size: 12px;
+    border-radius: 12px;
+    position: absolute;
+    top: -16px; 
+    left: 30px;
+}
+
+.selectIndicator{
+     width: 22px;
+    height:22px;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    box-sizing: border-box;
+    transition: all 0.1s ease-in-out
+}
