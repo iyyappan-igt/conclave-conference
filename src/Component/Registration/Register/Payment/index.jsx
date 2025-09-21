@@ -8,7 +8,7 @@ import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const Payment = () => {
   const {conference} = useAuth();
-  // console.log(conference);
+  console.log(conference);
   const ProgrammList = [
     {
       id: 1,
@@ -155,7 +155,7 @@ const Payment = () => {
           </div>
         </div>
       </div>
-      <div className={styles.wrapper}>
+      <div  className={`${styles.wrapper} my-5`}>
         <RegistrationCard
         isSelected={true}
           data={conference?.selectedRegistration}

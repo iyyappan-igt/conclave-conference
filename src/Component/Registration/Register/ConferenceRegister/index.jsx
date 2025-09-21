@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import { DynamicIcon } from "lucide-react/dynamic";
 import Image from "next/image";
 import RegistrationCard from "@/Common/RegistrationCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommonTitle from "@/Common/CommonTitle";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ import { setAuthData } from "@/redux/slices/auth/authSlice";
 const ConferenceRegister = ({ handleNext, conferenceData }) => {
   const { userDetails, conference } = useAuth();
   const dispatch = useDispatch();
-  const initialRegistrationType = conference?.conference_amount_type == "standard" ? 1 : "allaccess" ? 2 : 1;
+  const initialRegistrationType = conference?.conference_amount_type == "standard" ? 1 : conference?.conference_amount_type == "all-access" ? 2 : 1;
   const [selectedRegistration, setSelectedRegistration] = useState(initialRegistrationType);
   const conferenceRegistrationData = [
     {
@@ -69,9 +69,34 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
   const handleSelectRegistration = (id, item) => {
     console.log(item)
     const selectData = conferenceRegistrationData?.find((item) => (item?.id == id));
-    dispatch(setAuthData({ conference: { conference_amount_type: id == 1 ? "standard" : "all-access", conference_amount: selectData?.newPrice }, selectedRegistration: item ?? {} }))
+    dispatch(setAuthData({ conference: { conference_amount_type: id == 1 ? "standard" : "all-access", conference_amount: selectData?.newPrice, selectedRegistration: item ?? {} } }))
     setSelectedRegistration(id);
   };
+
+  useEffect(() => {
+    if (!conference?.conference_amount_type) {
+      const defaultSelection = {
+        id: 1,
+        conference_amount_type: "standard",
+        conference_amount:
+          userDetails?.current_membership === "Life"
+            ? conferenceData?.standard_life_price ?? 0
+            : conferenceData?.standard_price ?? 0,
+      };
+
+      dispatch(
+        setAuthData({
+          conference: {
+            conference_amount_type: defaultSelection.conference_amount_type,
+            conference_amount: defaultSelection.conference_amount,
+            selectedRegistration: defaultSelection,
+          },
+        })
+      );
+
+      setSelectedRegistration(1);
+    }
+  }, [conference?.conference_amount_type, dispatch, conferenceData, userDetails]);
 
   return (
     <section className={styles.conferencesec}>
@@ -116,6 +141,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               <RegistrationCard
                 data={item}
                 isSelected={selectedRegistration == item?.id}
+                selectable={true}
                 onClick={() => handleSelectRegistration(item?.id, item)}
               />
             ))}
@@ -189,7 +215,6 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
             </div>
             <div onClick={() => { selectedRegistration == 1 || selectedRegistration == null ? undefined : handleNext(6) }}>
               <Button
-                disabled={selectedRegistration == 1 || selectedRegistration == null}
                 title="Complete Registration"
                 iconname={"arrow-right"}
                 bgcolor={"#00a0e3"}
