@@ -2,14 +2,33 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import CommonTitle from "@/Common/CommonTitle";
 import Button from "@/Common/Button";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { membershipVeroficationQuery } from "@/hooks/useUserQuery";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-const Membership = () => {
+const Membership = ({ handleNext }) => {
   const [membership, setMembership] = useState(null);
+  const { mutate: membershipVerify, isLoading: membershiploading } =
+    membershipVeroficationQuery();
 
   const handleMembershipChange = (event) => {
     console.log(event.target.value);
     setMembership(event.target.value);
   };
+
+  const Formik = useFormik({
+    initialValues: {
+      obg_code: "",
+    },
+    validationSchema: Yup.object().shape({
+      obg_code: Yup.string().required("Enter OBG Code"),
+    }),
+    onSubmit: (values) => {
+      membershipVerify({ value: values.obg_code });
+    },
+  });
+  
 
   return (
     <section className={`${styles.membershipsection}`}>
@@ -46,44 +65,48 @@ const Membership = () => {
         </div>
 
         {membership === "yes" && (
-          <div>
-            <div className={`${styles.inputgroup}  mb-md-2 mb-2`}>
-              <label>Email</label>
-              <input
-                type="text"
-                className={`form-control `}
-                placeholder="Email"
-              />
-            </div>
-
-            <div className={`${styles.inputgroup}  mb-md-2 mb-2`}>
-              <label>Mobile Number / Password</label>
-              <input
-                type="text"
-                className={`form-control `}
-                placeholder="Mobile Number / Password"
-              />
-            </div>
+          <form onSubmit={Formik.handleSubmit}>
             <div className={`${styles.inputgroup}  mb-md-2 mb-2`}>
               <label>OBG Code</label>
               <input
                 type="text"
                 className={`form-control `}
-                placeholder="OBG Code"
+                placeholder="Enter OBG Code"
+                {...Formik.getFieldProps("obg_code")}
+              />
+              {Formik.touched.obg_code && Formik.errors.obg_code ? (
+                <small className="text-danger">{Formik.errors.obg_code}</small>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className={styles.inputgroup}>
+              <Button
+                title={membershiploading ? "Verify...." : "Verify"}
+                bgcolor={"#000"}
+                colors={"#ffff"}
+                type={"submit"}
               />
             </div>
-            <div className={styles.inputgroup}>
-              <Button title={"Verify"} bgcolor={"#000"} colors={"#ffff"} />
+            <div className={styles.inputgroup} onClick={() => handleNext(2)}>
+              <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
             </div>
-          </div>
+          </form>
         )}
         {membership === "no" && (
           <>
             <div className={styles.memberinfo}>
               <p className="m-0">
-                <span> Non-member registration:</span> You'll be charged the
-                standard registration fee. Consider joining Ophthall for member
-                benefits and discounted conference rates.
+                • Life Members receive discounted fees and exclusive benefits.
+              </p>
+
+              <p className="m-0">
+                • Other Members (non-life) may register at the standard fee.
+              </p>
+              <p className="m-0">
+                • Non-members must first become a member of Ophthall before
+                proceeding with registration.
               </p>
             </div>
             <div className={styles.inputgroup}>
@@ -91,14 +114,12 @@ const Membership = () => {
                 title={"Become A Member"}
                 bgcolor={"#000"}
                 colors={"#ffff"}
+                link={"https://www.ophthall.in/register"}
+                target={"blank"}
               />
             </div>
           </>
         )}
-
-        <div className={styles.inputgroup}>
-          <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
-        </div>
       </div>
     </section>
   );

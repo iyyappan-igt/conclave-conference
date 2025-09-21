@@ -4,12 +4,11 @@
 }
 
 
-
-.ConferenceRegisterHeader p{
-    font-size: 14px;
-    color: var(--text-gray);
-    margin-top: 8px;
+.conferencesec{
+  margin: 50px 0px;
 }
+
+
 .lifeMember {
   margin-top: 20px;
   padding: 20px 18px;

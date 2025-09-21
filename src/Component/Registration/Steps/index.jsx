@@ -5,17 +5,21 @@ import Membership from "../Register/Membership";
 import Payment from "../Register/Payment";
 import ConferenceRegister from "../Register/ConferenceRegister";
 import SummarySticky from "@/Common/SummarySticky";
+import Workshop from "../Register/Workshop";
+import RoundTable from "../Register/RoundTable";
+import { Session } from "@/Constant/Session";
 
 const Steps = () => {
   const [stepnumber, setStepnumber] = useState(1);
-  // const [stickyTop, setStickyTop] = useState(20);
   const stepWrapperRef = useRef(null);
   const layoutRef = useRef(null);
+
+  const data_workshops = Session.filter((item) => item.type == "Workshop");
+  const data_roundTables = Session.filter((item) => item.type == "Round Table");
 
   useEffect(() => {
     setStepnumber(1);
   }, []);
-
 
   return (
     <section className={styles.stepsection}>
@@ -25,7 +29,6 @@ const Steps = () => {
             className={
               stepnumber === 1 ? styles.stepactive : styles.stepinactive
             }
-            onClick={() => setStepnumber(1)}
           >
             <span className={styles.stepnumber}>1</span>
             <p className={styles.steptext}>Membership</p>
@@ -34,7 +37,6 @@ const Steps = () => {
             className={
               stepnumber === 2 ? styles.stepactive : styles.stepinactive
             }
-            onClick={() => setStepnumber(2)}
           >
             <span className={styles.stepnumber}>2</span>
             <p className={styles.steptext}>Personal Details</p>
@@ -43,7 +45,6 @@ const Steps = () => {
             className={
               stepnumber === 3 ? styles.stepactive : styles.stepinactive
             }
-            onClick={() => setStepnumber(3)}
           >
             <span className={styles.stepnumber}>3</span>
             <p className={styles.steptext}>Conference</p>
@@ -52,7 +53,6 @@ const Steps = () => {
             className={
               stepnumber === 4 ? styles.stepactive : styles.stepinactive
             }
-            onClick={() => setStepnumber(4)}
           >
             <span className={styles.stepnumber}>4</span>
             <p className={styles.steptext}>Workshop</p>
@@ -61,7 +61,6 @@ const Steps = () => {
             className={
               stepnumber === 5 ? styles.stepactive : styles.stepinactive
             }
-            onClick={() => setStepnumber(5)}
           >
             <span className={styles.stepnumber}>5</span>
             <p className={styles.steptext}>RoundTable</p>
@@ -70,32 +69,44 @@ const Steps = () => {
             className={
               stepnumber === 6 ? styles.stepactive : styles.stepinactive
             }
-            onClick={() => setStepnumber(6)}
           >
             <span className={styles.stepnumber}>6</span>
             <p className={styles.steptext}>Payment</p>
           </div>
         </div>
 
-        <div className={`${styles.layoutWrapper} ${stepnumber >= 3 ? styles.rightSticky : ""}`} ref={layoutRef} 
-  >
+        <div
+          className={styles.layoutWrapper}
+          ref={layoutRef}
+          style={{
+            gridTemplateColumns: stepnumber >= 3 ? "1fr 350px" : "1fr",
+          }}
+        >
           <div className={styles.formWrapper}>
             <div className={styles.stepcontent}>
               {stepnumber === 1 ? (
-                <Membership />
+                <Membership handleNext={(id) => setStepnumber(id)} />
               ) : stepnumber === 2 ? (
-                <PersonalDetail />
+                <PersonalDetail handleNext={(id) => setStepnumber(id)} />
               ) : stepnumber === 3 ? (
-                <ConferenceRegister />
+                <ConferenceRegister handleNext={(id) => setStepnumber(id)} />
+              ) : stepnumber === 4 ? (
+                <Workshop
+                  workshoplist={data_workshops}
+                  handleNext={(id) => setStepnumber(id)}
+                />
+              ) : stepnumber === 5 ? (
+                <RoundTable
+                  roundtablelist={data_roundTables}
+                  handleNext={(id) => setStepnumber(id)}
+                />
               ) : stepnumber === 6 ? (
                 <Payment />
               ) : null}
             </div>
           </div>
           {stepnumber >= 3 && (
-            <aside
-              className={styles.rightColumn}
-            >
+            <aside className={styles.rightColumn} style={{ top: `60px` }}>
               <SummarySticky
                 membershipPrice={2000}
                 workshopPrice={1500}

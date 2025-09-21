@@ -1,4 +1,4 @@
-.personalwrapper {
+.wrapper {
     max-width: 800px;
     margin: auto;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
@@ -7,27 +7,85 @@
     background-color: #fff;
 }
 
-
-.paymentsection{
-    margin-top: 80px;
+.sectionlist {
+    height: 600px;
+    overflow-y: scroll;
+    background-color: #ffff;
 }
 
-.pdinfohead h4{
+
+.paymentsection {
+    margin: 50px 0px;
+}
+
+.pdinfohead h4 {
     font-size: 18px;
     font-weight: 700;
 }
 
-.pdinfo h4{
+.pdinfo h4 {
     font-size: 16px;
     font-weight: 550;
-  color: #9e9c9c;
+    color: #757373;
 }
 
-.pdinfo p{
+.pdinfo p {
     font-size: 14px;
     font-weight: 550;
 }
 
-.pdinfo{
-    margin: 10px 0px;
+
+.leftentry h6,
+.rightentry h6 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.leftentry h4,
+.rightentry h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+
+.leftentry p,
+.rightentry p {
+    font-size: 16px;
+    color: #757373;
+    font-weight: 400;
+}
+
+
+.leftentry h3,
+.rightentry h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.inputgroup button {
+    width: 100% !important;
+    padding: 15px !important;
+    margin-top: 20px;
+}
+
+.summary h6,
+.radiotbn label {
+    font-size: 14px;
+    color: #757373;
+    font-weight: 400;
+}
+
+
+.radiotbn {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.inputgroup p {
+    font-size: 10px;
+    color: #757373;
+    text-align: center;
 }

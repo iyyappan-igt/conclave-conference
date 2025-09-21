@@ -2,7 +2,7 @@ import CommonTitle from "@/Common/CommonTitle";
 import styles from "./styles.module.css";
 import Button from "@/Common/Button";
 
-const PersonalDetail = () => {
+const PersonalDetail = ({handleNext}) => {
   return (
     <section className={`${styles.personaldetailsection}`}>
       <CommonTitle
@@ -77,7 +77,7 @@ const PersonalDetail = () => {
             />
           </div>
 
-          <div className={styles.inputgroup}>
+          <div className={styles.inputgroup} onClick={()=>{handleNext(3)}}>
             <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
           </div>
         </form>

@@ -12,7 +12,7 @@ const ProgrammCard = ({ type, amount, title, speaker, date }) => {
 
       <div className={styles.programminfo}>
         <h4>{title}</h4>
-        <h6>{speaker}</h6>
+        <h6>{`by ${speaker}`}</h6>
         <p>{date}</p>
       </div>
     </div>

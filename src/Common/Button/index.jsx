@@ -9,24 +9,26 @@ const Button = ({
   icon,
   target,
   iconname,
+  type,
   handleTogglecontactForm,
 }) => {
   return (
     <div className={styles.commonbutton}>
       {link ? (
-          <a href={link} target={target}>
-            <button
-              type="btn"
-              className={` btn ${styles.button}`}
-              style={{ backgroundColor: bgcolor, color: colors }}
-            >
-              <img src={icon} alt="" />{title}
-            </button>
-          </a>
+        <a href={link} target={target}>
+          <button
+            type="btn"
+            className={` btn ${styles.button}`}
+            style={{ backgroundColor: bgcolor, color: colors }}
+          >
+            <img src={icon} alt="" />
+            {title}
+          </button>
+        </a>
       ) : iconname ? (
         <>
           <button
-            type="btn"
+            type={type ? type : "button"}
             onClick={handleTogglecontactForm}
             className={` btn ${styles.button}`}
             style={{ backgroundColor: bgcolor, color: colors }}
@@ -37,12 +39,13 @@ const Button = ({
       ) : (
         <>
           <button
-            type="btn"
+            type={type ? type : "button"}
             onClick={handleTogglecontactForm}
             className={` btn ${styles.button}`}
             style={{ backgroundColor: bgcolor, color: colors }}
           >
-            <img src={icon} alt="" />{title}
+            <img src={icon} alt="" />
+            {title}
           </button>
         </>
       )}

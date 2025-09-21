@@ -24,7 +24,7 @@
 .stepactive p { font-weight: 700; color: #00a0e3; }
 .stepactive p, .stepinactive p { margin-top: 8px; font-size: 16px; }
 .stepinactive span {
-    background-color: #e5e5ea;
+    background-color: #ffff;
     color: black;
     border-radius: 50%;
     width: 50px;
