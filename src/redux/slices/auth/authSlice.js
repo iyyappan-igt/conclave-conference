@@ -4,11 +4,10 @@ const initialState = {
   conference: {
     conference_amount_type: null,
     conference_amount: null,
-    selectedRegistration:{}
+    selectedRegistration: {},
   },
   events: [],
   userdetails: null,
-  selectedRegistration:{}
 };
 
 const authSlice = createSlice({
@@ -16,10 +15,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthData: (state, action) => {
-      state.conference = action.payload.conference;
+      state.conference = {
+        ...state.conference,
+        ...action.payload.conference,
+      };
       state.events = action.payload.events;
       state.userdetails = action.payload.userdetails;
-      state.selectedRegistration = action.payload.selectedRegistration
     },
     clearAuthData: (state) => {
       state.conference = null;
@@ -29,5 +30,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthData, clearAuthData} = authSlice.actions;
+export const { setAuthData, clearAuthData } = authSlice.actions;
 export default authSlice.reducer;

@@ -6,12 +6,10 @@ import styles from "./styles.module.css";
 const SummarySticky = ({ handleNext, conferenceData }) => {
     const { conference, events } = useAuth();
 
-    // ✅ Safely parse conference price
     const conferenceRegistrationAmount = conference?.conference_amount
         ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
         : 0;
 
-    // ✅ Safely calculate workshop price
     const workShopsPrice = events
         ? events.reduce((total, event) => {
             return event?.event_type === "workshop"
@@ -20,7 +18,6 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
         }, 0)
         : 0;
 
-    // ✅ Safely calculate round table price
     const roundTablePrice = events
         ? events.reduce((total, event) => {
             return event?.event_type === "roundtable"
@@ -41,7 +38,6 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
         }, 0)
         : 0;
 
-    // ✅ Now this will always be numeric
     const totalPrice = conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
 
     return (
@@ -91,7 +87,6 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
                 </div>
             </div>
 
-            {/* ✅ Mobile version stays the same but uses parsed values */}
             <div className={`${styles.summaryBox} d-block d-lg-none`}>
                 <h4 className={styles.summaryTitle}>Registration Summary</h4>
                 <p>{conferenceData?.title || "Ophthall Conference"}</p>

@@ -1,11 +1,11 @@
 import { DynamicIcon } from "lucide-react/dynamic";
 import styles from "./style.module.css";
 
-const RegistrationCard = ({ data, isSelected, onClick }) => {
+const RegistrationCard = ({ data, isSelected, onClick,selectable }) => {
   return (
     <div
       className={styles.card}
-      onClick={onClick}
+      onClick={selectable ? onClick : undefined}
       style={
         isSelected
           ? { backgroundColor: "#00a0e3", color: "#fff" }
@@ -22,6 +22,7 @@ const RegistrationCard = ({ data, isSelected, onClick }) => {
         style={{
           border: isSelected ? "6px solid #fff" : "2px solid #dcdfe4",
           backgroundColor: isSelected ? "#00a0e3" : "transparent",
+          display:selectable ? "block" : "none"
         }}
       ></div>
       <div
