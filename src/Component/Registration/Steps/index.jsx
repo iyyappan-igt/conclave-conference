@@ -15,7 +15,7 @@ const Steps = () => {
   const [stepnumber, setStepnumber] = useState(1);
   const stepWrapperRef = useRef(null);
   const layoutRef = useRef(null);
-  const { isLoading } = useConferenceQuery();
+  const { data: conferenceData, isLoading } = useConferenceQuery();
 
   const data_workshops = Session.filter((item) => item.type == "Workshop");
   const data_roundTables = Session.filter((item) => item.type == "Round Table");
@@ -92,14 +92,16 @@ const Steps = () => {
               ) : stepnumber === 2 ? (
                 <PersonalDetail handleNext={(id) => setStepnumber(id)} />
               ) : stepnumber === 3 ? (
-                <ConferenceRegister handleNext={(id) => setStepnumber(id)} />
+                <ConferenceRegister conferenceData={conferenceData} handleNext={(id) => setStepnumber(id)} />
               ) : stepnumber === 4 ? (
                 <Workshop
+                  conferenceData={conferenceData}
                   workshoplist={data_workshops}
                   handleNext={(id) => setStepnumber(id)}
                 />
               ) : stepnumber === 5 ? (
                 <RoundTable
+                  conferenceData={conferenceData}
                   roundtablelist={data_roundTables}
                   handleNext={(id) => setStepnumber(id)}
                 />

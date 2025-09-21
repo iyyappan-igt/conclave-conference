@@ -24,7 +24,7 @@ export const membershipVeroficationQuery = () => {
 
         dispatch(
           setAuthData({
-            userdetails: data,
+            userdetails: data?.data,
           })
         );
         queryClient.invalidateQueries(["membership"]);
@@ -39,3 +39,37 @@ export const membershipVeroficationQuery = () => {
     }
   );
 };
+
+export const useConferenceRegistrationStatus = () => {
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+
+  return useMutation(
+    async ({ obgcode, conferenceId }) => {
+      return await authApiData.getConferenceRegistrationStatus(obgcode, conferenceId);
+    },
+    {
+      onSuccess: (data) => {
+        dispatch(
+          setAuthData({
+            events: data?.data?.conference_events,
+            conference: {
+              conference_amount_type: data?.data?.conference_amount_type,
+              conference_amount: data?.data?.conference_amount,
+            },
+          })
+        );
+
+        queryClient.invalidateQueries(["conference-registration"]);
+      },
+      onError: (error) => {
+        const message =
+          error?.response?.data?.message ||
+          error?.message ||
+          "Unable to verify registration status";
+        console.error(message);
+      },
+    }
+  );
+};
+

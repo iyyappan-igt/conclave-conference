@@ -5,14 +5,11 @@ import Button from "@/Common/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { membershipVeroficationQuery } from "@/hooks/useUserQuery";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const Membership = ({ handleNext }) => {
   const [membership, setMembership] = useState(null);
   const { mutate: membershipVerify, isLoading: membershiploading } =
     membershipVeroficationQuery();
-  const {conferenceDetails} = useAuth();
-  console.log(conferenceDetails)
   const handleMembershipChange = (event) => {
     console.log(event.target.value);
     setMembership(event.target.value);

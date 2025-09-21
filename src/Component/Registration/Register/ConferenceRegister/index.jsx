@@ -7,9 +7,7 @@ import { useState } from "react";
 import CommonTitle from "@/Common/CommonTitle";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-const ConferenceRegister = ({handleNext}) => {
-  const {conferenceDetails} = useAuth();
-  console.log(conferenceDetails)
+const ConferenceRegister = ({handleNext, conferenceData}) => {
   const [selectedRegistration, setSelectedRegistration] = useState(null);
   const conferenceRegistrationData = [
     {
