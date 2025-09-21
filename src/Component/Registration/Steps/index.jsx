@@ -7,23 +7,46 @@ import ConferenceRegister from "../Register/ConferenceRegister";
 import SummarySticky from "@/Common/SummarySticky";
 import Workshop from "../Register/Workshop";
 import RoundTable from "../Register/RoundTable";
-import { Session } from "@/Constant/Session";
+// import { Session } from "@/Constant/Session";
 import { useConferenceQuery } from "@/hooks/useConferenceQuery";
 import { Loader } from "lucide-react";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
+import { getAllEventByConfernceIdQuery } from "@/hooks/useEventQuery";
 
 const Steps = () => {
   const [stepnumber, setStepnumber] = useState(1);
   const stepWrapperRef = useRef(null);
   const layoutRef = useRef(null);
-  const { data: conferenceData, isLoading } = useConferenceQuery();
+  const { data: conferenceData } = useConferenceQuery();
+  const { mutate: eventMutate } = getAllEventByConfernceIdQuery();
+  const [session, setsession] = useState();
 
-  const data_workshops = Session.filter((item) => item.type == "Workshop");
-  const data_roundTables = Session.filter((item) => item.type == "Round Table");
+  const data_workshops = session
+    ? session.filter((item) => item.event_type == "workshop")
+    : [];
+  const data_roundTables = session
+    ? session.filter((item) => item.event_type == "roundtable")
+    : [];
+
+  const { userdetails } = useAuth();
+
+  // if (isLoading) return <Loader />;
 
   useEffect(() => {
-    setStepnumber(1);
-  }, []);
-  if (isLoading) return <Loader />;
+    if (conferenceData?.id) {
+      eventMutate(
+        { value: conferenceData?.id },
+        {
+          onSuccess: (data) => {
+            setsession(data?.data);
+          },
+        }
+      );
+    }
+  }, [conferenceData?.id]);
+
+  console.log("conference", conferenceData);
+
   return (
     <section className={styles.stepsection}>
       <div className="container-fluid p-0">
@@ -90,23 +113,31 @@ const Steps = () => {
               {stepnumber === 1 ? (
                 <Membership handleNext={(id) => setStepnumber(id)} />
               ) : stepnumber === 2 ? (
-                <PersonalDetail handleNext={(id) => setStepnumber(id)} />
+                <PersonalDetail
+                  handleNext={(id) => setStepnumber(id)}
+                  personalData={userdetails}
+                />
               ) : stepnumber === 3 ? (
-                <ConferenceRegister conferenceData={conferenceData} handleNext={(id) => setStepnumber(id)} />
+                <ConferenceRegister
+                  conferenceData={conferenceData}
+                  handleNext={(id) => setStepnumber(id)}
+                />
               ) : stepnumber === 4 ? (
                 <Workshop
+                  personalData={userdetails}
                   conferenceData={conferenceData}
                   workshoplist={data_workshops}
                   handleNext={(id) => setStepnumber(id)}
                 />
               ) : stepnumber === 5 ? (
                 <RoundTable
+                  personalData={userdetails}
                   conferenceData={conferenceData}
                   roundtablelist={data_roundTables}
                   handleNext={(id) => setStepnumber(id)}
                 />
               ) : stepnumber === 6 ? (
-                <Payment />
+                <Payment personalData={userdetails} />
               ) : null}
             </div>
           </div>

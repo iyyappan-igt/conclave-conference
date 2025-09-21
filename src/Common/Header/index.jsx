@@ -2,9 +2,13 @@ import Image from "next/image";
 import Button from "../Button";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const Header = () => {
   const router = useRouter();
+  const { userdetails } = useAuth();
+
+  console.log("sss", userdetails);
 
   return (
     <header>
@@ -20,12 +24,24 @@ const Header = () => {
               }}
             />
           </div>
-          <Button
-            title={"Register Now"}
-            colors={"#ffff"}
-            bgcolor={"#00A0E3"}
-            link={"/register"}
-          />
+          {userdetails ? (
+            <div className="d-flex align-items-center gap-2" onClick={()=>{router.replace("/register")}}>
+              <div className={styles.profileimg}>
+                <img src={userdetails?.profile} className="img-fluid" />
+              </div>
+              <div className={styles.profile}>
+                <h4>{userdetails?.name}</h4>
+                <h6>{userdetails?.obg_code}</h6>
+              </div>
+            </div>
+          ) : (
+            <Button
+              title={"Register Now"}
+              colors={"#ffff"}
+              bgcolor={"#00A0E3"}
+              link={"/register"}
+            />
+          )}
         </div>
       </div>
     </header>

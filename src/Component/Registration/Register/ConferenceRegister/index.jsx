@@ -12,8 +12,16 @@ import { setAuthData } from "@/redux/slices/auth/authSlice";
 const ConferenceRegister = ({ handleNext, conferenceData }) => {
   const { userDetails, conference } = useAuth();
   const dispatch = useDispatch();
+<<<<<<< Updated upstream
   const initialRegistrationType = conference?.conference_amount_type == "standard" ? 1 : conference?.conference_amount_type == "all-access" ? 2 : 1;
   const [selectedRegistration, setSelectedRegistration] = useState(initialRegistrationType);
+=======
+  const initialRegistrationType =
+    conference?.conference_amount_type == "standard" ? 1 : "allaccess" ? 2 : 1;
+  const [selectedRegistration, setSelectedRegistration] = useState(
+    initialRegistrationType
+  );
+>>>>>>> Stashed changes
   const conferenceRegistrationData = [
     {
       id: 1,
@@ -22,21 +30,29 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
       description1: "Access to main conference sessions",
       description2:
         "Join us for the main conference sessions featuring keynote speakers, panel discussions, and networking opportunities.",
-      newPrice: `₹${userDetails?.current_membership === "Life"
-        ? conferenceData?.standard_life_price ?? 0
-        : conferenceData?.standard_price ?? 0}`,
-      oldPrice: userDetails?.current_membership === "Life"
-        ? `₹${conferenceData?.standard_price ?? 0}`
-        : "",
-      discount: `Save ₹${(conferenceData?.standard_price ?? 0) - (conferenceData?.standard_life_price ?? 0)} with this option`,
+      newPrice: `₹${
+        userDetails?.current_membership === "Life"
+          ? conferenceData?.standard_life_price ?? 0
+          : conferenceData?.standard_price ?? 0
+      }`,
+      oldPrice:
+        userDetails?.current_membership === "Life"
+          ? `₹${conferenceData?.standard_price ?? 0}`
+          : "",
+      discount: `Save ₹${
+        (conferenceData?.standard_price ?? 0) -
+        (conferenceData?.standard_life_price ?? 0)
+      } with this option`,
       includedTitle: "What's included:",
-      includedList: (userDetails?.current_membership === "Life"
-        ? conferenceData?.standard_life_price_desc
-        : conferenceData?.standard_price_desc
-      )?.replace(/\u200B/g, '') // Remove zero-width spaces
-        .split(/\r\n|\r|\n/) // Split on any line break
-        .map(item => item.trim()) // Trim whitespace
-        .filter(Boolean) ?? [], // Remove empty strings
+      includedList:
+        (userDetails?.current_membership === "Life"
+          ? conferenceData?.standard_life_price_desc
+          : conferenceData?.standard_price_desc
+        )
+          ?.replace(/\u200B/g, "") // Remove zero-width spaces
+          .split(/\r\n|\r|\n/) // Split on any line break
+          .map((item) => item.trim()) // Trim whitespace
+          .filter(Boolean) ?? [], // Remove empty strings
       recommended: false,
     },
     {
@@ -46,30 +62,54 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
       description1: "Complete conference experience",
       description2:
         "Get unlimited access to all conference sessions, workshops, round tables, and exclusive networking events.",
-      newPrice: `₹${userDetails?.current_membership === "Life"
-        ? conferenceData?.all_access_life_price ?? 0
-        : conferenceData?.all_access_price ?? 0}`,
-      oldPrice: userDetails?.current_membership === "Life"
-        ? `₹${conferenceData?.all_access_price ?? 0}`
-        : "",
-      discount: `Save ₹${(conferenceData?.all_access_price ?? 0) - (conferenceData?.all_access_life_price ?? 0)} with this option`,
+      newPrice: `₹${
+        userDetails?.current_membership === "Life"
+          ? conferenceData?.all_access_life_price ?? 0
+          : conferenceData?.all_access_price ?? 0
+      }`,
+      oldPrice:
+        userDetails?.current_membership === "Life"
+          ? `₹${conferenceData?.all_access_price ?? 0}`
+          : "",
+      discount: `Save ₹${
+        (conferenceData?.all_access_price ?? 0) -
+        (conferenceData?.all_access_life_price ?? 0)
+      } with this option`,
       includedTitle: "What's included:",
-      includedList: (userDetails?.current_membership === "Life"
-        ? conferenceData?.all_access_life_price_desc
-        : conferenceData?.all_access_price_desc
-      )?.replace(/\u200B/g, '') // Remove zero-width spaces
-        .split(/\r\n|\r|\n/) // Split on any line break
-        .map(item => item.trim()) // Trim whitespace
-        .filter(Boolean) ?? [],  // Remove empty strings
+      includedList:
+        (userDetails?.current_membership === "Life"
+          ? conferenceData?.all_access_life_price_desc
+          : conferenceData?.all_access_price_desc
+        )
+          ?.replace(/\u200B/g, "") // Remove zero-width spaces
+          .split(/\r\n|\r|\n/) // Split on any line break
+          .map((item) => item.trim()) // Trim whitespace
+          .filter(Boolean) ?? [], // Remove empty strings
       recommended: true,
     },
   ];
 
-  console.log(conferenceRegistrationData)
+  console.log(conferenceRegistrationData);
   const handleSelectRegistration = (id, item) => {
+<<<<<<< Updated upstream
     console.log(item)
     const selectData = conferenceRegistrationData?.find((item) => (item?.id == id));
     dispatch(setAuthData({ conference: { conference_amount_type: id == 1 ? "standard" : "all-access", conference_amount: selectData?.newPrice, selectedRegistration: item ?? {} } }))
+=======
+    console.log("ll", item);
+    const selectData = conferenceRegistrationData?.find(
+      (item) => item?.id == id
+    );
+    dispatch(
+      setAuthData({
+        conference: {
+          conference_amount_type: id == 1 ? "standard" : "all-access",
+          conference_amount: selectData?.newPrice,
+        },
+        selectedRegistration: item ?? {},
+      })
+    );
+>>>>>>> Stashed changes
     setSelectedRegistration(id);
   };
 
@@ -131,7 +171,9 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               </div>
               <div className={styles.lifeMemberContent}>
                 <h6>Become a Life Member</h6>
-                <p>Unlock exclusive discounts on all conference registrations!</p>
+                <p>
+                  Unlock exclusive discounts on all conference registrations!
+                </p>
               </div>
             </div>
           )}
@@ -211,20 +253,44 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
           <div
             className={`${styles.buttonGroup} d-flex my-3 justify-content-end gap-3`}
           >
-            <div onClick={() => { handleNext(2) }}>
+            <div
+              onClick={() => {
+                handleNext(2);
+              }}
+            >
               <Button title="Back" bgcolor={"#000"} colors={"#fff"} />
             </div>
-            <div onClick={() => { selectedRegistration == 1 || selectedRegistration == null ? undefined : handleNext(6) }}>
+            <div
+              onClick={() => {
+                selectedRegistration == 1 || selectedRegistration == null
+                  ? undefined
+                  : handleNext(6);
+              }}
+            >
               <Button
+<<<<<<< Updated upstream
+=======
+                disabled={
+                  selectedRegistration == 1 || selectedRegistration == null
+                }
+>>>>>>> Stashed changes
                 title="Complete Registration"
                 iconname={"arrow-right"}
                 bgcolor={"#00a0e3"}
                 colors={"#fff"}
               />
             </div>
-            <div onClick={() => { selectedRegistration == 2 || selectedRegistration == null ? undefined : handleNext(4) }}>
+            <div
+              onClick={() => {
+                selectedRegistration == 2 || selectedRegistration == null
+                  ? undefined
+                  : handleNext(4);
+              }}
+            >
               <Button
-                disabled={selectedRegistration == 2 || selectedRegistration == null}
+                disabled={
+                  selectedRegistration == 2 || selectedRegistration == null
+                }
                 title="Next"
                 iconname={"arrow-right"}
                 bgcolor={"#00a0e3"}

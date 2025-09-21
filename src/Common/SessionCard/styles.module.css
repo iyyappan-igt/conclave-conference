@@ -2,13 +2,11 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    height: 420px
-    
-
+    height: 480px
 }
 
 .cardhead h4,
-.selectcard h6{
+.selectcard h6 {
     font-size: 16px;
     font-weight: 600;
 }
@@ -26,12 +24,20 @@
 .cardbody p {
     font-size: 16px;
     font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    height: 72px;
+
 }
 
-.cardbody h6 , .cardfooter h6{
+.cardbody h6,
+.cardfooter h6 {
     color: #9d9d9d;
     font-size: 14px;
     font-weight: 600;
+    margin: 0px;
 }
 
 
@@ -44,4 +50,12 @@
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.cardstatus h6 {
+    margin: 0px;
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 15px;
+    font-size: 14px;
 }

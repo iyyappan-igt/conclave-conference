@@ -3,9 +3,31 @@ import styles from "./styles.module.css";
 import SessionCard from "@/Common/SessionCard";
 import { useState } from "react";
 import Button from "@/Common/Button";
+import { useDispatch } from "react-redux";
+import { setAuthData } from "@/redux/slices/auth/authSlice";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-const Workshop = ({ workshoplist , handleNext }) => {
+const Workshop = ({ workshoplist, handleNext, personalData }) => {
   const [selectedworkshop, setselectedworkshop] = useState(0);
+  const { events } = useAuth();
+
+  const dispatch = useDispatch();
+
+  const handleWorkshopAdd = (workshopId) => {
+    const workshop = workshoplist?.find((item) => item.id === workshopId);
+    if (!workshop) return;
+
+    dispatch(
+      setAuthData({
+        events: {
+          ...events, // keep existing
+          [workshopId]: workshop, // add/overwrite selected
+        },
+      })
+    );
+  };
+
+  console.log("workshop", events);
 
   return (
     <section className={styles.workshopsec}>
@@ -21,28 +43,35 @@ const Workshop = ({ workshoplist , handleNext }) => {
             key={i}
             onClick={() => {
               setselectedworkshop(data?.id);
+              handleWorkshopAdd(data?.id);
             }}
           >
             <SessionCard
-              type={data?.type}
-              amount={data?.amount}
+              type={data?.event_type}
+              amount={
+                personalData?.current_membership == "Life"
+                  ? data?.life_member_price
+                  : data?.price
+              }
               title={data?.title}
-              overview={data?.overview}
-              date={data?.date}
-              time={data?.time}
-              speaker={data?.speaker}
+              overview={data?.description}
+              startdate={data?.start_date_time}
+              enddate={data?.end_date_time}
+              speaker={data?.coordinator_name}
+              status={data?.status}
               isSelected={data?.id == selectedworkshop}
             />
           </div>
         ))}
       </div>
 
-      <div className={`${styles.inputgroup} mt-4`} onClick={()=>{handleNext(5)}}>
-        <Button
-          title={"Next"}
-          bgcolor={"#00A0E3"}
-          colors={"#ffff"}
-        />
+      <div
+        className={`${styles.inputgroup} mt-4`}
+        onClick={() => {
+          handleNext(5);
+        }}
+      >
+        <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
       </div>
     </section>
   );

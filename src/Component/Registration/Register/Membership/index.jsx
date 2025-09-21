@@ -8,6 +8,8 @@ import { membershipVeroficationQuery } from "@/hooks/useUserQuery";
 
 const Membership = ({ handleNext }) => {
   const [membership, setMembership] = useState(null);
+  const [isverified, setisverfied] = useState(false);
+
   const { mutate: membershipVerify, isLoading: membershiploading } =
     membershipVeroficationQuery();
   const handleMembershipChange = (event) => {
@@ -23,10 +25,16 @@ const Membership = ({ handleNext }) => {
       obg_code: Yup.string().required("Enter OBG Code"),
     }),
     onSubmit: (values) => {
-      membershipVerify({ value: values.obg_code });
+      membershipVerify(
+        { value: values.obg_code },
+        {
+          onSuccess: () => {
+            setisverfied(true);
+          },
+        }
+      );
     },
   });
-  
 
   return (
     <section className={`${styles.membershipsection}`}>
@@ -79,17 +87,20 @@ const Membership = ({ handleNext }) => {
               )}
             </div>
 
-            <div className={styles.inputgroup}>
-              <Button
-                title={membershiploading ? "Verify...." : "Verify"}
-                bgcolor={"#000"}
-                colors={"#ffff"}
-                type={"submit"}
-              />
-            </div>
-            <div className={styles.inputgroup} onClick={() => handleNext(2)}>
-              <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
-            </div>
+            {isverified ? (
+              <div className={styles.inputgroup} onClick={() => handleNext(2)}>
+                <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
+              </div>
+            ) : (
+              <div className={styles.inputgroup}>
+                <Button
+                  title={membershiploading ? "Verify...." : "Verify"}
+                  bgcolor={"#000"}
+                  colors={"#ffff"}
+                  type={"submit"}
+                />
+              </div>
+            )}
           </form>
         )}
         {membership === "no" && (

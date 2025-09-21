@@ -3,9 +3,30 @@ import styles from "./styles.module.css";
 import SessionCard from "@/Common/SessionCard";
 import { useState } from "react";
 import Button from "@/Common/Button";
+import { useDispatch } from "react-redux";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
+import { setAuthData } from "@/redux/slices/auth/authSlice";
 
-const RoundTable = ({ roundtablelist, handleNext }) => {
+const RoundTable = ({ roundtablelist, handleNext, personalData }) => {
   const [selectedRoundTable, setselectedRoundTable] = useState(0);
+
+  const { events } = useAuth();
+
+  const dispatch = useDispatch();
+
+  const handleRountableAdd = (roundtableId) => {
+    const roundtable = roundtablelist?.find((item) => item.id === roundtableId);
+    if (!roundtable) return;
+
+    dispatch(
+      setAuthData({
+        events: {
+          ...events, // keep existing
+          [roundtableId]: roundtable, // add/overwrite selected
+        },
+      })
+    );
+  };
 
   return (
     <section className={styles.roundtabelsec}>
@@ -21,16 +42,23 @@ const RoundTable = ({ roundtablelist, handleNext }) => {
             key={i}
             onClick={() => {
               setselectedRoundTable(data?.id);
+              handleRountableAdd(data?.id);
             }}
           >
             <SessionCard
-              type={data?.type}
-              amount={data?.amount}
+              type={data?.event_type}
+              amount={
+                personalData?.current_membership == "Life"
+                  ? data?.life_member_price
+                  : data?.price
+              }
               title={data?.title}
-              overview={data?.overview}
-              date={data?.date}
+              overview={data?.description}
+              startdate={data?.start_date_time}
+              enddate={data?.end_date_time}
               time={data?.time}
-              speaker={data?.speaker}
+              speaker={data?.coordinator_name}
+              status={data?.status}
               isSelected={data?.id == selectedRoundTable}
             />
           </div>

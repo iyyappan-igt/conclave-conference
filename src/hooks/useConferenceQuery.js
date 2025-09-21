@@ -1,11 +1,10 @@
-import { setConferenceData, setConferenceDetails } from "@/redux/slices/auth/authSlice";
 import { ConferenceApis } from "@/service/conference";
 import { useQuery, useQueryClient } from "react-query";
 
 const conferenceApiData = new ConferenceApis();
 
 export const useConferenceQuery = () => {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { data: ConferencesAllData, isLoading } = useQuery(
     ["Conference"],
     () => conferenceApiData.getAllConferences(),
@@ -13,7 +12,9 @@ export const useConferenceQuery = () => {
   );
   queryClient.invalidateQueries(["conference"]);
   const conferenceData =
-    ConferencesAllData?.data?.find((conference) => conference.status === "ongoing") || [];
+    ConferencesAllData?.data?.find(
+      (conference) => conference.status === "ongoing"
+    ) || [];
 
   return { data: conferenceData, isLoading };
 };

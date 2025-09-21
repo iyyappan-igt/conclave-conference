@@ -7,8 +7,11 @@ import RegistrationCard from "@/Common/RegistrationCard";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const Payment = () => {
+<<<<<<< Updated upstream
   const {conference} = useAuth();
   console.log(conference);
+=======
+>>>>>>> Stashed changes
   const ProgrammList = [
     {
       id: 1,
@@ -113,44 +116,43 @@ const Payment = () => {
           className={`d-flex justify-content-between align-items-center ${styles.pdinfohead}`}
         >
           <h4>Personal Details</h4>
-          <h4>Edit</h4>
         </div>
 
         <div className="row mt-4">
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Name</h4>
-              <p>Dr. RajeshKumar</p>
+              <p>{`${personalData?.title} ${personalData?.name}`}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Mobile</h4>
-              <p>+91 8939698904</p>
+              <p>{`${personalData?.country_code} ${personalData?.mobile}`}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Email</h4>
-              <p>rajeskumar@gmail.com</p>
+              <p>{personalData?.email}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>OBG Code</h4>
-              <p>OBG23433</p>
+              <p>{personalData?.obg_code}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Clinic / Organization Name</h4>
-              <p>Clinic Name</p>
+              <p>{personalData?.clinic_name}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Medical Council Reg No</h4>
-              <p>88383839300</p>
+              <p>{personalData?.medical_council_regno}</p>
             </div>
           </div>
         </div>

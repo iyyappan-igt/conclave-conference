@@ -2,7 +2,10 @@ import CommonTitle from "@/Common/CommonTitle";
 import styles from "./styles.module.css";
 import Button from "@/Common/Button";
 
-const PersonalDetail = ({handleNext}) => {
+const PersonalDetail = ({ handleNext , personalData }) => {
+
+  console.log("userdaetails", personalData);
+
   return (
     <section className={`${styles.personaldetailsection}`}>
       <CommonTitle
@@ -19,14 +22,14 @@ const PersonalDetail = ({handleNext}) => {
               type="text"
               className={`${styles.inputarea} form-control `}
               placeholder="Name"
+              value={personalData?.name}
+              readOnly
             />
             <select
               className={`form-select position-absolute ${styles.formselect}`}
               aria-label="Default select example"
             >
-              <option value="Dr">Dr</option>
-              <option value="Mr">Mr</option>
-              <option value="Mrs">Mrs</option>
+              <option value={personalData?.title}>{personalData?.title}</option>
             </select>
           </div>
 
@@ -38,25 +41,39 @@ const PersonalDetail = ({handleNext}) => {
               type="text"
               className={`${styles.inputarea} form-control `}
               placeholder="Mobile"
+              value={personalData?.mobile}
+              readOnly
             />
             <select
               className={`form-select position-absolute ${styles.formselect}`}
               aria-label="Default select example"
             >
-              <option value="+91">+ 91</option>
-              <option value="+1">+ 1</option>
-              <option value="+01">+ 01</option>
+              <option value={personalData?.country_code}>
+                {personalData?.country_code}
+              </option>
             </select>
           </div>
 
           <div className={`${styles.inputgroup}  mb-md-2 mb-2`}>
             <label>Email</label>
-            <input type="text" class="form-control" placeholder="Email" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Email"
+              value={personalData?.email}
+              readOnly
+            />
           </div>
 
           <div className={`${styles.inputgroup}  mb-md-2 mb-2`}>
             <label>OBG Code</label>
-            <input type="text" class="form-control" placeholder="OBG Code" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="OBG Code"
+              value={personalData?.obg_code}
+              readOnly
+            />
           </div>
 
           <div className={`${styles.inputgroup}  mb-md-2 mb-2`}>
@@ -65,6 +82,8 @@ const PersonalDetail = ({handleNext}) => {
               type="text"
               class="form-control"
               placeholder="Council name"
+              value={personalData?.clinic_name}
+              readOnly
             />
           </div>
 
@@ -74,10 +93,17 @@ const PersonalDetail = ({handleNext}) => {
               type="text"
               class="form-control"
               placeholder="Council No"
+              value={personalData?.medical_council_regno}
+              readOnly
             />
           </div>
 
-          <div className={styles.inputgroup} onClick={()=>{handleNext(3)}}>
+          <div
+            className={styles.inputgroup}
+            onClick={() => {
+              handleNext(3);
+            }}
+          >
             <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
           </div>
         </form>
