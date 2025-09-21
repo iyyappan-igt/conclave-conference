@@ -6,11 +6,16 @@ import { useState } from "react";
 import RegistrationCard from "@/Common/RegistrationCard";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 
+<<<<<<< Updated upstream
 const Payment = () => {
 <<<<<<< Updated upstream
   const {conference} = useAuth();
   console.log(conference);
 =======
+>>>>>>> Stashed changes
+=======
+const Payment = ({ personalData }) => {
+  const { conference } = useAuth();
 >>>>>>> Stashed changes
   const ProgrammList = [
     {
@@ -157,9 +162,9 @@ const Payment = () => {
           </div>
         </div>
       </div>
-      <div  className={`${styles.wrapper} my-5`}>
+      <div className={`${styles.wrapper} my-5`}>
         <RegistrationCard
-        isSelected={true}
+          isSelected={true}
           data={conference?.selectedRegistration}
         />
       </div>
@@ -265,8 +270,6 @@ const Payment = () => {
           </div>
         </div>
       </div>
-
-
     </section>
   );
 };
