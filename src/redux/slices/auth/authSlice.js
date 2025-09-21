@@ -19,8 +19,13 @@ const authSlice = createSlice({
         ...state.conference,
         ...action.payload.conference,
       };
-      state.events = action.payload.events;
-      state.userdetails = action.payload.userdetails;
+      if (action.payload.events !== undefined) {
+        state.events = action.payload.events;
+      }
+
+      if (action.payload.userdetails !== undefined) {
+        state.userdetails = action.payload.userdetails;
+      }
     },
     clearAuthData: (state) => {
       state.conference = null;
