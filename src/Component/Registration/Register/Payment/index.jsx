@@ -9,7 +9,11 @@ import { useAuth } from "@/redux/selectors/auth/authSelector";
 <<<<<<< Updated upstream
 const Payment = () => {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const {conference} = useAuth();
+=======
+  const { conference } = useAuth();
+>>>>>>> Stashed changes
   console.log(conference);
 =======
 >>>>>>> Stashed changes

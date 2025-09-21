@@ -14,6 +14,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
   const dispatch = useDispatch();
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const initialRegistrationType = conference?.conference_amount_type == "standard" ? 1 : conference?.conference_amount_type == "all-access" ? 2 : 1;
   const [selectedRegistration, setSelectedRegistration] = useState(initialRegistrationType);
 =======
@@ -24,6 +25,8 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
   );
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> Stashed changes
   const initialRegistrationType =
     conference?.conference_amount_type == "standard"
       ? 1
@@ -33,6 +36,9 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
   const [selectedRegistration, setSelectedRegistration] = useState(
     initialRegistrationType
   );
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   const conferenceRegistrationData = [
     {
@@ -105,11 +111,15 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
   const handleSelectRegistration = (id, item) => {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     console.log(item)
     const selectData = conferenceRegistrationData?.find((item) => (item?.id == id));
     dispatch(setAuthData({ conference: { conference_amount_type: id == 1 ? "standard" : "all-access", conference_amount: selectData?.newPrice, selectedRegistration: item ?? {} } }))
 =======
     console.log("ll", item);
+=======
+    console.log(item);
+>>>>>>> Stashed changes
 =======
     console.log(item);
 >>>>>>> Stashed changes
@@ -122,16 +132,22 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
           conference_amount_type: id == 1 ? "standard" : "all-access",
           conference_amount: selectData?.newPrice,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         },
         selectedRegistration: item ?? {},
       })
     );
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> Stashed changes
           selectedRegistration: item ?? {},
         },
       })
     );
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     setSelectedRegistration(id);
   };
@@ -145,7 +161,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
           userDetails?.current_membership === "Life"
             ? conferenceData?.standard_life_price ?? 0
             : conferenceData?.standard_price ?? 0,
-            selectedRegistration:conferenceRegistrationData[0]
+        selectedRegistration: conferenceRegistrationData[0],
       };
 
       dispatch(
@@ -289,6 +305,9 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               <Button title="Back" bgcolor={"#000"} colors={"#fff"} />
             </div>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
             <div
               onClick={() => {
                 selectedRegistration == 1 || selectedRegistration == null
@@ -296,8 +315,11 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
                   : handleNext(6);
               }}
             >
+<<<<<<< Updated upstream
 =======
             <div onClick={() => handleNext(6)}>
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
               <Button
 <<<<<<< Updated upstream
