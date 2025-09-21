@@ -6,21 +6,8 @@ import { useState } from "react";
 import RegistrationCard from "@/Common/RegistrationCard";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-<<<<<<< Updated upstream
-const Payment = () => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  const {conference} = useAuth();
-=======
-  const { conference } = useAuth();
->>>>>>> Stashed changes
-  console.log(conference);
-=======
->>>>>>> Stashed changes
-=======
 const Payment = ({ personalData }) => {
   const { conference } = useAuth();
->>>>>>> Stashed changes
   const ProgrammList = [
     {
       id: 1,

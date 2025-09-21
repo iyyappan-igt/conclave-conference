@@ -28,11 +28,7 @@ const Steps = () => {
     ? session.filter((item) => item.event_type == "roundtable")
     : [];
 
-<<<<<<< Updated upstream
   const { userdetails } = useAuth();
-=======
-  const { userdetails  } = useAuth();
->>>>>>> Stashed changes
 
   // if (isLoading) return <Loader />;
 

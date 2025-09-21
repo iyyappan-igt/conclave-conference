@@ -19,11 +19,8 @@ const authSlice = createSlice({
         ...state.conference,
         ...action.payload.conference,
       };
-<<<<<<< Updated upstream
-=======
       // state.events = action.payload.events;
       // state.userdetails = action.payload.userdetails;
->>>>>>> Stashed changes
       if (action.payload.events !== undefined) {
         state.events = action.payload.events;
       }

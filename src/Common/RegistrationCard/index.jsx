@@ -1,7 +1,7 @@
 import { DynamicIcon } from "lucide-react/dynamic";
 import styles from "./style.module.css";
 
-const RegistrationCard = ({ data, isSelected, onClick,selectable }) => {
+const RegistrationCard = ({ data, isSelected, onClick, selectable }) => {
   return (
     <div
       className={styles.card}
@@ -22,7 +22,7 @@ const RegistrationCard = ({ data, isSelected, onClick,selectable }) => {
         style={{
           border: isSelected ? "6px solid #fff" : "2px solid #dcdfe4",
           backgroundColor: isSelected ? "#00a0e3" : "transparent",
-          display:selectable ? "block" : "none"
+          display: selectable ? "block" : "none",
         }}
       ></div>
       <div
@@ -73,22 +73,24 @@ const RegistrationCard = ({ data, isSelected, onClick,selectable }) => {
       <div className={styles.included}>
         <h6>{data?.includedTitle}</h6>
         <div className={`row ${styles.includedList}`}>
-          {data?.includedList.map((item, index) => (
-            <p className="col-md-6 d-flex gap-2" key={index}>
-              {" "}
-              <span
-                className={styles.tick}
-                style={
-                  isSelected
-                    ? { backgroundColor: "#ffffffff", color: "#00a0e3" }
-                    : { backgroundColor: "#00a0e3", color: "#fff" }
-                }
-              >
-                ✓
-              </span>{" "}
-              {item}
-            </p>
-          ))}
+          {data?.includedList
+            ? data?.includedList?.map((item, index) => (
+                <p className="col-md-6 d-flex gap-2" key={index}>
+                  {" "}
+                  <span
+                    className={styles.tick}
+                    style={
+                      isSelected
+                        ? { backgroundColor: "#ffffffff", color: "#00a0e3" }
+                        : { backgroundColor: "#00a0e3", color: "#fff" }
+                    }
+                  >
+                    ✓
+                  </span>{" "}
+                  {item}
+                </p>
+              ))
+            : ""}
         </div>
       </div>
     </div>
