@@ -6,9 +6,14 @@ import RegistrationCard from "@/Common/RegistrationCard";
 import { useState } from "react";
 import CommonTitle from "@/Common/CommonTitle";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
+import { useDispatch } from "react-redux";
+import { setAuthData } from "@/redux/slices/auth/authSlice";
 
-const ConferenceRegister = ({handleNext, conferenceData}) => {
-  const [selectedRegistration, setSelectedRegistration] = useState(null);
+const ConferenceRegister = ({ handleNext, conferenceData }) => {
+  const { userDetails, conference } = useAuth();
+  const dispatch = useDispatch();
+  const initialRegistrationType = conference?.conference_amount_type == "standard" ? 1 : "allaccess" ? 2 : 1;
+  const [selectedRegistration, setSelectedRegistration] = useState(initialRegistrationType);
   const conferenceRegistrationData = [
     {
       id: 1,
@@ -17,19 +22,21 @@ const ConferenceRegister = ({handleNext, conferenceData}) => {
       description1: "Access to main conference sessions",
       description2:
         "Join us for the main conference sessions featuring keynote speakers, panel discussions, and networking opportunities.",
-      newPrice: "₹3999",
-      oldPrice: "₹4999",
-      discount: "Save ₹1,000 with this option",
+      newPrice: `₹${userDetails?.current_membership === "Life"
+        ? conferenceData?.standard_life_price ?? 0
+        : conferenceData?.standard_price ?? 0}`,
+      oldPrice: userDetails?.current_membership === "Life"
+        ? `₹${conferenceData?.standard_price ?? 0}`
+        : "",
+      discount: `Save ₹${(conferenceData?.standard_price ?? 0) - (conferenceData?.standard_life_price ?? 0)} with this option`,
       includedTitle: "What's included:",
-      includedList: [
-        "All main conference sessions (Jan 9-12)",
-        "Panel discussions and Q&A sessions",
-        "Conference materials and welcome kit",
-        "Access to conference app",
-        "Keynote presentations by industry leaders",
-        "Networking breaks and lunch",
-        "Certificate of attendance",
-      ],
+      includedList: (userDetails?.current_membership === "Life"
+        ? conferenceData?.standard_life_price_desc
+        : conferenceData?.standard_price_desc
+      )?.replace(/\u200B/g, '') // Remove zero-width spaces
+        .split(/\r\n|\r|\n/) // Split on any line break
+        .map(item => item.trim()) // Trim whitespace
+        .filter(Boolean) ?? [], // Remove empty strings
       recommended: false,
     },
     {
@@ -39,26 +46,30 @@ const ConferenceRegister = ({handleNext, conferenceData}) => {
       description1: "Complete conference experience",
       description2:
         "Get unlimited access to all conference sessions, workshops, round tables, and exclusive networking events.",
-      newPrice: "₹14999",
-      oldPrice: "₹18999",
-      discount: "Save ₹4,000 with this option",
+      newPrice: `₹${userDetails?.current_membership === "Life"
+        ? conferenceData?.all_access_life_price ?? 0
+        : conferenceData?.all_access_price ?? 0}`,
+      oldPrice: userDetails?.current_membership === "Life"
+        ? `₹${conferenceData?.all_access_price ?? 0}`
+        : "",
+      discount: `Save ₹${(conferenceData?.all_access_price ?? 0) - (conferenceData?.all_access_life_price ?? 0)} with this option`,
       includedTitle: "What's included:",
-      includedList: [
-        "All Standard Conference benefits",
-        "All round table discussions",
-        "Premium conference materials",
-        "Access to speaker meet & greet",
-        "Digital recordings of select sessions",
-        "Unlimited workshop access (worth ₹15,000+)",
-        "Exclusive VIP networking events",
-        "Priority seating at all sessions",
-        "Complimentary conference merchandise",
-      ],
+      includedList: (userDetails?.current_membership === "Life"
+        ? conferenceData?.all_access_life_price_desc
+        : conferenceData?.all_access_price_desc
+      )?.replace(/\u200B/g, '') // Remove zero-width spaces
+        .split(/\r\n|\r|\n/) // Split on any line break
+        .map(item => item.trim()) // Trim whitespace
+        .filter(Boolean) ?? [],  // Remove empty strings
       recommended: true,
     },
   ];
 
-  const handleSelectRegistration = (id) => {
+  console.log(conferenceRegistrationData)
+  const handleSelectRegistration = (id, item) => {
+    console.log(item)
+    const selectData = conferenceRegistrationData?.find((item) => (item?.id == id));
+    dispatch(setAuthData({ conference: { conference_amount_type: id == 1 ? "standard" : "all-access", conference_amount: selectData?.newPrice }, selectedRegistration: item ?? {} }))
     setSelectedRegistration(id);
   };
 
@@ -71,17 +82,33 @@ const ConferenceRegister = ({handleNext, conferenceData}) => {
         />
 
         <div className={styles.registerContainer}>
-          <div
-            className={`${styles.lifeMember} d-flex align-items-start justify-content-start gap-3`}
-          >
-            <div className={styles.iconlife}>
-              <DynamicIcon name="crown" color="#fff" />
+          {userDetails?.current_membership === "Life" ? (
+            // Show this if user is already a life member
+            <div
+              className={`${styles.lifeMember} d-flex align-items-start justify-content-start gap-3`}
+            >
+              <div className={styles.iconlife}>
+                <DynamicIcon name="crown" color="#fff" />
+              </div>
+              <div className={styles.lifeMemberContent}>
+                <h6>Life Member Pricing</h6>
+                <p>✓ Enjoying member discounts on all options</p>
+              </div>
             </div>
-            <div className={styles.lifeMemberContent}>
-              <h6>Life Member Pricing</h6>
-              <p>✓ Enjoying member discounts on all options</p>
+          ) : (
+            // Show this if user is NOT a life member
+            <div
+              className={`${styles.lifeMember} d-flex align-items-start justify-content-start gap-3`}
+            >
+              <div className={styles.iconlife}>
+                <DynamicIcon name="badge-percent" color="#fff" />
+              </div>
+              <div className={styles.lifeMemberContent}>
+                <h6>Become a Life Member</h6>
+                <p>Unlock exclusive discounts on all conference registrations!</p>
+              </div>
             </div>
-          </div>
+          )}
           <div
             className={`${styles.cardContainer} my-3 w-100 d-flex flex-column align-items-start justify-content-start gap-5`}
           >
@@ -89,7 +116,7 @@ const ConferenceRegister = ({handleNext, conferenceData}) => {
               <RegistrationCard
                 data={item}
                 isSelected={selectedRegistration == item?.id}
-                onClick={() => handleSelectRegistration(item?.id)}
+                onClick={() => handleSelectRegistration(item?.id, item)}
               />
             ))}
           </div>
@@ -157,19 +184,21 @@ const ConferenceRegister = ({handleNext, conferenceData}) => {
           <div
             className={`${styles.buttonGroup} d-flex my-3 justify-content-end gap-3`}
           >
-            <div onClick={()=>{handleNext(2)}}>
+            <div onClick={() => { handleNext(2) }}>
               <Button title="Back" bgcolor={"#000"} colors={"#fff"} />
             </div>
-            <div onClick={()=>{handleNext(6)}}>
+            <div onClick={() => { selectedRegistration == 1 || selectedRegistration == null ? undefined : handleNext(6) }}>
               <Button
+                disabled={selectedRegistration == 1 || selectedRegistration == null}
                 title="Complete Registration"
                 iconname={"arrow-right"}
                 bgcolor={"#00a0e3"}
                 colors={"#fff"}
               />
             </div>
-            <div onClick={()=>{handleNext(4)}}>
+            <div onClick={() => { selectedRegistration == 2 || selectedRegistration == null ? undefined : handleNext(4) }}>
               <Button
+                disabled={selectedRegistration == 2 || selectedRegistration == null}
                 title="Next"
                 iconname={"arrow-right"}
                 bgcolor={"#00a0e3"}

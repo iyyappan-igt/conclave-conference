@@ -1,83 +1,140 @@
 // components/PriceSummary.js
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 import Button from "../Button";
 import styles from "./styles.module.css";
 
-const SummarySticky = ({ membershipPrice, workshopPrice, totalPrice }) => {
+const SummarySticky = ({ handleNext, conferenceData }) => {
+    const { conference, events } = useAuth();
+
+    // ✅ Safely parse conference price
+    const conferenceRegistrationAmount = conference?.conference_amount
+        ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
+        : 0;
+
+    // ✅ Safely calculate workshop price
+    const workShopsPrice = events
+        ? events.reduce((total, event) => {
+            return event?.event_type === "workshop"
+                ? total + (event?.event_amount ?? 0)
+                : total;
+        }, 0)
+        : 0;
+
+    // ✅ Safely calculate round table price
+    const roundTablePrice = events
+        ? events.reduce((total, event) => {
+            return event?.event_type === "roundtable"
+                ? total + (event?.event_amount ?? 0)
+                : total;
+        }, 0)
+        : 0;
+
+    const totalWorkShopsSelected = events
+        ? events.reduce((total, event) => {
+            return event.event_type === "workshop" ? total + 1 : total;
+        }, 0)
+        : 0;
+
+    const totalRoundTableSelected = events
+        ? events.reduce((total, event) => {
+            return event.event_type === "roundtable" ? total + 1 : total;
+        }, 0)
+        : 0;
+
+    // ✅ Now this will always be numeric
+    const totalPrice = conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
+
     return (
-        <aside >
+        <aside>
             <div className={`${styles.summaryBox} d-none d-lg-block`}>
-            <h4 className={styles.summaryTitle}>Registration Summary</h4>
-            <p>Ophthall Conclave 2026</p>
-            <hr />
-            <div className={styles.summaryItem}>
-                <span>Conference Registration</span>
-                <span>₹{membershipPrice}</span>
-            </div>
-            <div className={styles.summaryItem}>
-                <span>Workshop ( 2x )</span>
-                <span>₹{workshopPrice}</span>
-            </div>
-            <div className={styles.summaryItem}>
-                <span>Round Table ( 3x )</span>
-                <span>₹{membershipPrice}</span>
-            </div>
-            <hr />
-            <div className={styles.subTotal}>
-                <span>Sub Total</span>
-                <span>₹{totalPrice}</span>
-            </div>
-            <div className={styles.subTotal}>
-                <span>GST (18%)</span>
-                <span>₹{totalPrice}</span>
-            </div>
-            <hr />
-            <div className={styles.summaryTotal}>
-                <div className={styles.total}>
-                    <strong>Total Amount</strong>
-                    <p>Inclusive of all taxes</p>
+                <h4 className={styles.summaryTitle}>Registration Summary</h4>
+                <p>{conferenceData?.title || "Ophthall Conference"}</p>
+                <hr />
+                <div className={styles.summaryItem}>
+                    <span>Conference Registration</span>
+                    <span>₹{conferenceRegistrationAmount}</span>
                 </div>
-                <strong>₹{totalPrice}</strong>
-            </div>
-            <div className={`my-3 ${styles.button}`}>
-                <Button title="Proceed to Payment" iconname={"arrow-right"} bgcolor={"#00a0e3"} colors={"#fff"} />
-            </div>
-            </div>
-              <div className={`${styles.summaryBox} d-block d-lg-none`}>
-            <h4 className={styles.summaryTitle}>Registration Summary</h4>
-            <p>Ophthall Conclave 2026</p>
-            <hr />
-            <div className={styles.summaryItem}>
-                <span>Conference Registration</span>
-                <span>₹{membershipPrice}</span>
-            </div>
-            <div className={styles.summaryItem}>
-                <span>Workshop ( 2x )</span>
-                <span>₹{workshopPrice}</span>
-            </div>
-            <div className={styles.summaryItem}>
-                <span>Round Table ( 3x )</span>
-                <span>₹{membershipPrice}</span>
-            </div>
-            <hr />
-            <div className={styles.subTotal}>
-                <span>Sub Total</span>
-                <span>₹{totalPrice}</span>
-            </div>
-            <div className={styles.subTotal}>
-                <span>GST (18%)</span>
-                <span>₹{totalPrice}</span>
-            </div>
-            <hr />
-            <div className={styles.summaryTotal}>
-                <div className={styles.total}>
-                    <strong>Total Amount</strong>
-                    <p>Inclusive of all taxes</p>
+                {conference?.conference_amount_type === "standard" && <>
+                    <div className={styles.summaryItem}>
+                        <span>Workshop ({totalWorkShopsSelected}x)</span>
+                        <span>₹{workShopsPrice}</span>
+                    </div>
+                    <div className={styles.summaryItem}>
+                        <span>Round Table ({totalRoundTableSelected}x)</span>
+                        <span>₹{roundTablePrice}</span>
+                    </div>
+                </>}
+                <hr />
+                <div className={styles.summaryTotal}>
+                    <div className={styles.total}>
+                        <strong>Total Amount</strong>
+                        <p>Inclusive of all taxes</p>
+                    </div>
+                    <strong>₹{totalPrice}</strong>
                 </div>
-                <strong>₹{totalPrice}</strong>
+                <div className={`my-3 d-flex flex-column ${styles.button}`}>
+                    {conference?.conference_amount_type === "standard" && <Button
+                        title="Select Workshops"
+                        iconname="arrow-right"
+                        bgcolor="#fff"
+                        border={"1.5px solid #00a0e3"}
+                        colors="#00a0e3"
+                        handleTogglecontactForm={() => handleNext(4)}
+                    />}
+                    <Button
+                        title="Proceed to Payment"
+                        iconname="arrow-right"
+                        bgcolor="#00a0e3"
+                        colors="#fff"
+                        handleTogglecontactForm={() => handleNext(6)}
+                    />
+                </div>
             </div>
-            <div className={`my-3 ${styles.button}`}>
-                <Button title="Proceed to Payment" iconname={"arrow-right"} bgcolor={"#00a0e3"} colors={"#fff"} />
-            </div>
+
+            {/* ✅ Mobile version stays the same but uses parsed values */}
+            <div className={`${styles.summaryBox} d-block d-lg-none`}>
+                <h4 className={styles.summaryTitle}>Registration Summary</h4>
+                <p>{conferenceData?.title || "Ophthall Conference"}</p>
+                <hr />
+                <div className={styles.summaryItem}>
+                    <span>Conference Registration</span>
+                    <span>₹{conferenceRegistrationAmount}</span>
+                </div>
+                {conference?.conference_amount_type === "standard" && <>
+                    <div className={styles.summaryItem}>
+                        <span>Workshop ({totalWorkShopsSelected}x)</span>
+                        <span>₹{workShopsPrice}</span>
+                    </div>
+                    <div className={styles.summaryItem}>
+                        <span>Round Table ({totalRoundTableSelected}x)</span>
+                        <span>₹{roundTablePrice}</span>
+                    </div>
+                </>}
+                <hr />
+                <div className={styles.summaryTotal}>
+                    <div className={styles.total}>
+                        <strong>Total Amount</strong>
+                        <p>Inclusive of all taxes</p>
+                    </div>
+                    <strong>₹{totalPrice}</strong>
+                </div>
+                <div className={`my-3 d-flex flex-column ${styles.button}`}>
+                    {conference?.conference_amount_type === "standard" && <Button
+                        title="Select Workshops"
+                        iconname="arrow-right"
+                        bgcolor="#fff"
+                        border={"1px solid #00a0e3"}
+                        colors="#00a0e3"
+                        onClick={() => handleNext(4)}
+                    />}
+                    <Button
+                        title="Proceed to Payment"
+                        iconname="arrow-right"
+                        bgcolor="#00a0e3"
+                        colors="#fff"
+                        onClick={() => handleNext(6)}
+                    />
+                </div>
             </div>
         </aside>
     );
