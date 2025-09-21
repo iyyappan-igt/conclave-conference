@@ -82,14 +82,15 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
           userDetails?.current_membership === "Life"
             ? conferenceData?.standard_life_price ?? 0
             : conferenceData?.standard_price ?? 0,
+            selectedRegistration:conferenceRegistrationData[0]
       };
 
       dispatch(
         setAuthData({
           conference: {
-            conference_amount_type: defaultSelection.conference_amount_type,
-            conference_amount: defaultSelection.conference_amount,
-            selectedRegistration: defaultSelection,
+            conference_amount_type: defaultSelection?.conference_amount_type,
+            conference_amount: defaultSelection?.conference_amount,
+            selectedRegistration: defaultSelection?.selectedRegistration,
           },
         })
       );
