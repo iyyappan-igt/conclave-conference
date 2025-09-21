@@ -113,9 +113,8 @@ const Steps = () => {
           {stepnumber >= 3 && (
             <aside className={styles.rightColumn} style={{ top: `60px` }}>
               <SummarySticky
-                membershipPrice={2000}
-                workshopPrice={1500}
-                totalPrice={3500}
+                conferenceData={conferenceData}
+                handleNext={(id) => setStepnumber(id)}
               />
             </aside>
           )}

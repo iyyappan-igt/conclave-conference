@@ -3,8 +3,12 @@ import styles from "./styles.module.css";
 import ProgrammCard from "@/Common/ProgrammCard";
 import Button from "@/Common/Button";
 import { useState } from "react";
+import RegistrationCard from "@/Common/RegistrationCard";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const Payment = () => {
+  const {conference} = useAuth();
+  // console.log(conference);
   const ProgrammList = [
     {
       id: 1,
@@ -151,7 +155,12 @@ const Payment = () => {
           </div>
         </div>
       </div>
-
+      <div className={styles.wrapper}>
+        <RegistrationCard
+        isSelected={true}
+          data={conference?.selectedRegistration}
+        />
+      </div>
       <div className={`${styles.wrapper} my-5`}>
         <div
           className={`d-flex justify-content-between align-items-center ${styles.pdinfohead}`}
@@ -255,7 +264,7 @@ const Payment = () => {
         </div>
       </div>
 
-      
+
     </section>
   );
 };

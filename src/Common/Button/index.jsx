@@ -8,18 +8,29 @@ const Button = ({
   link,
   icon,
   target,
+  border,
   iconname,
   type,
+  disabled,
   handleTogglecontactForm,
 }) => {
+  const handleClick = (e) => {
+    if (disabled) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    if (handleTogglecontactForm) handleTogglecontactForm();
+  };
   return (
     <div className={styles.commonbutton}>
       {link ? (
-        <a href={link} target={target}>
+        <a href={!disabled ? link : undefined} target={target}>
           <button
+            disabled={disabled}
             type="btn"
             className={` btn ${styles.button}`}
-            style={{ backgroundColor: bgcolor, color: colors }}
+            style={{ backgroundColor: bgcolor, color: colors, border:border }}
           >
             <img src={icon} alt="" />
             {title}
@@ -28,10 +39,11 @@ const Button = ({
       ) : iconname ? (
         <>
           <button
+            disabled={disabled}
             type={type ? type : "button"}
-            onClick={handleTogglecontactForm}
+            onClick={handleClick}
             className={` btn ${styles.button}`}
-            style={{ backgroundColor: bgcolor, color: colors }}
+            style={{ backgroundColor: bgcolor, color: colors,border:border }}
           >
             {title} <DynamicIcon name={iconname} color={colors} size={18} />
           </button>
@@ -39,10 +51,11 @@ const Button = ({
       ) : (
         <>
           <button
+            disabled={disabled}
             type={type ? type : "button"}
-            onClick={handleTogglecontactForm}
+            onClick={handleClick}
             className={` btn ${styles.button}`}
-            style={{ backgroundColor: bgcolor, color: colors }}
+            style={{ backgroundColor: bgcolor, color: colors, border:border }}
           >
             <img src={icon} alt="" />
             {title}
