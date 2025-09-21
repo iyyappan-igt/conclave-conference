@@ -4,14 +4,15 @@ import CommonTitle from "@/Common/CommonTitle";
 import Button from "@/Common/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { membershipVeroficationQuery } from "@/hooks/useUserQuery";
+import { membershipVeroficationQuery, useConferenceRegistrationStatus } from "@/hooks/useUserQuery";
 
-const Membership = ({ handleNext }) => {
+const Membership = ({ handleNext, conferenceData }) => {
   const [membership, setMembership] = useState(null);
   const [isverified, setisverfied] = useState(false);
 
   const { mutate: membershipVerify, isLoading: membershiploading } =
     membershipVeroficationQuery();
+    const {mutate:registerationStatus, isLoading:registerationStatusLoading} = useConferenceRegistrationStatus();
   const handleMembershipChange = (event) => {
     console.log(event.target.value);
     setMembership(event.target.value);
@@ -30,6 +31,7 @@ const Membership = ({ handleNext }) => {
         {
           onSuccess: () => {
             setisverfied(true);
+           registerationStatus({obgcode:values.obg_code, conferenceId:conferenceData?.id});
           },
         }
       );

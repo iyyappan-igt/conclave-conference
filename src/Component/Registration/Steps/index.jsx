@@ -9,7 +9,6 @@ import Workshop from "../Register/Workshop";
 import RoundTable from "../Register/RoundTable";
 // import { Session } from "@/Constant/Session";
 import { useConferenceQuery } from "@/hooks/useConferenceQuery";
-import { Loader } from "lucide-react";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { getAllEventByConfernceIdQuery } from "@/hooks/useEventQuery";
 
@@ -28,7 +27,7 @@ const Steps = () => {
     ? session.filter((item) => item.event_type == "roundtable")
     : [];
 
-  const { userdetails } = useAuth();
+  const { userdetails, conference, events } = useAuth();
 
   // if (isLoading) return <Loader />;
 
@@ -111,7 +110,7 @@ const Steps = () => {
           <div className={styles.formWrapper}>
             <div className={styles.stepcontent}>
               {stepnumber === 1 ? (
-                <Membership handleNext={(id) => setStepnumber(id)} />
+                <Membership handleNext={(id) => setStepnumber(id)} conferenceData={conferenceData} />
               ) : stepnumber === 2 ? (
                 <PersonalDetail
                   handleNext={(id) => setStepnumber(id)}
@@ -137,7 +136,7 @@ const Steps = () => {
                   handleNext={(id) => setStepnumber(id)}
                 />
               ) : stepnumber === 6 ? (
-                <Payment personalData={userdetails} />
+                <Payment personalData={userdetails} conference={conference} events={events}/>
               ) : null}
             </div>
           </div>

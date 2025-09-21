@@ -4,10 +4,8 @@ import ProgrammCard from "@/Common/ProgrammCard";
 import Button from "@/Common/Button";
 import { useState } from "react";
 import RegistrationCard from "@/Common/RegistrationCard";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-const Payment = ({ personalData }) => {
-  const { conference } = useAuth();
+const Payment = ({ personalData, conference, events }) => {
   const ProgrammList = [
     {
       id: 1,
@@ -83,20 +81,44 @@ const Payment = ({ personalData }) => {
     setagree(event.target.value);
   };
 
-  const workshoplist = ProgrammList.filter((data) => data.type == "Workshop");
-  const roundtablelist = ProgrammList.filter(
-    (data) => data.type == "Round Table"
-  );
+  const eventsArray = events ? Object.values(events) : [];
 
-  const totalWorkshop = workshoplist.reduce(
-    (sum, item) => sum + item.amount,
-    0
-  );
+  const conferenceRegistrationAmount = conference?.conference_amount
+    ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
+    : 0;
 
-  const totalRoundTable = roundtablelist.reduce(
-    (sum, item) => sum + item.amount,
-    0
-  );
+  const workShopsPrice = eventsArray.reduce((total, event) => {
+    return event?.event_type === "workshop"
+      ? total +
+      (Number(
+        personalData?.current_membership == "Life"
+          ? event?.life_member_price
+          : event?.price
+      ) ?? 0)
+      : total;
+  }, 0);
+
+  const roundTablePrice = eventsArray.reduce((total, event) => {
+    return event?.event_type === "roundtable"
+      ? total +
+      (Number(
+        personalData?.current_membership == "Life"
+          ? event?.life_member_price
+          : event?.price
+      ) ?? 0)
+      : total;
+  }, 0);
+
+  const totalWorkShopsSelected = eventsArray.reduce((total, event) => {
+    return event?.event_type === "workshop" ? total + 1 : total;
+  }, 0);
+
+  const totalRoundTableSelected = eventsArray.reduce((total, event) => {
+    return event?.event_type === "roundtable" ? total + 1 : total;
+  }, 0);
+
+  const totalPrice =
+    conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
 
   return (
     <section className={styles.paymentsection}>
@@ -193,15 +215,17 @@ const Payment = ({ personalData }) => {
             <div className="col-lg-10">
               <div className={styles.leftentry}>
                 <h6>All Conclave Pass</h6>
-                <h6>{`Workshop (${workshoplist?.length})`}</h6>
-                <h6>{`RoundTable (${roundtablelist?.length})`}</h6>
+                {conference?.conference_amount_type == "standard" && <>
+                  <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
+                  <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
+                </>}
               </div>
             </div>
             <div className="col-lg-2">
               <div className={styles.rightentry}>
-                <h6>4000</h6>
-                <h6>{`${totalWorkshop}`}</h6>
-                <h6>{`${totalRoundTable}`}</h6>
+                <h6>₹{conferenceRegistrationAmount}</h6>
+                {conference?.conference_amount_type == "standard" && <><h6>₹{workShopsPrice}</h6>
+                  <h6>₹{roundTablePrice}</h6></>}
               </div>
             </div>
           </div>
@@ -217,7 +241,7 @@ const Payment = ({ personalData }) => {
             </div>
             <div className="col-lg-2">
               <div className={styles.rightentry}>
-                <h3>18,000</h3>
+                <h3>₹{totalPrice}</h3>
               </div>
             </div>
           </div>
@@ -247,10 +271,9 @@ const Payment = ({ personalData }) => {
               I agree to the Terms & Conditions and Privacy Policy*
             </label>
           </div>
-
           <div className={`${styles.inputgroup} mt-4`}>
             <Button
-              title={"Proceed to secure payment - 18000"}
+              title={`Proceed to secure payment - ₹${totalPrice}`}
               bgcolor={"#00A0E3"}
               colors={"#ffff"}
             />

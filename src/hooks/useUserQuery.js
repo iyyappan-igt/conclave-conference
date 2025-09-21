@@ -46,7 +46,10 @@ export const useConferenceRegistrationStatus = () => {
 
   return useMutation(
     async ({ obgcode, conferenceId }) => {
-      return await authApiData.getConferenceRegistrationStatus(obgcode, conferenceId);
+      return await authApiData.getConferenceRegistrationStatus(
+        obgcode,
+        conferenceId
+      );
     },
     {
       onSuccess: (data) => {
@@ -72,4 +75,3 @@ export const useConferenceRegistrationStatus = () => {
     }
   );
 };
-
