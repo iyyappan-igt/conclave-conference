@@ -8,11 +8,14 @@ import SummarySticky from "@/Common/SummarySticky";
 import Workshop from "../Register/Workshop";
 import RoundTable from "../Register/RoundTable";
 import { Session } from "@/Constant/Session";
+import { useConferenceQuery } from "@/hooks/useConferenceQuery";
+import { Loader } from "lucide-react";
 
 const Steps = () => {
   const [stepnumber, setStepnumber] = useState(1);
   const stepWrapperRef = useRef(null);
   const layoutRef = useRef(null);
+  const { isLoading } = useConferenceQuery();
 
   const data_workshops = Session.filter((item) => item.type == "Workshop");
   const data_roundTables = Session.filter((item) => item.type == "Round Table");
@@ -20,7 +23,7 @@ const Steps = () => {
   useEffect(() => {
     setStepnumber(1);
   }, []);
-
+  if (isLoading) return <Loader />;
   return (
     <section className={styles.stepsection}>
       <div className="container-fluid p-0">

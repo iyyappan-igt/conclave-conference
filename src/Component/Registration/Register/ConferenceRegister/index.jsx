@@ -5,8 +5,11 @@ import Image from "next/image";
 import RegistrationCard from "@/Common/RegistrationCard";
 import { useState } from "react";
 import CommonTitle from "@/Common/CommonTitle";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const ConferenceRegister = ({handleNext}) => {
+  const {conferenceDetails} = useAuth();
+  console.log(conferenceDetails)
   const [selectedRegistration, setSelectedRegistration] = useState(null);
   const conferenceRegistrationData = [
     {
