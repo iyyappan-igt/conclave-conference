@@ -89,3 +89,21 @@
     color: #757373;
     text-align: center;
 }
+
+.backButton {
+  position: absolute;
+  left: 6.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #00a0e3;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+}

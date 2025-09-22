@@ -33,7 +33,7 @@ const RegistrationCard = ({ data, isSelected, onClick, selectable }) => {
           style={
             isSelected
               ? { backgroundColor: "#ffffffff" }
-              : { backgroundColor: " background-color: #c8eaf8" }
+              : { backgroundColor: "#c8eaf8" }
           }
         >
           <img src={data?.icon} className="img-fluid" />

@@ -14,6 +14,7 @@ const RoundTable = ({
   eventAuth,
 }) => {
   const [selectedRoundTable, setselectedRoundTable] = useState(0);
+      const {conference, events, userdetails} = useAuth();
 
   const dispatch = useDispatch();
 

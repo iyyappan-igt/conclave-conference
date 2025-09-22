@@ -58,6 +58,7 @@ export const useConferenceRegistrationStatus = () => {
             conference: {
               conference_amount_type: data?.data?.conference_amount_type,
               conference_amount: data?.data?.conference_amount,
+              selectedRegistration:{}
             },
           })
         );
@@ -74,3 +75,24 @@ export const useConferenceRegistrationStatus = () => {
     }
   );
 };
+
+export const conferenceRegistrationQuery = ()=>{
+    const queryClient = useQueryClient();
+    const { enqueueSnackbar } = useSnackbar();
+    return useMutation(
+        async({ values }) => {
+            return await authApiData.conferenceRegister(values);
+        },
+        {
+            onSuccess: () => {
+                enqueueSnackbar('Conference Registered successfully', { variant: 'success' });
+                queryClient.invalidateQueries(['Conference']);
+            },
+            onError: (error) => {
+                enqueueSnackbar(error.response?.data?.message || 'Something went wrong', {
+                    variant: 'error',
+                });
+            },
+        },
+    );
+}

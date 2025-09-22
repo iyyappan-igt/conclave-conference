@@ -1,13 +1,11 @@
 @font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/fonts/PlusJakartaSans[wght].ttf');
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans[wght].ttf");
 }
 
-
-.conferencesec{
+.conferencesec {
   margin: 50px 0px;
 }
-
 
 .lifeMember {
   margin-top: 20px;
@@ -21,12 +19,12 @@
   transition: all 0.3s ease;
 }
 
-.discount{
-    color: green;
-    font-size: 14px !important;
+.discount {
+  color: green;
+  font-size: 14px !important;
 }
-.price P{
-    margin-bottom: 0;
+.price P {
+  margin-bottom: 0;
 }
 .iconlife {
   background: linear-gradient(135deg, #ffd700, #ffcc66);
@@ -55,11 +53,11 @@
   font-size: 0.9rem;
 }
 
-.cardContainer{
-    margin-top: 30px !important;
-    border: 1px solid #dcdcdc;
-    padding: 30px;
-    border-radius:  20px;
+.cardContainer {
+  margin-top: 30px !important;
+  border: 1px solid #dcdcdc;
+  padding: 30px;
+  border-radius: 20px;
 }
 .card {
   box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
@@ -71,155 +69,151 @@
   font-family: Plus Jakarta Sans !important;
 }
 
-.iconlife{
-    min-width: 50px;
-    min-height: 50px;
-    background-color:#00a0e3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+.iconlife {
+  min-width: 50px;
+  min-height: 50px;
+  background-color: #00a0e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
 }
 
-.iconCard{
-    min-width: 60px;
-    min-height: 60px;
-    background-color: #00a0e3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 16px;
+.iconCard {
+  min-width: 60px;
+  min-height: 60px;
+  background-color: #00a0e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
 }
 
-
-.lifeMemberContent p{
-    font-size: 16px;
-    color:#6c757d;
-    margin-top: 8px;
-    margin-bottom: 0;
+.lifeMemberContent p {
+  font-size: 16px;
+  color: #6c757d;
+  margin-top: 8px;
+  margin-bottom: 0;
 }
 
-.price{
-    font-size: 33px;
-    font-weight: 700;
-    color: var(--text-gray);
-    margin: 8px 0 15px;
+.price {
+  font-size: 33px;
+  font-weight: 700;
+  color: var(--text-gray);
+  margin: 8px 0 15px;
 }
-.discountIcon{
-    margin-right: 5px;
+.discountIcon {
+  margin-right: 5px;
 }
-.price .gst{
-    font-size: 16px;
-    color: #6c757d !important;
-    margin-top: 4px;
-    font-weight: 500;
-}
-
-.oldprice{
-    font-size: 20px;
-    color: #6c757d;
-    text-decoration: line-through;
-    margin-left: 10px;
-    font-weight: 500;
+.price .gst {
+  font-size: 16px;
+  color: #6c757d !important;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
-.included h6{
-    font-size: 18px;
-    font-weight: 700;
-    ;
-}
-.includedList{
-    margin-top: 16px;
-    list-style: none;
-    padding-left: 0;
-
+.oldprice {
+  font-size: 20px;
+  color: #6c757d;
+  text-decoration: line-through;
+  margin-left: 10px;
+  font-weight: 500;
 }
 
-.tick{
-    color: #ffffff;
-    margin-right: 8px;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #00a0e3;
-    font-weight: bold;
-    font-size: 14px;
+.included h6 {
+  font-size: 18px;
+  font-weight: 700;
 }
-.includedList p{
-    font-size: 16px;
+.includedList {
+  margin-top: 16px;
+  list-style: none;
+  padding-left: 0;
 }
 
-.exceptionContent h6{
-    font-size: 20px;
-    color: green;
-    font-weight: bold;
-    margin-bottom: 8px;
+.tick {
+  color: #ffffff;
+  margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #00a0e3;
+  font-weight: bold;
+  font-size: 14px;
 }
-.valueNote{
-    margin: 20px 0 10px;
-    width: 100%;
-    gap: 120px;
-    justify-content: center;
-}
-
-.ExceptionValue{
-    width: 100%;
-    margin: 30px 0;
-     border: 1px solid #dcdcdc;
-     padding: 20px;
-    border-radius: 18px;
-}
-.exceptionContent p{
-    font-size: 14px;
-    color: #6c757d;
-    margin-bottom: 0;
+.includedList p {
+  font-size: 16px;
 }
 
-.conferenceOverview{
-      width: 100%;
-    margin: 30px 0;
-     border: 1px solid #dcdcdc;
-     padding: 20px;
-    border-radius: 18px;
-    background-color: #F8F9FA;
+.exceptionContent h6 {
+  font-size: 20px;
+  color: green;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
-.overviewContainer{
-    margin: 30px 0 20px;
-    width: 100%;
-    gap: 70px;
-    justify-content: center;
+.valueNote {
+  margin: 20px 0 10px;
+  width: 100%;
+  gap: 120px;
+  justify-content: center;
 }
-.overviewContent h6{
- font-size: 20px;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-    margin-bottom: 8px;
+
+.ExceptionValue {
+  width: 100%;
+  margin: 30px 0;
+  border: 1px solid #dcdcdc;
+  padding: 20px;
+  border-radius: 18px;
 }
-.recommendedBadge{
-    background-color: #56bfec;
-    color: #fff;
-    padding: 7px 15px;
-    font-size: 12px;
-    border-radius: 12px;
-    position: absolute;
-    top: -16px; 
-    left: 30px;
+.exceptionContent p {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.conferenceOverview {
+  width: 100%;
+  margin: 30px 0;
+  border: 1px solid #dcdcdc;
+  padding: 20px;
+  border-radius: 18px;
+  background-color: #f8f9fa;
+}
+.overviewContainer {
+  margin: 30px 0 20px;
+  width: 100%;
+  gap: 70px;
+  justify-content: center;
+}
+.overviewContent h6 {
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.recommendedBadge {
+  background-color: #56bfec;
+  color: #fff;
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 12px;
+  position: absolute;
+  top: -16px;
+  left: 30px;
 }
 .cardimg {
-    width: 85px;
-    padding: 15px;
-    border-radius: 10px;
-
+  width: 85px;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.overviewContent p{
-    margin-bottom: 0 !important;
+.overviewContent p {
+  margin-bottom: 0 !important;
 }
 
-@media (min-width: 1400px) {
+/* @media (min-width< 1400px) {
   .cardContainer {
     max-width: 1200px;
     margin-left: auto;
@@ -232,10 +226,9 @@
   .card {
     padding: 35px 30px;
   }
-}
+} */
 
-
-@media (max-width: 1399px) and (min-width: 1200px) {
+@media (width<1400px) {
   .cardContainer {
     max-width: 1100px;
   }
@@ -244,7 +237,7 @@
   }
 }
 
-@media (max-width: 1199px) and (min-width: 992px) {
+@media (width<1200px) {
   .card {
     padding: 25px 20px;
   }
@@ -259,7 +252,7 @@
   }
 }
 
-@media (max-width: 991px) and (min-width: 768px) {
+@media (width< 992px) {
   .cardContainer {
     padding: 20px;
   }
@@ -282,7 +275,7 @@
   }
 }
 
-@media (max-width: 767px) and (min-width: 576px) {
+@media (width < 768px) {
   .cardContainer {
     padding: 15px;
   }
@@ -300,7 +293,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (width < 576px) {
   .cardContainer {
     padding: 12px;
   }
@@ -315,7 +308,8 @@
   .price {
     font-size: 22px;
   }
-  .valueNote, .overviewContainer{
+  .valueNote,
+  .overviewContainer {
     gap: 50px;
   }
   .lifeMemberContent h6 {

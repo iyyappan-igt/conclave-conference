@@ -11,9 +11,13 @@ import RoundTable from "../Register/RoundTable";
 import { useConferenceQuery } from "@/hooks/useConferenceQuery";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { getAllEventByConfernceIdQuery } from "@/hooks/useEventQuery";
+import { setActiveStepNumber } from "@/redux/slices/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const Steps = () => {
-  const [stepnumber, setStepnumber] = useState(1);
+  const dispatch = useDispatch();
+    const { userdetails, conference, events,activeStepNumber } = useAuth();
+  const [stepnumber, setStepnumber] = useState(activeStepNumber || 1);
   const stepWrapperRef = useRef(null);
   const layoutRef = useRef(null);
   const { data: conferenceData } = useConferenceQuery();
@@ -27,9 +31,13 @@ const Steps = () => {
     ? session.filter((item) => item.event_type == "roundtable")
     : [];
 
-  const { userdetails, conference, events } = useAuth();
 
   // if (isLoading) return <Loader />;
+
+  const handleActiveStepNumber = (id)=>{
+      setStepnumber(id);
+      dispatch(setActiveStepNumber(id))
+  }
 
   useEffect(() => {
     if (conferenceData?.id) {
@@ -43,7 +51,7 @@ const Steps = () => {
       );
     }
   }, [conferenceData?.id]);
-
+  console.log("activeStepNumber",activeStepNumber)
 
   return (
     <section className={styles.stepsection}>
@@ -109,23 +117,23 @@ const Steps = () => {
           <div className={styles.formWrapper}>
             <div className={styles.stepcontent}>
               {stepnumber === 1 ? (
-                <Membership handleNext={(id) => setStepnumber(id)} conferenceData={conferenceData} />
+                <Membership handleNext={(id) => handleActiveStepNumber(id)} conferenceData={conferenceData} />
               ) : stepnumber === 2 ? (
                 <PersonalDetail
-                  handleNext={(id) => setStepnumber(id)}
+                  handleNext={(id) => handleActiveStepNumber(id)}
                   personalData={userdetails}
                 />
               ) : stepnumber === 3 ? (
                 <ConferenceRegister
                   conferenceData={conferenceData}
-                  handleNext={(id) => setStepnumber(id)}
+                  handleNext={(id) => handleActiveStepNumber(id)}
                 />
               ) : stepnumber === 4 ? (
                 <Workshop
                   personalData={userdetails}
                   conferenceData={conferenceData}
                   workshoplist={data_workshops}
-                  handleNext={(id) => setStepnumber(id)}
+                  handleNext={(id) => handleActiveStepNumber(id)}
                   eventAuth={events}
                 />
               ) : stepnumber === 5 ? (
@@ -133,11 +141,11 @@ const Steps = () => {
                   personalData={userdetails}
                   conferenceData={conferenceData}
                   roundtablelist={data_roundTables}
-                  handleNext={(id) => setStepnumber(id)}
+                  handleNext={(id) => handleActiveStepNumber(id)}
                   eventAuth={events}
                 />
               ) : stepnumber === 6 ? (
-                <Payment personalData={userdetails} conference={conference} events={events}/>
+                <Payment handleNext={(id) => handleActiveStepNumber(id)} personalData={userdetails} conference={conference} events={events}/>
               ) : null}
             </div>
           </div>

@@ -5,10 +5,11 @@ import { useState } from "react";
 import Button from "@/Common/Button";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
 const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
   const [selectedworkshop, setselectedworkshop] = useState(0);
-
+    const {conference, events, userdetails} = useAuth();
   const dispatch = useDispatch();
 
   const handleWorkshopAdd = (workshopId) => {

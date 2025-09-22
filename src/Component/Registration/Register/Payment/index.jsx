@@ -4,8 +4,13 @@ import ProgrammCard from "@/Common/ProgrammCard";
 import Button from "@/Common/Button";
 import { useState } from "react";
 import RegistrationCard from "@/Common/RegistrationCard";
+import { conferenceRegistrationQuery } from "@/hooks/useUserQuery";
+import { DynamicIcon } from "lucide-react/dynamic";
+import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-const Payment = ({ personalData, conference, events }) => {
+const Payment = ({ personalData, conference, events, handleNext }) => {
+  const [error, setError] = useState("");
+  const { mutate: conferenceRegisterMutate, isLoading: conferenceRegisterLoading } = conferenceRegistrationQuery();
   const ProgrammList = [
     {
       id: 1,
@@ -77,11 +82,10 @@ const Payment = ({ personalData, conference, events }) => {
   const [agree, setagree] = useState(null);
 
   const handleMembershipChange = (event) => {
-    setagree(event.target.value);
+    setagree(event.target.checked);
   };
 
   const eventsArray = events ? Object.values(events) : [];
-
   const conferenceRegistrationAmount = conference?.conference_amount
     ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
     : 0;
@@ -89,22 +93,22 @@ const Payment = ({ personalData, conference, events }) => {
   const workShopsPrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "workshop"
       ? total +
-          (Number(
-            personalData?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price
-          ) ?? 0)
+      (Number(
+        personalData?.current_membership == "Life"
+          ? event?.life_member_price
+          : event?.price
+      ) ?? 0)
       : total;
   }, 0);
 
   const roundTablePrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "roundtable"
       ? total +
-          (Number(
-            personalData?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price
-          ) ?? 0)
+      (Number(
+        personalData?.current_membership == "Life"
+          ? event?.life_member_price
+          : event?.price
+      ) ?? 0)
       : total;
   }, 0);
 
@@ -123,14 +127,68 @@ const Payment = ({ personalData, conference, events }) => {
 
   console.log("dvd", EventArrays);
 
+  const handleSubmit = () => {
+    if (!agree) {
+      setError("Please agree to the Terms & Conditions to continue.");
+      return;
+    }
+    console.log("submited")
+    try {
+      const payload = {
+        user_id: personalData?.id,
+        conference_id: "1",
+        title: personalData?.title,
+        name: personalData?.name,
+        country_code: personalData?.country_code,
+        mobile: personalData?.mobile,
+        email: personalData?.email,
+        obg_code: personalData?.obg_code,
+        clinic: personalData?.clinic_name,
+        medical_council_no: personalData?.medical_council_regno,
+        conference_amount_type: conference?.conference_amount_type,
+        conference_amount: conference?.conference_amount,
+        conference_events: EventArrays?.map((event) => (
+          {
+            event_id: event?.event_id,
+            event_type: event?.event_type,
+            event_title: event?.event_title,
+            event_amount: event?.event_amount,
+            event_status: event?.event_status
+          }
+        ))
+      }
+      conferenceRegisterMutate({
+        values: payload
+      }, {
+        onSuccess: () => {
+
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setError("");
+    }
+  }
   return (
     <section className={styles.paymentsection}>
-      <CommonTitle
-        title={"Payment & Summary"}
-        subtitle={
-          "Review your registration details and complete your payment to secure your spot at Ophthall Conclave 2025."
-        }
-      />
+      <div className="position-relative text-center my-4">
+        {/* Back button */}
+        <button
+          type="button"
+          className={styles.backButton}
+          onClick={()=>handleNext(5)}
+        >
+          <DynamicIcon name="arrow-left" size={42} />
+        </button>
+
+        <CommonTitle
+          title={"Payment & Summary"}
+          subtitle={
+            "Review your registration details and complete your payment to secure your spot at Ophthall Conclave 2025."
+          }
+        />
+      </div>
 
       <div className={styles.wrapper}>
         <div
@@ -184,7 +242,7 @@ const Payment = ({ personalData, conference, events }) => {
           data={conference?.selectedRegistration}
         />
       </div>
-      <div className={`${styles.wrapper} my-5`}>
+     {events.length>0 && <div className={`${styles.wrapper} my-5`}>
         <div
           className={`d-flex justify-content-between align-items-center ${styles.pdinfohead}`}
         >
@@ -208,7 +266,7 @@ const Payment = ({ personalData, conference, events }) => {
             </div>
           ))}
         </div>
-      </div>
+      </div>}
 
       <div className={`${styles.wrapper}`}>
         <div
@@ -284,9 +342,12 @@ const Payment = ({ personalData, conference, events }) => {
               I agree to the Terms & Conditions and Privacy Policy*
             </label>
           </div>
+          {(error && !agree) && <p className="text-danger small mt-2">{error}</p>}
           <div className={`${styles.inputgroup} mt-4`}>
             <Button
-              title={`Proceed to secure payment - ₹${totalPrice}`}
+              handleTogglecontactForm={handleSubmit}
+              disabled={conferenceRegisterLoading}
+              title={conferenceRegisterLoading ? "Processing..." : `Proceed to secure payment - ₹${totalPrice}`}
               bgcolor={"#00A0E3"}
               colors={"#ffff"}
             />

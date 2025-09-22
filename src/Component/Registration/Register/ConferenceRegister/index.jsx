@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
 
 const ConferenceRegister = ({ handleNext, conferenceData }) => {
-  const { userDetails, conference } = useAuth();
+    const {conference, userdetails} = useAuth();
   const dispatch = useDispatch();
   const initialRegistrationType =
     conference?.conference_amount_type == "standard"
@@ -30,12 +30,12 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
       description2:
         "Join us for the main conference sessions featuring keynote speakers, panel discussions, and networking opportunities.",
       newPrice: `₹${
-        userDetails?.current_membership === "Life"
+        userdetails?.current_membership === "Life"
           ? conferenceData?.standard_life_price ?? 0
           : conferenceData?.standard_price ?? 0
       }`,
       oldPrice:
-        userDetails?.current_membership === "Life"
+        userdetails?.current_membership === "Life"
           ? `₹${conferenceData?.standard_price ?? 0}`
           : "",
       discount: `Save ₹${
@@ -44,7 +44,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
       } with this option`,
       includedTitle: "What's included:",
       includedList:
-        (userDetails?.current_membership === "Life"
+        (userdetails?.current_membership === "Life"
           ? conferenceData?.standard_life_price_desc
           : conferenceData?.standard_price_desc
         )
@@ -62,12 +62,12 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
       description2:
         "Get unlimited access to all conference sessions, workshops, round tables, and exclusive networking events.",
       newPrice: `₹${
-        userDetails?.current_membership === "Life"
+        userdetails?.current_membership === "Life"
           ? conferenceData?.all_access_life_price ?? 0
           : conferenceData?.all_access_price ?? 0
       }`,
       oldPrice:
-        userDetails?.current_membership === "Life"
+        userdetails?.current_membership === "Life"
           ? `₹${conferenceData?.all_access_price ?? 0}`
           : "",
       discount: `Save ₹${
@@ -76,7 +76,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
       } with this option`,
       includedTitle: "What's included:",
       includedList:
-        (userDetails?.current_membership === "Life"
+        (userdetails?.current_membership === "Life"
           ? conferenceData?.all_access_life_price_desc
           : conferenceData?.all_access_price_desc
         )
@@ -110,7 +110,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
         id: 1,
         conference_amount_type: "standard",
         conference_amount:
-          userDetails?.current_membership === "Life"
+          userdetails?.current_membership === "Life"
             ? conferenceData?.standard_life_price ?? 0
             : conferenceData?.standard_price ?? 0,
         selectedRegistration: conferenceRegistrationData[0],
@@ -132,7 +132,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
     conference?.conference_amount_type,
     dispatch,
     conferenceData,
-    userDetails,
+    userdetails,
   ]);
 
   return (
@@ -144,8 +144,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
         />
 
         <div className={styles.registerContainer}>
-          {userDetails?.current_membership === "Life" ? (
-            // Show this if user is already a life member
+          {userdetails?.current_membership === "Life" ? (
             <div
               className={`${styles.lifeMember} d-flex align-items-start justify-content-start gap-3`}
             >
@@ -158,7 +157,6 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               </div>
             </div>
           ) : (
-            // Show this if user is NOT a life member
             <div
               className={`${styles.lifeMember} d-flex align-items-start justify-content-start gap-3`}
             >

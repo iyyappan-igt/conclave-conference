@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import CommonTitle from "@/Common/CommonTitle";
 import Button from "@/Common/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { membershipVeroficationQuery, useConferenceRegistrationStatus } from "@/hooks/useUserQuery";
+import { useDispatch } from "react-redux";
+import { clearAuthData } from "@/redux/slices/auth/authSlice";
 
 const Membership = ({ handleNext, conferenceData }) => {
+  const dispatch = useDispatch();
+  const firstLoad = useRef(true);
   const [membership, setMembership] = useState(null);
   const [isverified, setisverfied] = useState(false);
 
   const { mutate: membershipVerify, isLoading: membershiploading } =
     membershipVeroficationQuery();
-    const {mutate:registerationStatus, isLoading:registerationStatusLoading} = useConferenceRegistrationStatus();
+  const { mutate: registerationStatus, isLoading: registerationStatusLoading } = useConferenceRegistrationStatus();
   const handleMembershipChange = (event) => {
     setMembership(event.target.value);
   };
@@ -30,12 +34,19 @@ const Membership = ({ handleNext, conferenceData }) => {
         {
           onSuccess: () => {
             setisverfied(true);
-           registerationStatus({obgcode:values.obg_code, conferenceId:conferenceData?.id});
+            registerationStatus({ obgcode: values.obg_code, conferenceId: conferenceData?.id });
           },
         }
       );
     },
   });
+
+  useEffect(() => {
+    if (firstLoad.current) {
+      dispatch(clearAuthData());
+      firstLoad.current = false;
+    }
+  }, [dispatch]);
 
   return (
     <section className={`${styles.membershipsection}`}>

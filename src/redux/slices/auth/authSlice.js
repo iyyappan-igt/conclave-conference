@@ -8,6 +8,7 @@ const initialState = {
   },
   events: null,
   userdetails: null,
+  activeStepNumber: 1,
 };
 
 const authSlice = createSlice({
@@ -29,13 +30,19 @@ const authSlice = createSlice({
         state.userdetails = action.payload.userdetails;
       }
     },
+
+    setActiveStepNumber: (state, action) => {
+      state.activeStepNumber = action.payload;
+    },
     clearAuthData: (state) => {
-      state.conference = null;
-      state.events = null;
-      state.userdetails = null;
+      state.conference = initialState?.conference;
+      state.events = initialState?.events;
+      state.userdetails = initialState?.userdetails;
+      state.activeStepNumber = initialState?.activeStepNumber;
     },
   },
 });
 
-export const { setAuthData, clearAuthData } = authSlice.actions;
+export const { setAuthData, clearAuthData, setActiveStepNumber } =
+  authSlice.actions;
 export default authSlice.reducer;

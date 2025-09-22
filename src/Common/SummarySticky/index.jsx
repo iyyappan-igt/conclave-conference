@@ -5,7 +5,6 @@ import styles from "./styles.module.css";
 
 const SummarySticky = ({ handleNext, conferenceData }) => {
   const { conference, events, userdetails } = useAuth();
-
   // convert object → array
   const eventsArray = events ? Object.values(events) : [];
 

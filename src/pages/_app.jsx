@@ -29,7 +29,6 @@ import { persistor, store } from "@/redux/store";
 
 export default function App({ Component, pageProps }) {
   const queryClient = new QueryClient();
-
   return (
     <>
       <QueryClientProvider client={queryClient}>

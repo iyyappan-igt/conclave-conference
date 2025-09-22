@@ -11,4 +11,8 @@ export class AuthApis {
       `/conference-registers/${obgcode}/${conferenceId}`
     );
   };
+
+  conferenceRegister = async (values) => {
+    return await _axios("post", `/conference-register`, values);
+  };
 }
