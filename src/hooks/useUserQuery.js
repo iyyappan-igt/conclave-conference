@@ -13,7 +13,6 @@ export const membershipVeroficationQuery = () => {
 
   return useMutation(
     async ({ value }) => {
-      console.log("payload", value);
       return await authApiData.getConferenceMembershipVerification(value);
     },
     {

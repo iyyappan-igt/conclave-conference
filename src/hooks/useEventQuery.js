@@ -10,7 +10,6 @@ export const getAllEventByConfernceIdQuery = () => {
 
   return useMutation(
     async ({ value }) => {
-      console.log("cfid", value);
 
       return await EventApiData.getAllEvents(value);
     },

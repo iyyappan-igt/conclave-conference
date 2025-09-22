@@ -8,8 +8,6 @@ const Header = () => {
   const router = useRouter();
   const { userdetails } = useAuth();
 
-  console.log("sss", userdetails);
-
   return (
     <header>
       <div className="container">

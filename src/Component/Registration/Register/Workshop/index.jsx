@@ -5,11 +5,9 @@ import { useState } from "react";
 import Button from "@/Common/Button";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
 
-const Workshop = ({ workshoplist, handleNext, personalData }) => {
+const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
   const [selectedworkshop, setselectedworkshop] = useState(0);
-  const { events } = useAuth();
 
   const dispatch = useDispatch();
 
@@ -20,14 +18,16 @@ const Workshop = ({ workshoplist, handleNext, personalData }) => {
     dispatch(
       setAuthData({
         events: {
-          ...events, // keep existing
+          ...eventAuth, // keep existing
           [workshopId]: workshop, // add/overwrite selected
         },
       })
     );
   };
 
-  console.log("workshop", events);
+  const handleWorkshopRemove = (workshopId) => {
+    console.log("ddd", workshopId);
+  };
 
   return (
     <section className={styles.workshopsec}>
@@ -47,6 +47,7 @@ const Workshop = ({ workshoplist, handleNext, personalData }) => {
             }}
           >
             <SessionCard
+              id={data?.id}
               type={data?.event_type}
               amount={
                 personalData?.current_membership == "Life"
@@ -59,7 +60,11 @@ const Workshop = ({ workshoplist, handleNext, personalData }) => {
               enddate={data?.end_date_time}
               speaker={data?.coordinator_name}
               status={data?.status}
-              isSelected={data?.id == selectedworkshop}
+              removeworkshop={(id) => handleWorkshopRemove(id)}
+              isSelected={
+                data?.id == selectedworkshop ||
+                eventAuth[data?.id]?.id == data?.id
+              }
             />
           </div>
         ))}

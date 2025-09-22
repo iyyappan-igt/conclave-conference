@@ -2,9 +2,7 @@ import CommonTitle from "@/Common/CommonTitle";
 import styles from "./styles.module.css";
 import Button from "@/Common/Button";
 
-const PersonalDetail = ({ handleNext , personalData }) => {
-
-  console.log("userdaetails", personalData);
+const PersonalDetail = ({ handleNext, personalData }) => {
 
   return (
     <section className={`${styles.personaldetailsection}`}>

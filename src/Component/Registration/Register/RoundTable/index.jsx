@@ -7,10 +7,13 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
 
-const RoundTable = ({ roundtablelist, handleNext, personalData }) => {
+const RoundTable = ({
+  roundtablelist,
+  handleNext,
+  personalData,
+  eventAuth,
+}) => {
   const [selectedRoundTable, setselectedRoundTable] = useState(0);
-
-  const { events } = useAuth();
 
   const dispatch = useDispatch();
 
@@ -21,7 +24,7 @@ const RoundTable = ({ roundtablelist, handleNext, personalData }) => {
     dispatch(
       setAuthData({
         events: {
-          ...events, // keep existing
+          ...eventAuth, // keep existing
           [roundtableId]: roundtable, // add/overwrite selected
         },
       })

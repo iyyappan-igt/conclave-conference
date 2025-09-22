@@ -52,7 +52,6 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
   const totalPrice =
     conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
 
-  console.log("check", conference, events);
 
   return (
     <aside>

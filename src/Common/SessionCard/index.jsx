@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import dayjs from "dayjs";
 
 const SessionCard = ({
+  id,
   type,
   title,
   speaker,
@@ -11,6 +12,7 @@ const SessionCard = ({
   enddate,
   amount,
   status,
+  removeworkshop,
   isSelected,
 }) => {
   function getEventInfo(startDateTime, endDateTime) {
@@ -40,9 +42,6 @@ const SessionCard = ({
 
   // Example
   const event = getEventInfo(startdate, enddate);
-
-  console.log(event.duration); // "8h 30m"
-  console.log(event.daysLeft); // "4 day(s) left"
 
   return (
     <div className={styles.sessioncardwrapper}>
@@ -121,15 +120,28 @@ const SessionCard = ({
       </div>
 
       <div className="mt-5">
-        <div
-          className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
-          style={{ backgroundColor: "#00a0e3", color: "#fff" }}
-        >
-          <DynamicIcon name={isSelected ? "check" : "plus"} size={18} />
-          <h6 className="m-0">
-            {isSelected ? `Selected ${type}` : `Select ${type}`}
-          </h6>
-        </div>
+        {isSelected ? (
+          <>
+            <div
+              className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
+              style={{ backgroundColor: "#e30000ff", color: "#fff" }}
+              onClick={() => {
+                removeworkshop(id);
+              }}
+            >
+              <DynamicIcon name="x" size={18} />
+              <h6 className="m-0">{`Remove ${type}`}</h6>
+            </div>
+          </>
+        ) : (
+          <div
+            className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
+            style={{ backgroundColor: "#00a0e3", color: "#fff" }}
+          >
+            <DynamicIcon name="plus" size={18} />
+            <h6 className="m-0">{`Select ${type}`}</h6>
+          </div>
+        )}
 
         {isSelected ? (
           <div

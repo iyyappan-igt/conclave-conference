@@ -88,9 +88,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
     },
   ];
 
-  console.log(conferenceRegistrationData);
   const handleSelectRegistration = (id, item) => {
-    console.log(item);
     const selectData = conferenceRegistrationData?.find(
       (item) => item?.id == id
     );

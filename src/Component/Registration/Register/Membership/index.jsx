@@ -14,7 +14,6 @@ const Membership = ({ handleNext, conferenceData }) => {
     membershipVeroficationQuery();
     const {mutate:registerationStatus, isLoading:registerationStatusLoading} = useConferenceRegistrationStatus();
   const handleMembershipChange = (event) => {
-    console.log(event.target.value);
     setMembership(event.target.value);
   };
 

@@ -77,7 +77,6 @@ const Payment = ({ personalData, conference, events }) => {
   const [agree, setagree] = useState(null);
 
   const handleMembershipChange = (event) => {
-    console.log(event.target.value);
     setagree(event.target.value);
   };
 
@@ -90,22 +89,22 @@ const Payment = ({ personalData, conference, events }) => {
   const workShopsPrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "workshop"
       ? total +
-      (Number(
-        personalData?.current_membership == "Life"
-          ? event?.life_member_price
-          : event?.price
-      ) ?? 0)
+          (Number(
+            personalData?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price
+          ) ?? 0)
       : total;
   }, 0);
 
   const roundTablePrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "roundtable"
       ? total +
-      (Number(
-        personalData?.current_membership == "Life"
-          ? event?.life_member_price
-          : event?.price
-      ) ?? 0)
+          (Number(
+            personalData?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price
+          ) ?? 0)
       : total;
   }, 0);
 
@@ -119,6 +118,10 @@ const Payment = ({ personalData, conference, events }) => {
 
   const totalPrice =
     conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
+
+  const EventArrays = Object.values(events);
+
+  console.log("dvd", EventArrays);
 
   return (
     <section className={styles.paymentsection}>
@@ -189,14 +192,18 @@ const Payment = ({ personalData, conference, events }) => {
         </div>
 
         <div className={`mt-5 ${styles.sectionlist}`}>
-          {ProgrammList?.map((data, i) => (
+          {EventArrays?.map((data, i) => (
             <div className="m-3">
               <ProgrammCard
-                type={data?.type}
-                amount={data?.amount}
+                type={data?.event_type}
+                amount={
+                  personalData?.current_membership == "Life"
+                    ? data?.life_member_price
+                    : data?.price
+                }
                 title={data?.title}
-                speaker={data?.speaker}
-                date={`${data?.date} - ${data?.time}`}
+                speaker={data?.coordinator_name}
+                date={data?.startdatetime}
               />
             </div>
           ))}
@@ -215,17 +222,23 @@ const Payment = ({ personalData, conference, events }) => {
             <div className="col-lg-10">
               <div className={styles.leftentry}>
                 <h6>All Conclave Pass</h6>
-                {conference?.conference_amount_type == "standard" && <>
-                  <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
-                  <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
-                </>}
+                {conference?.conference_amount_type == "standard" && (
+                  <>
+                    <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
+                    <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
+                  </>
+                )}
               </div>
             </div>
             <div className="col-lg-2">
               <div className={styles.rightentry}>
                 <h6>₹{conferenceRegistrationAmount}</h6>
-                {conference?.conference_amount_type == "standard" && <><h6>₹{workShopsPrice}</h6>
-                  <h6>₹{roundTablePrice}</h6></>}
+                {conference?.conference_amount_type == "standard" && (
+                  <>
+                    <h6>₹{workShopsPrice}</h6>
+                    <h6>₹{roundTablePrice}</h6>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -44,7 +44,6 @@ const Steps = () => {
     }
   }, [conferenceData?.id]);
 
-  console.log("conference", conferenceData);
 
   return (
     <section className={styles.stepsection}>
@@ -127,6 +126,7 @@ const Steps = () => {
                   conferenceData={conferenceData}
                   workshoplist={data_workshops}
                   handleNext={(id) => setStepnumber(id)}
+                  eventAuth={events}
                 />
               ) : stepnumber === 5 ? (
                 <RoundTable
@@ -134,6 +134,7 @@ const Steps = () => {
                   conferenceData={conferenceData}
                   roundtablelist={data_roundTables}
                   handleNext={(id) => setStepnumber(id)}
+                  eventAuth={events}
                 />
               ) : stepnumber === 6 ? (
                 <Payment personalData={userdetails} conference={conference} events={events}/>
