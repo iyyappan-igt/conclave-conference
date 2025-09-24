@@ -66,6 +66,7 @@
     top: unset;
     border-radius: 12px 12px 0 0; /* Rounded top corners only */
     min-width: 100%;
+      margin-bottom: 0;
     padding: 1rem;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1); /* Shadow from top */
     z-index: 999; /* Make sure it's above other elements */

@@ -14,22 +14,22 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
   const workShopsPrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "workshop"
       ? total +
-          (Number(
-            userdetails?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price
-          ) ?? 0)
+      (Number(
+        userdetails?.current_membership == "Life"
+          ? event?.life_member_price
+          : event?.price
+      ) ?? 0)
       : total;
   }, 0);
 
   const roundTablePrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "roundtable"
       ? total +
-          (Number(
-            userdetails?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price
-          ) ?? 0)
+      (Number(
+        userdetails?.current_membership == "Life"
+          ? event?.life_member_price
+          : event?.price
+      ) ?? 0)
       : total;
   }, 0);
 
@@ -42,7 +42,8 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
   }, 0);
 
   const totalPrice =
-    conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
+  conference?.conference_amount_type === "standard" ?
+    conferenceRegistrationAmount + workShopsPrice + roundTablePrice : conferenceRegistrationAmount;
 
   return (
     <aside>
@@ -54,15 +55,19 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
           <span>Conference Registration</span>
           <span>₹{conferenceRegistrationAmount}</span>
         </div>
-        <div className={styles.summaryItem}>
-          <span>Workshop ({totalWorkShopsSelected}x)</span>
-          <span>₹{workShopsPrice}</span>
-        </div>
+        {conference?.conference_amount_type === "standard" && (
+          <>
+            <div className={styles.summaryItem}>
+              <span>Workshop ({totalWorkShopsSelected}x)</span>
+              <span>₹{workShopsPrice}</span>
+            </div>
 
-        <div className={styles.summaryItem}>
-          <span>Round Table ({totalRoundTableSelected}x)</span>
-          <span>₹{roundTablePrice}</span>
-        </div>
+            <div className={styles.summaryItem}>
+              <span>Round Table ({totalRoundTableSelected}x)</span>
+              <span>₹{roundTablePrice}</span>
+            </div>
+          </>
+        )}
         <hr />
         <div className={styles.summaryTotal}>
           <div className={styles.total}>

@@ -13,7 +13,6 @@ import Backward from "@/Common/Backward";
 const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
   const { conference, userdetails } = useAuth();
   const dispatch = useDispatch();
-
   const initialRegistrationType =
     conference?.conference_amount_type == "standard"
       ? 1
@@ -40,10 +39,10 @@ const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
         userdetails?.current_membership === "Life"
           ? `₹${conferenceData?.standard_price ?? 0}`
           : "",
-      discount: `Save ₹${
+      discount: userdetails?.current_membership === "Life" ? `Save ₹${
         (conferenceData?.standard_price ?? 0) -
         (conferenceData?.standard_life_price ?? 0)
-      } with this option`,
+      } with this option` : false,
       includedTitle: "What's included:",
       includedList:
         (userdetails?.current_membership === "Life"
@@ -72,10 +71,10 @@ const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
         userdetails?.current_membership === "Life"
           ? `₹${conferenceData?.all_access_price ?? 0}`
           : "",
-      discount: `Save ₹${
+      discount: userdetails?.current_membership === "Life" ? `Save ₹${
         (conferenceData?.all_access_price ?? 0) -
         (conferenceData?.all_access_life_price ?? 0)
-      } with this option`,
+      } with this option` : false,
       includedTitle: "What's included:",
       includedList:
         (userdetails?.current_membership === "Life"
@@ -151,7 +150,7 @@ const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
 
   return (
     <section className={styles.conferencesec}>
-      <div className="container mt-3">
+      <div className="container-lg mx-0 mt-3">
         <div className="position-relative text-center my-4">
           <div
             onClick={() => {
@@ -208,7 +207,7 @@ const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
             ))}
           </div>
 
-          <div className={styles.ExceptionValue}>
+          {/* <div className={styles.ExceptionValue}>
             <div
               className={`${styles.cardHeader} d-flex align-items-start justify-content-start gap-3`}
             >
@@ -239,10 +238,10 @@ const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
                 <p>VIP Events Value</p>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className={styles.conferenceOverview}>
             <div
-              className={`${styles.cardHeader} d-flex align-items-start justify-content-start gap-3`}
+              className={`${styles.cardHeader} d-flex align-items-start justify-content-center justify-content-md-start gap-3`}
             >
               <div className={styles.lifeMemberContent}>
                 <h4>Conference Schedule Overview</h4>

@@ -12,6 +12,7 @@ const SessionCard = ({
   enddate,
   amount,
   status,
+  addEvents,
   removeEvents,
   isSelected,
   isselectbtn,
@@ -144,6 +145,7 @@ const SessionCard = ({
             <div
               className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
               style={{ backgroundColor: "#00a0e3", color: "#fff" }}
+              onClick={()=>addEvents(id)}
             >
               <DynamicIcon name="plus" size={18} color="#fff" />
               <h6 className="m-0">{`Select ${type}`}</h6>

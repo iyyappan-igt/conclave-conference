@@ -22,7 +22,7 @@ const Steps = () => {
   const { data: conferenceData } = useConferenceQuery();
   const { mutate: eventMutate } = getAllEventByConfernceIdQuery();
   const [session, setsession] = useState();
-
+  console.log("session", session);
   const data_workshops = session
     ? session.filter((item) => item.event_type == "workshop")
     : [];
@@ -104,11 +104,8 @@ const Steps = () => {
         </div>
 
         <div
-          className={styles.layoutWrapper}
+          className={`${styles.layoutWrapper}  ${stepnumber >= 3 ?  styles.step3above : ""}`}
           ref={layoutRef}
-          style={{
-            gridTemplateColumns: stepnumber >= 3 ? "1fr 350px" : "1fr",
-          }}
         >
           <div className={styles.formWrapper}>
             <div className={styles.stepcontent}>
@@ -149,6 +146,7 @@ const Steps = () => {
                   handleNext={(id) => handleActiveStepNumber(id)}
                   personalData={userdetails}
                   conferenceAuth={conference}
+                  conferenceData={conferenceData}
                   eventsAuth={events}
                 />
               ) : null}

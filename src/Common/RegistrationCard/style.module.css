@@ -1,22 +1,8 @@
 @font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/fonts/PlusJakartaSans[wght].ttf');
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans[wght].ttf");
 }
 
-
-.cardimg {
-    width: 85px;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.discount{
-
-    font-size: 14px !important;
-}
-.price P{
-    margin-bottom: 0;
-}
 .card {
   box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
   padding: 30px 25px;
@@ -24,86 +10,223 @@
   width: 100%;
   position: relative;
   cursor: pointer;
-  font-family: Plus Jakarta Sans !important;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  transition: all 0.1s ease-in-out;
 }
 
-.iconlife{
-    min-width: 50px;
-    min-height: 50px;
-    background-color:#00a0e3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+.cardimg {
+  width: 85px;
+  padding: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
-.price{
-    font-size: 33px;
-    font-weight: 700;
-    margin: 8px 0 15px;
+.price {
+  font-size: 33px;
+  font-weight: 700;
+  margin: 8px 0 15px;
 }
-.discountIcon{
-    margin-right: 5px;
-}
-.price .gst{
-    font-size: 16px;
-    color: #6c757d;
-    margin-top: 4px;
-    font-weight: 500;
+.price .gst {
+  font-size: 16px;
+  color: #6c757d;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
-.oldPrice{
+.oldPrice {
+  font-size: 20px;
+  text-decoration: line-through;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.discount {
+  font-size: 14px !important;
+  margin-top: 5px;
+}
+
+.discountIcon {
+  margin-right: 5px;
+}
+
+.included h6 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.includedList {
+  margin-top: 16px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.tick {
+  margin-right: 8px;
+  min-width: 24px;
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.includedList p {
+  font-size: 16px;
+}
+
+.recommendedBadge {
+  background-color: #56bfec;
+  color: #fff;
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 12px;
+  position: absolute;
+  top: -16px;
+  left: 30px;
+}
+
+.selectIndicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  box-sizing: border-box;
+  transition: all 0.1s ease-in-out;
+}
+
+@media (min-width: 1400px) {
+  .card {
+    padding: 35px 30px;
+  }
+  .cardimg {
+    width: 90px;
+    padding: 18px;
+  }
+  .price {
+    font-size: 36px;
+  }
+  .included h6 {
     font-size: 20px;
-    text-decoration: line-through;
-    margin-left: 10px;
-    font-weight: 500;
-}
-
-.included h6{
+  }
+  .includedList p {
     font-size: 18px;
-    font-weight: 700;
-    ;
-}
-.includedList{
-    margin-top: 16px;
-    list-style: none;
-    padding-left: 0;
-
+  }
 }
 
-.tick{
-    margin-right: 8px;
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .card {
+    padding: 32px 28px;
+  }
+  .cardimg {
+    width: 88px;
+    padding: 17px;
+  }
+  .price {
+    font-size: 34px;
+  }
+  .tick {
     width: 24px;
     height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 14px;
+  }
 }
-.includedList p{
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .card {
+    padding: 28px 22px;
+  }
+  .cardimg {
+    width: 80px;
+    padding: 15px;
+  }
+  .price {
+    font-size: 32px;
+  }
+  .included h6 {
+    font-size: 18px;
+  }
+  .includedList p {
     font-size: 16px;
+  }
+  .tick {
+    min-width: 24px !important;
+    min-height: 24px !important;
+    width: 24px;
+    height: 24px;
+  }
 }
 
-.recommendedBadge{
-    background-color: #56bfec;
-    color: #fff;
-    padding: 7px 15px;
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    padding: 25px 20px;
+  }
+  .cardimg {
+    width: 70px;
+    padding: 12px;
+  }
+  .price {
+    font-size: 28px;
+  }
+  .included h6 {
+    font-size: 16px;
+  }
+  .includedList p {
+    font-size: 14px;
+  }
+   .tick {
+    min-width: 23px !important;
+    min-height: 23px !important;
+    width: 23px;
+    height: 23px;
+     font-size: 13px;
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: 20px 15px;
+    border-radius: 15px;
+  }
+  .cardimg {
+    width: 60px;
+    padding: 10px;
+  }
+  .price {
+    font-size: 24px;
+  }
+  .included h6 {
+    font-size: 14px;
+  }
+  .includedList p {
     font-size: 12px;
-    border-radius: 12px;
-    position: absolute;
-    top: -16px; 
-    left: 30px;
+  }
+  .recommendedBadge {
+    top: -12px;
+    left: 15px;
+    font-size: 10px;
+  }
+  .selectIndicator {
+    width: 18px;
+    height: 18px;
+    top: 20px;
+    right: 20px;
+  }
+     .tick {
+    min-width: 21px !important;
+    min-height: 21px !important;
+    width: 21px;
+    height: 21px;
+     font-size: 12px;
+  }
 }
 
-.selectIndicator{
-     width: 22px;
-    height:22px;
-    border-radius: 50%;
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    box-sizing: border-box;
-    transition: all 0.1s ease-in-out
+@media (width<576px) {
+  .cardHeader {
+    flex-direction: column;
+  }
 }

@@ -48,17 +48,12 @@
 }
 .layoutWrapper {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1rem;
   align-items: flex-start;
 }
 
 .formWrapper {
   overflow: visible;
-}
-
-.stepcontent {
-  /* no fixed height, let the content define itself */
 }
 
 .rightColumn {
@@ -71,6 +66,9 @@
 }
 .rightSticky {
   grid-template-columns: 1fr 350px;
+}
+.step3above{
+   grid-template-columns: 1fr 350px;
 }
 @media (max-width: 991px) {
   .layoutWrapper {
@@ -101,5 +99,8 @@
 .rightColumn > * {
   max-width: 600px;
   margin: 0 auto;
+}
+.step3above{
+  grid-template-columns: 1fr;
 }
 }

@@ -1,12 +1,9 @@
 import CommonTitle from "@/Common/CommonTitle";
 import styles from "./styles.module.css";
 import SessionCard from "@/Common/SessionCard";
-import { useState } from "react";
 import Button from "@/Common/Button";
 import { useDispatch } from "react-redux";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
-import { DynamicIcon } from "lucide-react/dynamic";
 import Backward from "@/Common/Backward";
 
 const RoundTable = ({
@@ -15,18 +12,17 @@ const RoundTable = ({
   personalData,
   eventAuth,
 }) => {
-  const [selectedRoundTable, setselectedRoundTable] = useState(0);
 
   const dispatch = useDispatch();
 
   const handleRountableAdd = (roundtableId) => {
+    console.log(roundtableId)
     const roundtable = roundtablelist?.find((item) => item.id === roundtableId);
     if (!roundtable) return;
-
+    console.log(roundtable)
     const currentSelected = eventAuth || [];
-
-    const updatedEvents = currentSelected.filter((e) => e.id !== roundtableId);
-
+    const updatedEvents = currentSelected?.filter((e) => e.id !== roundtableId);
+    console.log("roundtable",roundtable);
     dispatch(
       setAuthData({
         events: [...updatedEvents, roundtable],
@@ -35,7 +31,11 @@ const RoundTable = ({
   };
 
   const handleRoundtableRemove = (roundtableId) => {
-    console.log(roundtableId);
+    const currentSelected = eventAuth || [];
+   console.log(currentSelected);
+    const updatedEvents = currentSelected?.filter((e)=> e.id !== roundtableId);
+    console.log(updatedEvents)
+    dispatch(setAuthData({events:[...updatedEvents]}))
   };
 
   return (
@@ -56,12 +56,9 @@ const RoundTable = ({
           <div
             className="col-lg-6 mb-4"
             key={i}
-            onClick={() => {
-              setselectedRoundTable(data?.id);
-              handleRountableAdd(data?.id);
-            }}
           >
             <SessionCard
+            id={data?.id}
               type={data?.event_type}
               amount={
                 personalData?.current_membership == "Life"
@@ -75,9 +72,9 @@ const RoundTable = ({
               time={data?.time}
               speaker={data?.coordinator_name}
               status={data?.status}
+              addEvents={(id)=>handleRountableAdd(id)}
               removeEvents={(id) => handleRoundtableRemove(id)}
               isSelected={
-                data?.id == selectedRoundTable ||
                 eventAuth?.some((event) => event?.id == data?.id)
               }
               isselectbtn={true}

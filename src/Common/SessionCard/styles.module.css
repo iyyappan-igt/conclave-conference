@@ -2,7 +2,8 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    height: 480px;
+    height: 530px;
+    
 }
 
 .sessioncardwrapper2 {
@@ -26,6 +27,11 @@
 .cardbody h4 {
     font-size: 20px;
     font-weight: 700;
+     display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    height: 60px;
 }
 
 .cardbody p {
@@ -62,7 +68,7 @@
 .cardstatus h6 {
     margin: 0px;
     color: #fff;
-    padding: 4px 16px;
+    padding: 7.5px 17px;
     border-radius: 15px;
     font-size: 14px;
 }

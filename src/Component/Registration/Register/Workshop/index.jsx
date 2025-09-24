@@ -9,7 +9,6 @@ import { DynamicIcon } from "lucide-react/dynamic";
 import Backward from "@/Common/Backward";
 
 const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
-  const [selectedworkshop, setselectedworkshop] = useState(0);
   const dispatch = useDispatch();
 
   const handleWorkshopAdd = (workshopId) => {
@@ -27,7 +26,17 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
     );
   };
 
-  const handleWorkshopRemove = (workshopId) => {};
+  const handleWorkshopRemove = (workshopId) => {
+
+    const currentSelected = eventAuth || [];
+
+    const updatedEvents = currentSelected.filter((e) => e.id !== workshopId);
+    dispatch(
+      setAuthData({
+        events: [...updatedEvents],
+      })
+    );
+  };
 
   return (
     <section className={styles.workshopsec}>
@@ -47,10 +56,6 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
           <div
             className="col-lg-6 mb-4"
             key={i}
-            onClick={() => {
-              setselectedworkshop(data?.id);
-              handleWorkshopAdd(data?.id);
-            }}
           >
             <SessionCard
               id={data?.id}
@@ -66,9 +71,9 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
               enddate={data?.end_date_time}
               speaker={data?.coordinator_name}
               status={data?.status}
+              addEvents={(id) => handleWorkshopAdd(id)}
               removeEvents={(id) => handleWorkshopRemove(id)}
               isSelected={
-                data?.id == selectedworkshop ||
                 eventAuth?.some((event) => event?.id == data?.id)
               }
               isselectbtn={true}

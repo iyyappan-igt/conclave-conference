@@ -4,12 +4,10 @@ import Button from "@/Common/Button";
 import { useState } from "react";
 import RegistrationCard from "@/Common/RegistrationCard";
 import { conferenceRegistrationQuery } from "@/hooks/useUserQuery";
-import { DynamicIcon } from "lucide-react/dynamic";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
 import SessionCard from "@/Common/SessionCard";
 import Backward from "@/Common/Backward";
 
-const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
+const Payment = ({ personalData, conferenceData, conferenceAuth, eventsAuth, handleNext }) => {
   const [error, setError] = useState("");
   const {
     mutate: conferenceRegisterMutate,
@@ -24,54 +22,54 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
 
   const conferenceRegistrationAmount = conferenceAuth?.conference_amount
     ? Number(
-        String(conferenceAuth.conference_amount).replace(/[^\d.-]/g, "")
-      ) || 0
+      String(conferenceAuth.conference_amount).replace(/[^\d.-]/g, "")
+    ) || 0
     : 0;
 
   const workShopsPrice =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-          return event?.event_type === "workshop"
-            ? total +
-                (Number(
-                  personalData?.current_membership == "Life"
-                    ? event?.life_member_price
-                    : event?.price
-                ) ?? 0)
-            : total;
-        }, 0)
+        return event?.event_type === "workshop"
+          ? total +
+          (Number(
+            personalData?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price
+          ) ?? 0)
+          : total;
+      }, 0)
       : 0;
 
   const roundTablePrice =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-          return event?.event_type === "roundtable"
-            ? total +
-                (Number(
-                  personalData?.current_membership == "Life"
-                    ? event?.life_member_price
-                    : event?.price
-                ) ?? 0)
-            : total;
-        }, 0)
+        return event?.event_type === "roundtable"
+          ? total +
+          (Number(
+            personalData?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price
+          ) ?? 0)
+          : total;
+      }, 0)
       : 0;
 
   const totalWorkShopsSelected =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-          return event?.event_type === "workshop" ? total + 1 : total;
-        }, 0)
+        return event?.event_type === "workshop" ? total + 1 : total;
+      }, 0)
       : 0;
 
   const totalRoundTableSelected =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-          return event?.event_type === "roundtable" ? total + 1 : total;
-        }, 0)
+        return event?.event_type === "roundtable" ? total + 1 : total;
+      }, 0)
       : 0;
 
-  const totalPrice =
-    conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
+  const totalPrice =conferenceAuth?.conference_amount_type == "standard" ?
+    conferenceRegistrationAmount + workShopsPrice + roundTablePrice : conferenceRegistrationAmount;
 
   const handleSubmit = () => {
     if (!agree) {
@@ -82,7 +80,7 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
     try {
       const payload = {
         user_id: personalData?.id,
-        conference_id: "1",
+        conference_id: conferenceData?.id,
         title: personalData?.title,
         name: personalData?.name,
         country_code: personalData?.country_code,
@@ -109,7 +107,7 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
           values: payload,
         },
         {
-          onSuccess: () => {},
+          onSuccess: () => { },
         }
       );
     } catch (error) {
@@ -150,17 +148,15 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Name</h4>
-              <p>{`${personalData?.title ? personalData?.title : "Mr"} ${
-                personalData?.name ? personalData?.name : "---"
-              }`}</p>
+              <p>{`${personalData?.title ? personalData?.title : "Mr"} ${personalData?.name ? personalData?.name : "---"
+                }`}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Mobile</h4>
-              <p>{`${
-                personalData?.country_code ? personalData?.country_code : "--"
-              } ${personalData?.mobile ? personalData?.mobile : "---"}`}</p>
+              <p>{`${personalData?.country_code ? personalData?.country_code : "--"
+                } ${personalData?.mobile ? personalData?.mobile : "---"}`}</p>
             </div>
           </div>
           <div className="col-lg-6">
@@ -202,7 +198,7 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
         />
       </div>
 
-      {!eventsAuth || eventsAuth.length < 0 ? (
+      {!eventsAuth || eventsAuth.length == 0 ? (
         ""
       ) : (
         <div className={`${styles.wrapper} my-5`}>
@@ -246,18 +242,24 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
 
         <div className={`${styles.pricelist} mt-4`}>
           <div className="row">
-            <div className="col-lg-10">
+            <div className="col-8 col-lg-10">
               <div className={styles.leftentry}>
-                <h6>All Conclave Pass</h6>
-                <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
-                <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
+                <h6> {`Conference (${conferenceAuth?.conference_amount_type
+                  ?.split("-")
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ")})`}</h6>
+                {conferenceAuth?.conference_amount_type == "standard" && (<>
+                  <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
+                  <h6>{`RoundTable (${totalRoundTableSelected})`}</h6></>)}
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-4 col-lg-2">
               <div className={styles.rightentry}>
                 <h6>₹{conferenceRegistrationAmount}</h6>
-                <h6>₹{workShopsPrice}</h6>
-                <h6>₹{roundTablePrice}</h6>
+                {conferenceAuth?.conference_amount_type == "standard" && (<>
+                  <h6>₹{workShopsPrice}</h6>
+                  <h6>₹{roundTablePrice}</h6>
+                </>)}
               </div>
             </div>
           </div>
@@ -265,13 +267,13 @@ const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
 
         <div className={`${styles.subtotallist} border-top mt-4 `}>
           <div className="row pt-4 ">
-            <div className="col-lg-10">
+            <div className="col-8 col-lg-10">
               <div className={styles.leftentry}>
                 <h3>Total</h3>
                 <p>Inclusive of all taxes</p>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-4 col-lg-2">
               <div className={styles.rightentry}>
                 <h3>₹{totalPrice}</h3>
               </div>

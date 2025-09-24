@@ -60,7 +60,7 @@ const RegistrationCard = ({ data, isSelected, onClick, selectable }) => {
             + GST
           </span>
         </p>
-        <p
+        {data?.discount && <p
           className={styles.discount}
           style={{ color: isSelected ? "#FFF8C6" : "green" }}
         >
@@ -68,28 +68,28 @@ const RegistrationCard = ({ data, isSelected, onClick, selectable }) => {
             <DynamicIcon name="trending-down" size={18} />
           </span>
           {data?.discount}
-        </p>
+        </p>}
       </div>
       <div className={styles.included}>
         <h6>{data?.includedTitle}</h6>
         <div className={`row ${styles.includedList}`}>
           {data?.includedList
             ? data?.includedList?.map((item, index) => (
-                <p className="col-md-6 d-flex gap-2" key={index}>
-                  {" "}
-                  <span
-                    className={styles.tick}
-                    style={
-                      isSelected
-                        ? { backgroundColor: "#ffffffff", color: "#00a0e3" }
-                        : { backgroundColor: "#00a0e3", color: "#fff" }
-                    }
-                  >
-                    ✓
-                  </span>{" "}
-                  {item}
-                </p>
-              ))
+              <p className="col-md-6 d-flex gap-2" key={index}>
+                {" "}
+                <span
+                  className={styles.tick}
+                  style={
+                    isSelected
+                      ? { backgroundColor: "#ffffffff", color: "#00a0e3" }
+                      : { backgroundColor: "#00a0e3", color: "#fff" }
+                  }
+                >
+                  ✓
+                </span>{" "}
+                {item}
+              </p>
+            ))
             : ""}
         </div>
       </div>
