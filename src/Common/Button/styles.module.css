@@ -5,8 +5,10 @@
 
 .button {
     font-family: "Inter" !important;
-    padding: 10px 30px !important;
-    font-weight: 400 !important;    
+    padding: 14px 30px !important;
+    font-weight: 400 !important;   
+    width: 100%; 
+    margin-top: 20px;
 }
 
 .commonbutton button:focus{

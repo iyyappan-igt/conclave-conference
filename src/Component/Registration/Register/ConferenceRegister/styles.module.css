@@ -23,9 +23,11 @@
   color: green;
   font-size: 14px !important;
 }
+
 .price P {
   margin-bottom: 0;
 }
+
 .iconlife {
   background: linear-gradient(135deg, #ffd700, #ffcc66);
   width: 40px;
@@ -59,6 +61,7 @@
   padding: 30px;
   border-radius: 20px;
 }
+
 .card {
   box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2);
   padding: 30px 25px;
@@ -102,9 +105,11 @@
   color: var(--text-gray);
   margin: 8px 0 15px;
 }
+
 .discountIcon {
   margin-right: 5px;
 }
+
 .price .gst {
   font-size: 16px;
   color: #6c757d !important;
@@ -124,6 +129,7 @@
   font-size: 18px;
   font-weight: 700;
 }
+
 .includedList {
   margin-top: 16px;
   list-style: none;
@@ -143,6 +149,7 @@
   font-weight: bold;
   font-size: 14px;
 }
+
 .includedList p {
   font-size: 16px;
 }
@@ -153,6 +160,7 @@
   font-weight: bold;
   margin-bottom: 8px;
 }
+
 .valueNote {
   margin: 20px 0 10px;
   width: 100%;
@@ -167,6 +175,7 @@
   padding: 20px;
   border-radius: 18px;
 }
+
 .exceptionContent p {
   font-size: 14px;
   color: #6c757d;
@@ -181,18 +190,21 @@
   border-radius: 18px;
   background-color: #f8f9fa;
 }
+
 .overviewContainer {
   margin: 30px 0 20px;
   width: 100%;
   gap: 70px;
   justify-content: center;
 }
+
 .overviewContent h6 {
   font-size: 20px;
   color: rgb(0, 0, 0);
   font-weight: bold;
   margin-bottom: 8px;
 }
+
 .recommendedBadge {
   background-color: #56bfec;
   color: #fff;
@@ -203,6 +215,7 @@
   top: -16px;
   left: 30px;
 }
+
 .cardimg {
   width: 85px;
   padding: 15px;
@@ -213,25 +226,12 @@
   margin-bottom: 0 !important;
 }
 
-/* @media (min-width< 1400px) {
-  .cardContainer {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .price {
-    font-size: 36px;
-  }
-  .card {
-    padding: 35px 30px;
-  }
-} */
 
 @media (width<1400px) {
   .cardContainer {
     max-width: 1100px;
   }
+
   .price {
     font-size: 32px;
   }
@@ -241,12 +241,15 @@
   .card {
     padding: 25px 20px;
   }
+
   .cardimg {
     width: 75px;
   }
+
   .price {
     font-size: 28px;
   }
+
   .lifeMemberContent p {
     font-size: 14px;
   }
@@ -256,20 +259,25 @@
   .cardContainer {
     padding: 20px;
   }
+
   .card {
     padding: 20px 18px;
     border-radius: 16px;
   }
+
   .cardimg {
     width: 70px;
     padding: 10px;
   }
+
   .price {
     font-size: 26px;
   }
+
   .included h6 {
     font-size: 16px;
   }
+
   .includedList p {
     font-size: 14px;
   }
@@ -279,15 +287,19 @@
   .cardContainer {
     padding: 15px;
   }
+
   .card {
     padding: 18px 15px;
   }
+
   .price {
     font-size: 24px;
   }
+
   .lifeMemberContent h6 {
     font-size: 0.95rem;
   }
+
   .lifeMemberContent p {
     font-size: 13px;
   }
@@ -297,30 +309,38 @@
   .cardContainer {
     padding: 12px;
   }
+
   .card {
     padding: 15px 12px;
     border-radius: 14px;
   }
+
   .cardimg {
     width: 60px;
     padding: 8px;
   }
+
   .price {
     font-size: 22px;
   }
+
   .valueNote,
   .overviewContainer {
     gap: 50px;
   }
+
   .lifeMemberContent h6 {
     font-size: 0.9rem;
   }
+
   .lifeMemberContent p {
     font-size: 12px;
   }
+
   .includedList p {
     font-size: 13px;
   }
+
   .tick {
     width: 20px;
     height: 20px;

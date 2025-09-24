@@ -3,7 +3,6 @@ import styles from "./styles.module.css";
 import Button from "@/Common/Button";
 
 const PersonalDetail = ({ handleNext, personalData }) => {
-
   return (
     <section className={`${styles.personaldetailsection}`}>
       <CommonTitle
@@ -97,7 +96,6 @@ const PersonalDetail = ({ handleNext, personalData }) => {
           </div>
 
           <div
-            className={styles.inputgroup}
             onClick={() => {
               handleNext(3);
             }}

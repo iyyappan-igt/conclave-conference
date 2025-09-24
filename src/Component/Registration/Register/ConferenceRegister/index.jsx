@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import CommonTitle from "@/Common/CommonTitle";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { useDispatch } from "react-redux";
-import { setAuthData } from "@/redux/slices/auth/authSlice";
+import { setAuthData, clearEvents } from "@/redux/slices/auth/authSlice";
+import Backward from "@/Common/Backward";
 
-const ConferenceRegister = ({ handleNext, conferenceData }) => {
-    const {conference, userdetails} = useAuth();
+const ConferenceRegister = ({ handleNext, conferenceData, eventData }) => {
+  const { conference, userdetails } = useAuth();
   const dispatch = useDispatch();
+
   const initialRegistrationType =
     conference?.conference_amount_type == "standard"
       ? 1
@@ -92,6 +94,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
     const selectData = conferenceRegistrationData?.find(
       (item) => item?.id == id
     );
+
     dispatch(
       setAuthData({
         conference: {
@@ -101,6 +104,17 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
         },
       })
     );
+
+    if (id == "2") {
+      dispatch(
+        setAuthData({
+          events: eventData,
+        })
+      );
+    } else {
+      dispatch(clearEvents());
+    }
+
     setSelectedRegistration(id);
   };
 
@@ -138,10 +152,19 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
   return (
     <section className={styles.conferencesec}>
       <div className="container mt-3">
-        <CommonTitle
-          title={"Conference Registration"}
-          subtitle={"Select your conference access level"}
-        />
+        <div className="position-relative text-center my-4">
+          <div
+            onClick={() => {
+              handleNext(2);
+            }}
+          >
+            <Backward />
+          </div>
+          <CommonTitle
+            title={"Conference Registration"}
+            subtitle={"Select your conference access level"}
+          />
+        </div>
 
         <div className={styles.registerContainer}>
           {userdetails?.current_membership === "Life" ? (
@@ -171,6 +194,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               </div>
             </div>
           )}
+
           <div
             className={`${styles.cardContainer} my-3 w-100 d-flex flex-column align-items-start justify-content-start gap-5`}
           >
@@ -183,6 +207,7 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               />
             ))}
           </div>
+
           <div className={styles.ExceptionValue}>
             <div
               className={`${styles.cardHeader} d-flex align-items-start justify-content-start gap-3`}
@@ -244,16 +269,10 @@ const ConferenceRegister = ({ handleNext, conferenceData }) => {
               </div>
             </div>
           </div>
+
           <div
             className={`${styles.buttonGroup} d-flex my-3 justify-content-end gap-3`}
           >
-            <div
-              onClick={() => {
-                handleNext(2);
-              }}
-            >
-              <Button title="Back" bgcolor={"#000"} colors={"#fff"} />
-            </div>
             <div onClick={() => handleNext(6)}>
               <Button
                 title="Complete Registration"

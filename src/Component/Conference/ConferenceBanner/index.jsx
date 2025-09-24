@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
-const ConferenceBanner = ({ data, personalData }) => {
+import { useDispatch } from "react-redux";
+import { setActiveStepNumber } from "@/redux/slices/auth/authSlice";
+const ConferenceBanner = ({ data }) => {
+  const dispatch = useDispatch();
+
   return (
     <section className={`${styles.container} container-fluid`}>
       <video className={styles.videoBackground} autoPlay muted loop playsInline>
@@ -15,23 +19,21 @@ const ConferenceBanner = ({ data, personalData }) => {
         <div className={styles.content}>
           <h4 className={styles.title}>{data?.title}</h4>
           <p className={styles.description1}>{data?.description}</p>
-          {personalData ? (
-            ""
-          ) : (
-            <a href="/register">
-              <button
-                style={{ backgroundColor: "#00a0e3" }}
-                className={`btn fw-bold  text-white ${styles.button}`}
-              >
-                {data?.buttonText}
-              </button>
-            </a>
-          )}
+          <a
+            href="/register"
+            onClick={() => {
+              dispatch(setActiveStepNumber(1));
+            }}
+          >
+            <button
+              style={{ backgroundColor: "#00a0e3" }}
+              className={`btn fw-bold  text-white ${styles.button}`}
+            >
+              {data?.buttonText}
+            </button>
+          </a>
         </div>
       </div>
-      {/* <div className={styles.bannerImage}>
-                <img src={data?.image} alt="" />
-            </div> */}
     </section>
   );
 };

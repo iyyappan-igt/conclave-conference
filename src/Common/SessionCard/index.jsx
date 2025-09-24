@@ -12,15 +12,15 @@ const SessionCard = ({
   enddate,
   amount,
   status,
-  removeworkshop,
+  removeEvents,
   isSelected,
+  isselectbtn,
 }) => {
   function getEventInfo(startDateTime, endDateTime) {
     const start = dayjs(startDateTime);
     const end = dayjs(endDateTime);
     const now = dayjs();
 
-    // --- Duration ---
     const diffMinutes = end.diff(start, "minute");
     if (diffMinutes < 0) return { duration: "Invalid", daysLeft: null };
 
@@ -32,7 +32,6 @@ const SessionCard = ({
     else if (hours) duration = `${hours}hrs`;
     else duration = `${minutes}mins`;
 
-    // --- Days Left ---
     const daysLeft = start.diff(now, "day");
     const daysLeftLabel =
       daysLeft > 0 ? `${daysLeft} day(s) left` : "Started / Past";
@@ -40,11 +39,14 @@ const SessionCard = ({
     return { duration, daysLeft: daysLeftLabel };
   }
 
-  // Example
   const event = getEventInfo(startdate, enddate);
 
   return (
-    <div className={styles.sessioncardwrapper}>
+    <div
+      className={
+        isselectbtn ? styles.sessioncardwrapper : styles.sessioncardwrapper2
+      }
+    >
       <div className={`${styles.cardhead} d-flex justify-content-between `}>
         <div className="d-flex gap-2 align-items-center">
           <DynamicIcon
@@ -119,42 +121,50 @@ const SessionCard = ({
         )}
       </div>
 
-      <div className="mt-5">
-        {isSelected ? (
-          <>
+      {isselectbtn ? (
+        <div className="mt-5">
+          {isSelected ? (
+            <>
+              <div
+                className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
+                style={{
+                  backgroundColor: "#ffff",
+                  color: "#00a0e3",
+                  border: "2px solid #00a0e3",
+                }}
+                onClick={() => {
+                  removeEvents(id);
+                }}
+              >
+                <DynamicIcon name="x" size={18} color="#00a0e3" />
+                <h6 className="m-0">{`Remove ${type}`}</h6>
+              </div>
+            </>
+          ) : (
             <div
               className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
-              style={{ backgroundColor: "#e30000ff", color: "#fff" }}
-              onClick={() => {
-                removeworkshop(id);
-              }}
+              style={{ backgroundColor: "#00a0e3", color: "#fff" }}
             >
-              <DynamicIcon name="x" size={18} />
-              <h6 className="m-0">{`Remove ${type}`}</h6>
+              <DynamicIcon name="plus" size={18} color="#fff" />
+              <h6 className="m-0">{`Select ${type}`}</h6>
             </div>
-          </>
-        ) : (
-          <div
-            className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
-            style={{ backgroundColor: "#00a0e3", color: "#fff" }}
-          >
-            <DynamicIcon name="plus" size={18} />
-            <h6 className="m-0">{`Select ${type}`}</h6>
-          </div>
-        )}
+          )}
 
-        {isSelected ? (
-          <div
-            className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
-            style={{ backgroundColor: "#3de300ff", color: "#fff" }}
-          >
-            <DynamicIcon name="circle-check-big" size={18} />
-            <h6 className="m-0">Added to your registration</h6>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
+          {isSelected ? (
+            <div
+              className={`${styles.selectcard} d-flex justify-content-center gap-2 align-items-center`}
+              style={{ backgroundColor: "#00a0e3", color: "#fff" }}
+            >
+              <DynamicIcon name="circle-check-big" size={18} color="#fff" />
+              <h6 className="m-0">Added to your registration</h6>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

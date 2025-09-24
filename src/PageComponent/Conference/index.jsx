@@ -9,17 +9,10 @@ import Speakers from "@/Component/Conference/speakers";
 import VenueDetails from "@/Component/Conference/VenueDetails";
 import WhatYouLearn from "@/Component/Conference/WhatYouLearn";
 import { conferenceData } from "@/Constant/Conference/constant";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
-
-
 const ConferencePageComponent = () => {
-
-  const {userdetails} = useAuth()
-
-
   return (
     <>
-      <ConferenceBanner data={conferenceData?.banner} personalData={userdetails} />
+      <ConferenceBanner data={conferenceData?.banner} />
       <AssociatePartner data={conferenceData?.participants} />
       <AboutOphthall data={conferenceData?.aboutOphthall} />
       <ConferenceHightlights data={conferenceData?.conferenceHightlights} />

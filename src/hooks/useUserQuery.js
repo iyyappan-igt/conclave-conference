@@ -41,7 +41,6 @@ export const membershipVeroficationQuery = () => {
 
 export const useConferenceRegistrationStatus = () => {
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
 
   return useMutation(
     async ({ obgcode, conferenceId }) => {
@@ -52,17 +51,6 @@ export const useConferenceRegistrationStatus = () => {
     },
     {
       onSuccess: (data) => {
-        dispatch(
-          setAuthData({
-            events: data?.data?.conference_events,
-            conference: {
-              conference_amount_type: data?.data?.conference_amount_type,
-              conference_amount: data?.data?.conference_amount,
-              selectedRegistration:{}
-            },
-          })
-        );
-
         queryClient.invalidateQueries(["conference-registration"]);
       },
       onError: (error) => {
@@ -76,23 +64,28 @@ export const useConferenceRegistrationStatus = () => {
   );
 };
 
-export const conferenceRegistrationQuery = ()=>{
-    const queryClient = useQueryClient();
-    const { enqueueSnackbar } = useSnackbar();
-    return useMutation(
-        async({ values }) => {
-            return await authApiData.conferenceRegister(values);
-        },
-        {
-            onSuccess: () => {
-                enqueueSnackbar('Conference Registered successfully', { variant: 'success' });
-                queryClient.invalidateQueries(['Conference']);
-            },
-            onError: (error) => {
-                enqueueSnackbar(error.response?.data?.message || 'Something went wrong', {
-                    variant: 'error',
-                });
-            },
-        },
-    );
-}
+export const conferenceRegistrationQuery = () => {
+  const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
+  return useMutation(
+    async ({ values }) => {
+      return await authApiData.conferenceRegister(values);
+    },
+    {
+      onSuccess: () => {
+        enqueueSnackbar("Conference Registered successfully", {
+          variant: "success",
+        });
+        queryClient.invalidateQueries(["Conference"]);
+      },
+      onError: (error) => {
+        enqueueSnackbar(
+          error.response?.data?.message || "Something went wrong",
+          {
+            variant: "error",
+          }
+        );
+      },
+    }
+  );
+};

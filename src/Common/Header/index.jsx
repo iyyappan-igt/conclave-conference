@@ -2,11 +2,12 @@ import Image from "next/image";
 import Button from "../Button";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
+import { useDispatch } from "react-redux";
+import { setActiveStepNumber } from "@/redux/slices/auth/authSlice";
 
 const Header = () => {
   const router = useRouter();
-  const { userdetails } = useAuth();
+  const dispatch = useDispatch();
 
   return (
     <header>
@@ -22,7 +23,7 @@ const Header = () => {
               }}
             />
           </div>
-          {userdetails ? (
+          {/* {userdetails ? (
             <div className="d-flex align-items-center gap-2" onClick={()=>{router.replace("/register")}}>
               <div className={styles.profileimg}>
                 <img src={userdetails?.profile} className="img-fluid" />
@@ -39,7 +40,20 @@ const Header = () => {
               bgcolor={"#00A0E3"}
               link={"/register"}
             />
-          )}
+          )} */}
+
+          <div
+            onClick={() => {
+              dispatch(setActiveStepNumber(1));
+            }}
+          >
+            <Button
+              title={"Register Now"}
+              colors={"#ffff"}
+              bgcolor={"#00A0E3"}
+              link={"/register"}
+            />
+          </div>
         </div>
       </div>
     </header>

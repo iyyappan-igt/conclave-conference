@@ -1,4 +1,3 @@
-
 .inputgroup input {
     border: 1px solid #E5E5EA;
     border-radius: 10.15px;
@@ -41,24 +40,36 @@
     border-radius: 15px;
 }
 
-.memberinfo{
+.memberinfo {
     background-color: rgb(254, 213, 213);
     padding: 20px;
     border-radius: 15px;
     font-size: 14px;
 }
 
-.memberinfo span{
+.memberinfo2 {
+    background-color: #00A0E3;
+    color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.memberinfo2 span a{
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    margin: 0px 5px ;
+}
+
+.memberinfo span {
     font-weight: 700;
 }
 
 
-.inputgroup button{
-    width: 100% !important;
-    padding: 15px !important;
-    margin-top: 20px;
-}
 
-.membershipsection{
+.membershipsection {
     padding: 50px 0px;
 }

@@ -4,7 +4,10 @@ import CommonTitle from "@/Common/CommonTitle";
 import Button from "@/Common/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { membershipVeroficationQuery, useConferenceRegistrationStatus } from "@/hooks/useUserQuery";
+import {
+  membershipVeroficationQuery,
+  useConferenceRegistrationStatus,
+} from "@/hooks/useUserQuery";
 import { useDispatch } from "react-redux";
 import { clearAuthData } from "@/redux/slices/auth/authSlice";
 
@@ -13,10 +16,13 @@ const Membership = ({ handleNext, conferenceData }) => {
   const firstLoad = useRef(true);
   const [membership, setMembership] = useState(null);
   const [isverified, setisverfied] = useState(false);
+  const [isalreadyregistered, setisalreadyregistered] = useState();
 
   const { mutate: membershipVerify, isLoading: membershiploading } =
     membershipVeroficationQuery();
-  const { mutate: registerationStatus, isLoading: registerationStatusLoading } = useConferenceRegistrationStatus();
+
+  const { mutate: registerationStatus } = useConferenceRegistrationStatus();
+
   const handleMembershipChange = (event) => {
     setMembership(event.target.value);
   };
@@ -29,17 +35,33 @@ const Membership = ({ handleNext, conferenceData }) => {
       obg_code: Yup.string().required("Enter OBG Code"),
     }),
     onSubmit: (values) => {
+      setisverfied(false);
+      setisalreadyregistered(null);
+
       membershipVerify(
         { value: values.obg_code },
         {
           onSuccess: () => {
             setisverfied(true);
-            registerationStatus({ obgcode: values.obg_code, conferenceId: conferenceData?.id });
+
+            registerationStatus(
+              {
+                obgcode: values.obg_code,
+                conferenceId: conferenceData?.id,
+              },
+              {
+                onSuccess: (data) => {
+                  setisalreadyregistered(data?.data);
+                },
+              }
+            );
           },
         }
       );
     },
   });
+
+  console.log(isalreadyregistered, isverified);
 
   useEffect(() => {
     if (firstLoad.current) {
@@ -99,22 +121,46 @@ const Membership = ({ handleNext, conferenceData }) => {
               )}
             </div>
 
-            {isverified ? (
-              <div className={styles.inputgroup} onClick={() => handleNext(2)}>
-                <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
+            {isalreadyregistered ? (
+              <div className={styles.memberinfo2}>
+                <p className="m-0">
+                  Our records show that you are already registered for this
+                  conference. If you require support, please contact
+                  <span>
+                    <a href="mailto:info@ophthall.in"> info@ophthall.in </a>
+                  </span>{" "}
+                  or call{" "}
+                  <span>
+                    <a href="tel+919176054051"> +9176054051</a>
+                  </span>
+                </p>
               </div>
             ) : (
-              <div className={styles.inputgroup}>
-                <Button
-                  title={membershiploading ? "Verify...." : "Verify"}
-                  bgcolor={"#000"}
-                  colors={"#ffff"}
-                  type={"submit"}
-                />
+              ""
+            )}
+
+            {isverified === true && isalreadyregistered === false ? (
+              <div onClick={() => handleNext(2)}>
+                <Button title={"Next"} bgcolor={"#00A0E3"} colors={"#ffff"} />
               </div>
+            ) : isalreadyregistered === true ? (
+              <Button
+                title={"Verified"}
+                bgcolor={"#000"}
+                colors={"#ffff"}
+                type={"submit"}
+              />
+            ) : (
+              <Button
+                title={membershiploading ? "Verify...." : "Verify"}
+                bgcolor={"#000"}
+                colors={"#ffff"}
+                type={"submit"}
+              />
             )}
           </form>
         )}
+
         {membership === "no" && (
           <>
             <div className={styles.memberinfo}>
@@ -130,15 +176,13 @@ const Membership = ({ handleNext, conferenceData }) => {
                 proceeding with registration.
               </p>
             </div>
-            <div className={styles.inputgroup}>
-              <Button
-                title={"Become A Member"}
-                bgcolor={"#000"}
-                colors={"#ffff"}
-                link={"https://www.ophthall.in/register"}
-                target={"blank"}
-              />
-            </div>
+            <Button
+              title={"Become A Member"}
+              bgcolor={"#000"}
+              colors={"#ffff"}
+              link={"https://www.ophthall.in/register"}
+              target={"blank"}
+            />
           </>
         )}
       </div>

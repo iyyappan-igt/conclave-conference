@@ -31,13 +31,6 @@
 
 }
 
-
-.inputgroup button {
-    font-size: 15px !important;
-    padding: 15px 0px !important;
-    font-weight: 800 !important;
-}
-
 .formwrapper {
     max-width: 800px;
     margin: auto;
@@ -45,13 +38,6 @@
     padding: 30px;
     border-radius: 20px;
     background-color: #fff;
-}
-
-
-.inputgroup button {
-    width: 100% !important;
-    padding: 15px !important;
-    margin-top: 20px;
 }
 
 .personaldetailsection {

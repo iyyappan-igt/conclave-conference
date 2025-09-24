@@ -5,37 +5,42 @@ import { useState } from "react";
 import Button from "@/Common/Button";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
-import { useAuth } from "@/redux/selectors/auth/authSelector";
+import { DynamicIcon } from "lucide-react/dynamic";
+import Backward from "@/Common/Backward";
 
 const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
   const [selectedworkshop, setselectedworkshop] = useState(0);
-    const {conference, events, userdetails} = useAuth();
   const dispatch = useDispatch();
 
   const handleWorkshopAdd = (workshopId) => {
     const workshop = workshoplist?.find((item) => item.id === workshopId);
     if (!workshop) return;
 
+    const currentSelected = eventAuth || [];
+
+    const updatedEvents = currentSelected.filter((e) => e.id !== workshopId);
+
     dispatch(
       setAuthData({
-        events: {
-          ...eventAuth, // keep existing
-          [workshopId]: workshop, // add/overwrite selected
-        },
+        events: [...updatedEvents, workshop],
       })
     );
   };
 
-  const handleWorkshopRemove = (workshopId) => {
-    console.log("ddd", workshopId);
-  };
+  const handleWorkshopRemove = (workshopId) => {};
 
   return (
     <section className={styles.workshopsec}>
-      <CommonTitle
-        title={"Worksop Selection"}
-        subtitle={"Choose your sessions for Ophthall Conclave 2026"}
-      />
+      <div className="position-relative text-center my-4">
+        <div onClick={() => handleNext(3)}>
+          <Backward />
+        </div>
+
+        <CommonTitle
+          title={"Worksop Selection"}
+          subtitle={"Choose your sessions for Ophthall Conclave 2026"}
+        />
+      </div>
 
       <div className="row">
         {workshoplist?.map((data, i) => (
@@ -61,18 +66,18 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
               enddate={data?.end_date_time}
               speaker={data?.coordinator_name}
               status={data?.status}
-              removeworkshop={(id) => handleWorkshopRemove(id)}
+              removeEvents={(id) => handleWorkshopRemove(id)}
               isSelected={
                 data?.id == selectedworkshop ||
-                eventAuth[data?.id]?.id == data?.id
+                eventAuth?.some((event) => event?.id == data?.id)
               }
+              isselectbtn={true}
             />
           </div>
         ))}
       </div>
 
       <div
-        className={`${styles.inputgroup} mt-4`}
         onClick={() => {
           handleNext(5);
         }}

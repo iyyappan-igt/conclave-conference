@@ -1,9 +1,7 @@
 import RegistrationPageComponent from "@/PageComponent/Registration";
 
 const RegisterPage = () => {
-  return (
-   <RegistrationPageComponent/>
-  );
-}           
+  return <RegistrationPageComponent />;
+};
 
 export default RegisterPage;

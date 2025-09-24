@@ -6,6 +6,8 @@ import Button from "@/Common/Button";
 import { useDispatch } from "react-redux";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import { setAuthData } from "@/redux/slices/auth/authSlice";
+import { DynamicIcon } from "lucide-react/dynamic";
+import Backward from "@/Common/Backward";
 
 const RoundTable = ({
   roundtablelist,
@@ -14,7 +16,6 @@ const RoundTable = ({
   eventAuth,
 }) => {
   const [selectedRoundTable, setselectedRoundTable] = useState(0);
-      const {conference, events, userdetails} = useAuth();
 
   const dispatch = useDispatch();
 
@@ -22,22 +23,33 @@ const RoundTable = ({
     const roundtable = roundtablelist?.find((item) => item.id === roundtableId);
     if (!roundtable) return;
 
+    const currentSelected = eventAuth || [];
+
+    const updatedEvents = currentSelected.filter((e) => e.id !== roundtableId);
+
     dispatch(
       setAuthData({
-        events: {
-          ...eventAuth, // keep existing
-          [roundtableId]: roundtable, // add/overwrite selected
-        },
+        events: [...updatedEvents, roundtable],
       })
     );
   };
 
+  const handleRoundtableRemove = (roundtableId) => {
+    console.log(roundtableId);
+  };
+
   return (
     <section className={styles.roundtabelsec}>
-      <CommonTitle
-        title={"Round Table Selection"}
-        subtitle={"Choose your sessions for Ophthall Conclave 2026"}
-      />
+      <div className="position-relative text-center my-4">
+        <div onClick={() => handleNext(4)}>
+          <Backward/>
+        </div>
+
+        <CommonTitle
+          title={"Round Table Selection"}
+          subtitle={"Choose your sessions for Ophthall Conclave 2026"}
+        />
+      </div>
 
       <div className="row">
         {roundtablelist?.map((data, i) => (
@@ -63,7 +75,12 @@ const RoundTable = ({
               time={data?.time}
               speaker={data?.coordinator_name}
               status={data?.status}
-              isSelected={data?.id == selectedRoundTable}
+              removeEvents={(id) => handleRoundtableRemove(id)}
+              isSelected={
+                data?.id == selectedRoundTable ||
+                eventAuth?.some((event) => event?.id == data?.id)
+              }
+              isselectbtn={true}
             />
           </div>
         ))}

@@ -1,83 +1,20 @@
 import CommonTitle from "@/Common/CommonTitle";
 import styles from "./styles.module.css";
-import ProgrammCard from "@/Common/ProgrammCard";
 import Button from "@/Common/Button";
 import { useState } from "react";
 import RegistrationCard from "@/Common/RegistrationCard";
 import { conferenceRegistrationQuery } from "@/hooks/useUserQuery";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { useAuth } from "@/redux/selectors/auth/authSelector";
+import SessionCard from "@/Common/SessionCard";
+import Backward from "@/Common/Backward";
 
-const Payment = ({ personalData, conference, events, handleNext }) => {
+const Payment = ({ personalData, conferenceAuth, eventsAuth, handleNext }) => {
   const [error, setError] = useState("");
-  const { mutate: conferenceRegisterMutate, isLoading: conferenceRegisterLoading } = conferenceRegistrationQuery();
-  const ProgrammList = [
-    {
-      id: 1,
-      type: "Workshop",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-    {
-      id: 2,
-      type: "Workshop",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-    {
-      id: 3,
-      type: "Round Table",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-    {
-      id: 4,
-      type: "Round Table",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-    {
-      id: 5,
-      type: "Workshop",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-
-    {
-      id: 6,
-      type: "Workshop",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-
-    {
-      id: 7,
-      type: "Workshop",
-      title: "Advanced Cataract Surgery Techniques",
-      speaker: "Dr. Priya Sharma",
-      date: "2024-04-23",
-      time: "10.00 am - 1.00 pm",
-      amount: 2000,
-    },
-  ];
+  const {
+    mutate: conferenceRegisterMutate,
+    isLoading: conferenceRegisterLoading,
+  } = conferenceRegistrationQuery();
 
   const [agree, setagree] = useState(null);
 
@@ -85,54 +22,63 @@ const Payment = ({ personalData, conference, events, handleNext }) => {
     setagree(event.target.checked);
   };
 
-  const eventsArray = events ? Object.values(events) : [];
-  const conferenceRegistrationAmount = conference?.conference_amount
-    ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
+  const conferenceRegistrationAmount = conferenceAuth?.conference_amount
+    ? Number(
+        String(conferenceAuth.conference_amount).replace(/[^\d.-]/g, "")
+      ) || 0
     : 0;
 
-  const workShopsPrice = eventsArray.reduce((total, event) => {
-    return event?.event_type === "workshop"
-      ? total +
-      (Number(
-        personalData?.current_membership == "Life"
-          ? event?.life_member_price
-          : event?.price
-      ) ?? 0)
-      : total;
-  }, 0);
+  const workShopsPrice =
+    eventsAuth !== null
+      ? eventsAuth.reduce((total, event) => {
+          return event?.event_type === "workshop"
+            ? total +
+                (Number(
+                  personalData?.current_membership == "Life"
+                    ? event?.life_member_price
+                    : event?.price
+                ) ?? 0)
+            : total;
+        }, 0)
+      : 0;
 
-  const roundTablePrice = eventsArray.reduce((total, event) => {
-    return event?.event_type === "roundtable"
-      ? total +
-      (Number(
-        personalData?.current_membership == "Life"
-          ? event?.life_member_price
-          : event?.price
-      ) ?? 0)
-      : total;
-  }, 0);
+  const roundTablePrice =
+    eventsAuth !== null
+      ? eventsAuth.reduce((total, event) => {
+          return event?.event_type === "roundtable"
+            ? total +
+                (Number(
+                  personalData?.current_membership == "Life"
+                    ? event?.life_member_price
+                    : event?.price
+                ) ?? 0)
+            : total;
+        }, 0)
+      : 0;
 
-  const totalWorkShopsSelected = eventsArray.reduce((total, event) => {
-    return event?.event_type === "workshop" ? total + 1 : total;
-  }, 0);
+  const totalWorkShopsSelected =
+    eventsAuth !== null
+      ? eventsAuth.reduce((total, event) => {
+          return event?.event_type === "workshop" ? total + 1 : total;
+        }, 0)
+      : 0;
 
-  const totalRoundTableSelected = eventsArray.reduce((total, event) => {
-    return event?.event_type === "roundtable" ? total + 1 : total;
-  }, 0);
+  const totalRoundTableSelected =
+    eventsAuth !== null
+      ? eventsAuth.reduce((total, event) => {
+          return event?.event_type === "roundtable" ? total + 1 : total;
+        }, 0)
+      : 0;
 
   const totalPrice =
     conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
-
-  const EventArrays = Object.values(events);
-
-  console.log("dvd", EventArrays);
 
   const handleSubmit = () => {
     if (!agree) {
       setError("Please agree to the Terms & Conditions to continue.");
       return;
     }
-    console.log("submited")
+    console.log("submited");
     try {
       const payload = {
         user_id: personalData?.id,
@@ -145,43 +91,46 @@ const Payment = ({ personalData, conference, events, handleNext }) => {
         obg_code: personalData?.obg_code,
         clinic: personalData?.clinic_name,
         medical_council_no: personalData?.medical_council_regno,
-        conference_amount_type: conference?.conference_amount_type,
-        conference_amount: conference?.conference_amount,
-        conference_events: EventArrays?.map((event) => (
-          {
-            event_id: event?.event_id,
-            event_type: event?.event_type,
-            event_title: event?.event_title,
-            event_amount: event?.event_amount,
-            event_status: event?.event_status
-          }
-        ))
-      }
-      conferenceRegisterMutate({
-        values: payload
-      }, {
-        onSuccess: () => {
-
+        conference_amount_type: conferenceAuth?.conference_amount_type,
+        conference_amount: conferenceAuth?.conference_amount,
+        conference_events: eventsAuth?.map((event) => ({
+          event_id: event?.id,
+          event_type: event?.event_type,
+          event_title: event?.title,
+          event_amount:
+            personalData?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price,
+          event_status: event?.status,
+        })),
+      };
+      conferenceRegisterMutate(
+        {
+          values: payload,
+        },
+        {
+          onSuccess: () => {},
         }
-      })
+      );
     } catch (error) {
       console.log(error);
     } finally {
       setError("");
     }
-  }
+  };
+
   return (
     <section className={styles.paymentsection}>
       <div className="position-relative text-center my-4">
-        {/* Back button */}
-        <button
-          type="button"
-          className={styles.backButton}
-          onClick={()=>handleNext(5)}
+        <div
+          onClick={() =>
+            handleNext(
+              conferenceAuth?.conference_amount_type == "all-access" ? 3 : 5
+            )
+          }
         >
-          <DynamicIcon name="arrow-left" size={42} />
-        </button>
-
+          <Backward />
+        </div>
         <CommonTitle
           title={"Payment & Summary"}
           subtitle={
@@ -201,37 +150,47 @@ const Payment = ({ personalData, conference, events, handleNext }) => {
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Name</h4>
-              <p>{`${personalData?.title} ${personalData?.name}`}</p>
+              <p>{`${personalData?.title ? personalData?.title : "Mr"} ${
+                personalData?.name ? personalData?.name : "---"
+              }`}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Mobile</h4>
-              <p>{`${personalData?.country_code} ${personalData?.mobile}`}</p>
+              <p>{`${
+                personalData?.country_code ? personalData?.country_code : "--"
+              } ${personalData?.mobile ? personalData?.mobile : "---"}`}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Email</h4>
-              <p>{personalData?.email}</p>
+              <p>{personalData?.email ? personalData?.email : "---"}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>OBG Code</h4>
-              <p>{personalData?.obg_code}</p>
+              <p>{personalData?.obg_code ? personalData?.obg_code : "----"}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Clinic / Organization Name</h4>
-              <p>{personalData?.clinic_name}</p>
+              <p>
+                {personalData?.clinic_name ? personalData?.clinic_name : "---"}
+              </p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Medical Council Reg No</h4>
-              <p>{personalData?.medical_council_regno}</p>
+              <p>
+                {personalData?.medical_council_regno
+                  ? personalData?.medical_council_no
+                  : "----"}
+              </p>
             </div>
           </div>
         </div>
@@ -239,34 +198,44 @@ const Payment = ({ personalData, conference, events, handleNext }) => {
       <div className={`${styles.wrapper} my-5`}>
         <RegistrationCard
           isSelected={true}
-          data={conference?.selectedRegistration}
+          data={conferenceAuth?.selectedRegistration}
         />
       </div>
-     {events.length>0 && <div className={`${styles.wrapper} my-5`}>
-        <div
-          className={`d-flex justify-content-between align-items-center ${styles.pdinfohead}`}
-        >
-          <h4>Selected Sessions</h4>
-        </div>
 
-        <div className={`mt-5 ${styles.sectionlist}`}>
-          {EventArrays?.map((data, i) => (
-            <div className="m-3">
-              <ProgrammCard
-                type={data?.event_type}
-                amount={
-                  personalData?.current_membership == "Life"
-                    ? data?.life_member_price
-                    : data?.price
-                }
-                title={data?.title}
-                speaker={data?.coordinator_name}
-                date={data?.startdatetime}
-              />
-            </div>
-          ))}
+      {!eventsAuth || eventsAuth.length < 0 ? (
+        ""
+      ) : (
+        <div className={`${styles.wrapper} my-5`}>
+          <div
+            className={`d-flex justify-content-between align-items-center ${styles.pdinfohead}`}
+          >
+            <h4>Selected Sessions</h4>
+          </div>
+
+          <div className={`my-4 ${styles.sectionlist}`}>
+            {eventsAuth?.map((data, i) => (
+              <div className="m-3">
+                <SessionCard
+                  id={data?.id}
+                  type={data?.event_type}
+                  amount={
+                    personalData?.current_membership == "Life"
+                      ? data?.life_member_price
+                      : data?.price
+                  }
+                  title={data?.title}
+                  overview={data?.description}
+                  startdate={data?.start_date_time}
+                  enddate={data?.end_date_time}
+                  speaker={data?.coordinator_name}
+                  status={data?.status}
+                  isselectbtn={false}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>}
+      )}
 
       <div className={`${styles.wrapper}`}>
         <div
@@ -280,23 +249,15 @@ const Payment = ({ personalData, conference, events, handleNext }) => {
             <div className="col-lg-10">
               <div className={styles.leftentry}>
                 <h6>All Conclave Pass</h6>
-                {conference?.conference_amount_type == "standard" && (
-                  <>
-                    <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
-                    <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
-                  </>
-                )}
+                <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
+                <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
               </div>
             </div>
             <div className="col-lg-2">
               <div className={styles.rightentry}>
                 <h6>₹{conferenceRegistrationAmount}</h6>
-                {conference?.conference_amount_type == "standard" && (
-                  <>
-                    <h6>₹{workShopsPrice}</h6>
-                    <h6>₹{roundTablePrice}</h6>
-                  </>
-                )}
+                <h6>₹{workShopsPrice}</h6>
+                <h6>₹{roundTablePrice}</h6>
               </div>
             </div>
           </div>
@@ -342,16 +303,20 @@ const Payment = ({ personalData, conference, events, handleNext }) => {
               I agree to the Terms & Conditions and Privacy Policy*
             </label>
           </div>
-          {(error && !agree) && <p className="text-danger small mt-2">{error}</p>}
+          {error && !agree && <p className="text-danger small mt-2">{error}</p>}
           <div className={`${styles.inputgroup} mt-4`}>
             <Button
               handleTogglecontactForm={handleSubmit}
               disabled={conferenceRegisterLoading}
-              title={conferenceRegisterLoading ? "Processing..." : `Proceed to secure payment - ₹${totalPrice}`}
+              title={
+                conferenceRegisterLoading
+                  ? "Processing..."
+                  : `Proceed to secure payment - ₹${totalPrice}`
+              }
               bgcolor={"#00A0E3"}
               colors={"#ffff"}
             />
-            <p className="mt-2">
+            <p className="mt-3">
               By clicking "Proceed to Payment", you agree to our terms and
               conditions. Your payment information is secure and encrypted.
             </p>

@@ -5,15 +5,12 @@ import styles from "./styles.module.css";
 
 const SummarySticky = ({ handleNext, conferenceData }) => {
   const { conference, events, userdetails } = useAuth();
-  // convert object → array
   const eventsArray = events ? Object.values(events) : [];
 
-  // ✅ Safely parse conference price
   const conferenceRegistrationAmount = conference?.conference_amount
     ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
     : 0;
 
-  // ✅ Safely calculate workshop price
   const workShopsPrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "workshop"
       ? total +
@@ -25,7 +22,6 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
       : total;
   }, 0);
 
-  // ✅ Safely calculate round table price
   const roundTablePrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "roundtable"
       ? total +
@@ -37,20 +33,16 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
       : total;
   }, 0);
 
-  // ✅ Count workshops
   const totalWorkShopsSelected = eventsArray.reduce((total, event) => {
     return event?.event_type === "workshop" ? total + 1 : total;
   }, 0);
 
-  // ✅ Count round tables
   const totalRoundTableSelected = eventsArray.reduce((total, event) => {
     return event?.event_type === "roundtable" ? total + 1 : total;
   }, 0);
 
-  // ✅ Final price
   const totalPrice =
     conferenceRegistrationAmount + workShopsPrice + roundTablePrice;
-
 
   return (
     <aside>
@@ -62,20 +54,15 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
           <span>Conference Registration</span>
           <span>₹{conferenceRegistrationAmount}</span>
         </div>
-        {conference?.conference_amount_type === "standard" && (
-          <>
-            <div className={styles.summaryItem}>
-              <span>Workshop ({totalWorkShopsSelected}x)</span>
-              <span>₹{workShopsPrice}</span>
-            </div>
+        <div className={styles.summaryItem}>
+          <span>Workshop ({totalWorkShopsSelected}x)</span>
+          <span>₹{workShopsPrice}</span>
+        </div>
 
-            <div className={styles.summaryItem}>
-              <span>Round Table ({totalRoundTableSelected}x)</span>
-              <span>₹{roundTablePrice}</span>
-            </div>
-          </>
-        )}
-
+        <div className={styles.summaryItem}>
+          <span>Round Table ({totalRoundTableSelected}x)</span>
+          <span>₹{roundTablePrice}</span>
+        </div>
         <hr />
         <div className={styles.summaryTotal}>
           <div className={styles.total}>
@@ -84,25 +71,14 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
           </div>
           <strong>₹{totalPrice}</strong>
         </div>
-        <div className={`my-3 d-flex flex-column ${styles.button}`}>
-          {conference?.conference_amount_type === "standard" && (
-            <Button
-              title="Select Workshops"
-              iconname="arrow-right"
-              bgcolor="#fff"
-              border={"1.5px solid #00a0e3"}
-              colors="#00a0e3"
-              handleTogglecontactForm={() => handleNext(4)}
-            />
-          )}
-          <Button
-            title="Proceed to Payment"
-            iconname="arrow-right"
-            bgcolor="#00a0e3"
-            colors="#fff"
-            handleTogglecontactForm={() => handleNext(6)}
-          />
-        </div>
+
+        <Button
+          title="Proceed to Payment"
+          iconname="arrow-right"
+          bgcolor="#00a0e3"
+          colors="#fff"
+          handleTogglecontactForm={() => handleNext(6)}
+        />
       </div>
 
       {/* ✅ Mobile version stays the same but uses parsed values */}
@@ -135,16 +111,6 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
           <strong>₹{totalPrice}</strong>
         </div>
         <div className={`my-3 d-flex flex-column ${styles.button}`}>
-          {conference?.conference_amount_type === "standard" && (
-            <Button
-              title="Select Workshops"
-              iconname="arrow-right"
-              bgcolor="#fff"
-              border={"1px solid #00a0e3"}
-              colors="#00a0e3"
-              onClick={() => handleNext(4)}
-            />
-          )}
           <Button
             title="Proceed to Payment"
             iconname="arrow-right"
