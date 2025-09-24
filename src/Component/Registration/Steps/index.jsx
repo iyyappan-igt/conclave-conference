@@ -23,7 +23,7 @@ const Steps = () => {
   const { data: conferenceData } = useConferenceQuery();
   const { mutate: eventMutate } = getAllEventByConfernceIdQuery();
   const [session, setsession] = useState();
-  console.log("session", session);
+
   const data_workshops = session
     ? session.filter((item) => item.event_type == "workshop")
     : [];
@@ -39,7 +39,7 @@ const Steps = () => {
   useEffect(() => {
     if (stepWrapperRef.current) {
       const children = stepWrapperRef.current.children;
-      const activeStep = children[stepnumber - 1]; 
+      const activeStep = children[stepnumber - 1];
       if (activeStep) {
         activeStep.scrollIntoView({
           behavior: "smooth",
@@ -119,7 +119,9 @@ const Steps = () => {
         </div>
 
         <div
-          className={`${styles.layoutWrapper}  ${stepnumber >= 3 ? styles.step3above : ""}`}
+          className={`${styles.layoutWrapper}  ${
+            stepnumber >= 3 ? styles.step3above : ""
+          }`}
           ref={layoutRef}
         >
           <div className={styles.formWrapper}>

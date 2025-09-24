@@ -6,13 +6,25 @@ import RegistrationCard from "@/Common/RegistrationCard";
 import { conferenceRegistrationQuery } from "@/hooks/useUserQuery";
 import SessionCard from "@/Common/SessionCard";
 import Backward from "@/Common/Backward";
+import { useRouter } from "next/router";
+import { RazorpayOrderQuery } from "@/hooks/useRazorpayQuery";
 
-const Payment = ({ personalData, conferenceData, conferenceAuth, eventsAuth, handleNext }) => {
+const Payment = ({
+  personalData,
+  conferenceData,
+  conferenceAuth,
+  eventsAuth,
+  handleNext,
+}) => {
   const [error, setError] = useState("");
   const {
     mutate: conferenceRegisterMutate,
     isLoading: conferenceRegisterLoading,
   } = conferenceRegistrationQuery();
+
+  const { mutate: razorpayOrderMutation } = RazorpayOrderQuery();
+
+  const router = useRouter();
 
   const [agree, setagree] = useState(null);
 
@@ -22,54 +34,56 @@ const Payment = ({ personalData, conferenceData, conferenceAuth, eventsAuth, han
 
   const conferenceRegistrationAmount = conferenceAuth?.conference_amount
     ? Number(
-      String(conferenceAuth.conference_amount).replace(/[^\d.-]/g, "")
-    ) || 0
+        String(conferenceAuth.conference_amount).replace(/[^\d.-]/g, "")
+      ) || 0
     : 0;
 
   const workShopsPrice =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-        return event?.event_type === "workshop"
-          ? total +
-          (Number(
-            personalData?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price
-          ) ?? 0)
-          : total;
-      }, 0)
+          return event?.event_type === "workshop"
+            ? total +
+                (Number(
+                  personalData?.current_membership == "Life"
+                    ? event?.life_member_price
+                    : event?.price
+                ) ?? 0)
+            : total;
+        }, 0)
       : 0;
 
   const roundTablePrice =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-        return event?.event_type === "roundtable"
-          ? total +
-          (Number(
-            personalData?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price
-          ) ?? 0)
-          : total;
-      }, 0)
+          return event?.event_type === "roundtable"
+            ? total +
+                (Number(
+                  personalData?.current_membership == "Life"
+                    ? event?.life_member_price
+                    : event?.price
+                ) ?? 0)
+            : total;
+        }, 0)
       : 0;
 
   const totalWorkShopsSelected =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-        return event?.event_type === "workshop" ? total + 1 : total;
-      }, 0)
+          return event?.event_type === "workshop" ? total + 1 : total;
+        }, 0)
       : 0;
 
   const totalRoundTableSelected =
     eventsAuth !== null
       ? eventsAuth.reduce((total, event) => {
-        return event?.event_type === "roundtable" ? total + 1 : total;
-      }, 0)
+          return event?.event_type === "roundtable" ? total + 1 : total;
+        }, 0)
       : 0;
 
-  const totalPrice =conferenceAuth?.conference_amount_type == "standard" ?
-    conferenceRegistrationAmount + workShopsPrice + roundTablePrice : conferenceRegistrationAmount;
+  const totalPrice =
+    conferenceAuth?.conference_amount_type == "standard"
+      ? conferenceRegistrationAmount + workShopsPrice + roundTablePrice
+      : conferenceRegistrationAmount;
 
   const handleSubmit = () => {
     if (!agree) {
@@ -78,36 +92,91 @@ const Payment = ({ personalData, conferenceData, conferenceAuth, eventsAuth, han
     }
     console.log("submited");
     try {
-      const payload = {
-        user_id: personalData?.id,
-        conference_id: conferenceData?.id,
-        title: personalData?.title,
-        name: personalData?.name,
-        country_code: personalData?.country_code,
-        mobile: personalData?.mobile,
-        email: personalData?.email,
-        obg_code: personalData?.obg_code,
-        clinic: personalData?.clinic_name,
-        medical_council_no: personalData?.medical_council_regno,
-        conference_amount_type: conferenceAuth?.conference_amount_type,
-        conference_amount: conferenceAuth?.conference_amount,
-        conference_events: eventsAuth?.map((event) => ({
-          event_id: event?.id,
-          event_type: event?.event_type,
-          event_title: event?.title,
-          event_amount:
-            personalData?.current_membership == "Life"
-              ? event?.life_member_price
-              : event?.price,
-          event_status: event?.status,
-        })),
+      const sendata = {
+        amount: 1,
       };
-      conferenceRegisterMutate(
+
+      razorpayOrderMutation(
+        { values: sendata },
         {
-          values: payload,
-        },
-        {
-          onSuccess: () => { },
+          onSuccess: (data) => {
+            const orderId = data?.data?.id;
+
+            if (!orderId) {
+              enqueueSnackbar("Failed to create Razorpay Order", {
+                variant: "error",
+              });
+            } else {
+              const options = {
+                key: process.env.RAZORPAY_KEY_ID,
+                amount: 1 * 100,
+                currency: "INR",
+                name: personalData?.name,
+                order_id: orderId,
+                description: "Conference Registration",
+                handler: function (response) {
+                  const razorpayDetails = {
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_signature: response.razorpay_signature,
+                    captured: response.captured,
+                  };
+
+                  const payload = {
+                    user_id: personalData?.id,
+                    conference_id: conferenceData?.id,
+                    title: personalData?.title,
+                    name: personalData?.name,
+                    country_code: personalData?.country_code,
+                    mobile: personalData?.mobile,
+                    email: personalData?.email,
+                    obg_code: personalData?.obg_code,
+                    clinic: personalData?.clinic_name,
+                    medical_council_no: personalData?.medical_council_regno,
+                    conference_amount_type:
+                      conferenceAuth?.conference_amount_type,
+                    conference_amount: conferenceAuth?.conference_amount,
+                    razorpay_order_id: razorpayDetails?.razorpay_order_id,
+                    razorpay_payment_id: razorpayDetails?.razorpay_payment_id,
+                    razorpay_signature: razorpayDetails?.razorpay_signature,
+                    payment_status: "paid",
+                    capture: razorpayDetails?.captured,
+                    membership: personalData?.current_membership,
+                    conference_title: conferenceData?.title,
+                    total_amount: totalPrice,
+                    conference_events: eventsAuth?.map((event) => ({
+                      event_id: event?.id,
+                      event_type: event?.event_type,
+                      event_title: event?.title,
+                      event_amount:
+                        personalData?.current_membership == "Life"
+                          ? event?.life_member_price
+                          : event?.price,
+                      event_status: "confirmed",
+                    })),
+                  };
+
+                  conferenceRegisterMutate(
+                    { values: payload },
+                    {
+                      onSuccess: () => {},
+                    }
+                  );
+                },
+                prefill: {
+                  name: personalData?.name,
+                  email: personalData?.email,
+                  contact: personalData?.mobile,
+                },
+                theme: {
+                  color: "#3399cc",
+                },
+              };
+
+              const razor = new window.Razorpay(options);
+              razor.open();
+            }
+          },
         }
       );
     } catch (error) {
@@ -148,15 +217,17 @@ const Payment = ({ personalData, conferenceData, conferenceAuth, eventsAuth, han
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Name</h4>
-              <p>{`${personalData?.title ? personalData?.title : "Mr"} ${personalData?.name ? personalData?.name : "---"
-                }`}</p>
+              <p>{`${personalData?.title ? personalData?.title : "Mr"} ${
+                personalData?.name ? personalData?.name : "---"
+              }`}</p>
             </div>
           </div>
           <div className="col-lg-6">
             <div className={styles.pdinfo}>
               <h4>Mobile</h4>
-              <p>{`${personalData?.country_code ? personalData?.country_code : "--"
-                } ${personalData?.mobile ? personalData?.mobile : "---"}`}</p>
+              <p>{`${
+                personalData?.country_code ? personalData?.country_code : "--"
+              } ${personalData?.mobile ? personalData?.mobile : "---"}`}</p>
             </div>
           </div>
           <div className="col-lg-6">
@@ -244,22 +315,30 @@ const Payment = ({ personalData, conferenceData, conferenceAuth, eventsAuth, han
           <div className="row">
             <div className="col-8 col-lg-10">
               <div className={styles.leftentry}>
-                <h6> {`Conference (${conferenceAuth?.conference_amount_type
-                  ?.split("-")
-                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ")})`}</h6>
-                {conferenceAuth?.conference_amount_type == "standard" && (<>
-                  <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
-                  <h6>{`RoundTable (${totalRoundTableSelected})`}</h6></>)}
+                <h6>
+                  {" "}
+                  {`Conference (${conferenceAuth?.conference_amount_type
+                    ?.split("-")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ")})`}
+                </h6>
+                {conferenceAuth?.conference_amount_type == "standard" && (
+                  <>
+                    <h6>{`Workshop (${totalWorkShopsSelected})`}</h6>
+                    <h6>{`RoundTable (${totalRoundTableSelected})`}</h6>
+                  </>
+                )}
               </div>
             </div>
             <div className="col-4 col-lg-2">
               <div className={styles.rightentry}>
                 <h6>₹{conferenceRegistrationAmount}</h6>
-                {conferenceAuth?.conference_amount_type == "standard" && (<>
-                  <h6>₹{workShopsPrice}</h6>
-                  <h6>₹{roundTablePrice}</h6>
-                </>)}
+                {conferenceAuth?.conference_amount_type == "standard" && (
+                  <>
+                    <h6>₹{workShopsPrice}</h6>
+                    <h6>₹{roundTablePrice}</h6>
+                  </>
+                )}
               </div>
             </div>
           </div>
