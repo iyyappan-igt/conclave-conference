@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header>
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center py-2">
+        <div className="d-flex justify-content-between align-items-center py-3">
           <div className={styles.brandlogo}>
             <Image
               width={175}
@@ -43,6 +43,7 @@ const Header = () => {
           )} */}
 
           <div
+          className={styles.buttonGroup}
             onClick={() => {
               dispatch(setActiveStepNumber(1));
             }}

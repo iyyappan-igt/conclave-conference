@@ -113,6 +113,11 @@ const Membership = ({ handleNext, conferenceData }) => {
                 className={`form-control `}
                 placeholder="Enter OBG Code"
                 {...Formik.getFieldProps("obg_code")}
+                onChange={(e) => {
+                  Formik.handleChange(e);
+                  setisalreadyregistered(null);
+                  setisverfied(false);
+                }}
               />
               {Formik.touched.obg_code && Formik.errors.obg_code ? (
                 <small className="text-danger">{Formik.errors.obg_code}</small>

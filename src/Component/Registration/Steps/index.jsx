@@ -14,6 +14,7 @@ import { setActiveStepNumber } from "@/redux/slices/auth/authSlice";
 import { useDispatch } from "react-redux";
 
 const Steps = () => {
+  const stepRef = useRef(null);
   const dispatch = useDispatch();
   const { userdetails, conference, events, activeStepNumber } = useAuth();
   const [stepnumber, setStepnumber] = useState(activeStepNumber || 1);
@@ -34,6 +35,20 @@ const Steps = () => {
     setStepnumber(id);
     dispatch(setActiveStepNumber(id));
   };
+
+  useEffect(() => {
+    if (stepWrapperRef.current) {
+      const children = stepWrapperRef.current.children;
+      const activeStep = children[stepnumber - 1]; 
+      if (activeStep) {
+        activeStep.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+    }
+  }, [stepnumber]);
 
   useEffect(() => {
     if (conferenceData?.id) {
@@ -104,7 +119,7 @@ const Steps = () => {
         </div>
 
         <div
-          className={`${styles.layoutWrapper}  ${stepnumber >= 3 ?  styles.step3above : ""}`}
+          className={`${styles.layoutWrapper}  ${stepnumber >= 3 ? styles.step3above : ""}`}
           ref={layoutRef}
         >
           <div className={styles.formWrapper}>

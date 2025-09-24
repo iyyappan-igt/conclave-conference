@@ -10,3 +10,42 @@
 .membershipwrapper {
     margin-bottom: 50px;
 }
+
+
+@media (width<1200px) {
+    .membershipwrapper h2 {
+        font-size: 28px;
+    }
+    .membershipwrapper p {
+        font-size: 14px;
+    }
+}
+
+@media (width<992px) {
+    .membershipwrapper h2 {
+        font-size: 26px;
+    }
+    .membershipwrapper p {
+        font-size: 13px;
+    }
+}
+
+
+@media (width<768px) {
+    .membershipwrapper h2 {
+        font-size: 24px;
+    }
+    .membershipwrapper p {
+        font-size: 12px;
+    }
+}
+
+
+@media (width< 576px) {
+    .membershipwrapper h2 {
+        font-size: 20px;
+    }
+    .membershipwrapper p {
+        font-size: 11px;
+    }
+}

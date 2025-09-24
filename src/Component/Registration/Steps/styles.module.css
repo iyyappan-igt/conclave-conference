@@ -1,54 +1,75 @@
-
 .stepwrapperTop {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    background-color: #c0e4f4;
-    padding: 20px 0;
-    overflow-x: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  background-color: #c0e4f4;
+  padding: 20px 0;
+  overflow-x: auto;
+   position: relative;
 }
 
+.stepactive,
+.stepinactive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  margin: 0 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
 .stepactive span {
-    background-color: #00a0e3;
-    color: white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 14px;
+  background-color: #00a0e3;
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
 }
-.stepactive p { font-weight: 700; color: #00a0e3; }
-.stepactive p, .stepinactive p { margin-top: 8px; font-size: 16px; }
+.stepactive p {
+  font-weight: 700;
+  color: #00a0e3;
+}
+.stepactive p,
+.stepinactive p {
+  margin-top: 8px;
+  font-size: 16px;
+}
 .stepinactive span {
-    background-color: #ffff;
-    color: black;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 14px;
+  background-color: #ffff;
+  color: black;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
 }
-.stepactive, .stepinactive {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-    margin: 0 10px;
-    cursor: pointer;
+.stepactive,
+.stepinactive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  margin: 0 10px;
+  cursor: pointer;
 }
-.stepcontent{
-    margin: 20px 10px 10px;
+.stepcontent {
+  margin: 20px 10px 10px;
 }
 .layoutWrapper {
   display: grid;
   gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
   align-items: flex-start;
 }
 
@@ -57,9 +78,9 @@
 }
 
 .rightColumn {
-  width: 330px; 
+  width: 330px;
   margin-top: 30px;
-  top:60px;
+  top: 60px;
   align-self: flex-start;
   position: sticky;
   height: fit-content;
@@ -67,15 +88,15 @@
 .rightSticky {
   grid-template-columns: 1fr 350px;
 }
-.step3above{
-   grid-template-columns: 1fr 350px;
+.step3above {
+  grid-template-columns: 1fr 350px;
 }
 @media (max-width: 991px) {
   .layoutWrapper {
     grid-template-columns: 1fr;
   }
   .rightSticky {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
   .rightColumn {
     position: fixed;
@@ -83,24 +104,88 @@
     /* left: 0;
     right: 0; */
     bottom: 0;
-    top: unset;
-  z-index: 1000;
-  background: white; /* ensure it stands out */
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-  padding: 12px;
+    top: unset !important;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    padding: 12px;
   }
   .stepwrapperTop {
     gap: 16px;
     padding: 12px 8px;
   }
 
+  .rightColumn > * {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .step3above {
+    grid-template-columns: 1fr;
+  }
+  .stepactive :where(p, span),
+  .stepinactive :where(p, span) {
+    font-size: 14px !important;
+  }
+}
 
-/* optional: make the SummarySticky container itself adapt nicely */
-.rightColumn > * {
-  max-width: 600px;
-  margin: 0 auto;
+@media (width<768px) {
+  .stepwrapperTop {
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 18px 8px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+  }
+  .stepwrapperTop p {
+    margin-bottom: 0 !important;
+  }
+  .stepactive :where(p, span),
+  .stepinactive :where(p, span) {
+    font-size: 11px !important;
+  }
+  .stepactive p,
+  .stepinactive p {
+    word-break: normal;
+    overflow-wrap: normal;
+    white-space: nowrap;
+  }
+  .stepactive span,
+  .stepinactive span {
+    width: 35px;
+    height: 35px;
+  }
 }
-.step3above{
-  grid-template-columns: 1fr;
-}
+
+
+@media (width<576px) {
+  .stepwrapperTop {
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    justify-content: flex-start;
+    padding: 18px 8px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+  }
+  .stepwrapperTop p {
+    margin-bottom: 0 !important;
+  }
+  .stepactive :where(p, span),
+  .stepinactive :where(p, span) {
+    font-size: 11px !important;
+  }
+  .stepactive p,
+  .stepinactive p {
+    word-break: normal;
+    overflow-wrap: normal; 
+    white-space: nowrap;
+  }
+  .stepactive span,
+  .stepinactive span {
+    width: 35px;
+    height: 35px;
+  }
 }

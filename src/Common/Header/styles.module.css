@@ -16,3 +16,7 @@
     margin: 0px;
     color: rgb(162, 161, 161);
 }
+
+.buttonGroup button{
+    margin-top: 0;
+}
