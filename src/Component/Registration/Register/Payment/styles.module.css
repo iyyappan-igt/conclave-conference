@@ -90,3 +90,10 @@
  .rightentry{
     text-align: right;
  }
+
+
+ @media (width<768px){
+    .wrapper{
+        padding: 20px 12px;
+    }
+ }
