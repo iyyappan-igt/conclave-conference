@@ -91,8 +91,7 @@
 }
 
 .cardhead {
-  margin-bottom: 24px;
-  margin-top: 10px;
+  margin: 25px 0px;
 }
 
 .cardhead h4 {
@@ -109,13 +108,14 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
- background-color:    #f0f9fd;
+  background-color: #f0f9fd;
   margin-right: 10px;
   transition: all 0.1s ease;
   box-shadow: 0 3px 8px rgba(0, 160, 227, 0.1);
 }
-.typeIcon .iconPrimary{
-  color:black;
+
+.typeIcon .iconPrimary {
+  color: black;
 }
 
 .selectedCard .typeIcon {
@@ -168,16 +168,18 @@
 }
 
 .seatsNumber {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #00a0e3;
   line-height: 1;
 }
-.selectedCard .daysText{
-color: #e7e7e7;
+
+.selectedCard .daysText {
+  color: #e7e7e7;
 }
+
 .daysText {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   color: #666;
   text-transform: lowercase;
@@ -190,11 +192,11 @@ color: #e7e7e7;
 }
 
 .cardbody .title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: black;
@@ -268,7 +270,7 @@ color: #e7e7e7;
 }
 
 .speakerName {
-  font-size: 16px !important; 
+  font-size: 16px !important;
   font-weight: 700;
   color: #333;
   letter-spacing: 0.2px;
@@ -324,7 +326,8 @@ color: #e7e7e7;
   gap: 10px;
   margin-bottom: 10px;
 }
-.cardfooter .iconSelected{
+
+.cardfooter .iconSelected {
   color: #00a0e3 !important;
 }
 
@@ -517,4 +520,11 @@ color: #e7e7e7;
 .speakerText {
   font-size: 15px;
   font-weight: 600;
+}
+
+
+
+.delnum .currencySymbol,
+.delnum2 .currencySymbol {
+  font-size: 13px !important;
 }

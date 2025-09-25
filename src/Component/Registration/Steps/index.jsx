@@ -69,9 +69,9 @@ const Steps = () => {
       <div className="container-fluid p-0">
         <div className={styles.stepwrapperTop} ref={stepWrapperRef}>
           <div
-            className={
+            className={`${
               stepnumber === 1 ? styles.stepactive : styles.stepinactive
-            }
+            } ${styles.lastnum}`}
           >
             <span className={styles.stepnumber}>1</span>
             <p className={styles.steptext}>Membership</p>
@@ -109,9 +109,9 @@ const Steps = () => {
             <p className={styles.steptext}>RoundTable</p>
           </div>
           <div
-            className={
+            className={`${
               stepnumber === 6 ? styles.stepactive : styles.stepinactive
-            }
+            } `}
           >
             <span className={styles.stepnumber}>6</span>
             <p className={styles.steptext}>Payment</p>

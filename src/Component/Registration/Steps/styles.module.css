@@ -6,7 +6,7 @@
   background-color: #c0e4f4;
   padding: 20px 0;
   overflow-x: auto;
-   position: relative;
+  position: relative;
 }
 
 .stepactive,
@@ -19,7 +19,10 @@
   cursor: pointer;
   position: relative;
   z-index: 2;
+  width: 125px;
+  text-align: center;
 }
+
 .stepactive span {
   background-color: #00a0e3;
   color: white;
@@ -32,15 +35,18 @@
   font-weight: 700;
   font-size: 14px;
 }
+
 .stepactive p {
   font-weight: 700;
   color: #00a0e3;
 }
+
 .stepactive p,
 .stepinactive p {
   margin-top: 8px;
   font-size: 16px;
 }
+
 .stepinactive span {
   background-color: #ffff;
   color: black;
@@ -53,6 +59,7 @@
   font-weight: 700;
   font-size: 14px;
 }
+
 .stepactive,
 .stepinactive {
   display: flex;
@@ -62,9 +69,11 @@
   margin: 0 10px;
   cursor: pointer;
 }
+
 .stepcontent {
   margin: 20px 10px 10px;
 }
+
 .layoutWrapper {
   display: grid;
   gap: 1rem;
@@ -85,50 +94,52 @@
   position: sticky;
   height: fit-content;
 }
+
 .rightSticky {
   grid-template-columns: 1fr 350px;
 }
+
 .step3above {
   grid-template-columns: 1fr 350px;
 }
-@media (max-width: 991px) {
-  .layoutWrapper {
-    grid-template-columns: 1fr;
-  }
-  .rightSticky {
-    grid-template-columns: 1fr;
-  }
-  .rightColumn {
-    position: fixed;
-    width: 100%;
-    /* left: 0;
-    right: 0; */
-    bottom: 0;
-    top: unset !important;
-    z-index: 1000;
-    background: white;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-    padding: 12px;
-  }
-  .stepwrapperTop {
-    gap: 16px;
-    padding: 12px 8px;
-  }
 
-  .rightColumn > * {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .step3above {
-    grid-template-columns: 1fr;
-  }
-  .stepactive :where(p, span),
-  .stepinactive :where(p, span) {
-    font-size: 14px !important;
-  }
+
+.stepactive::after,
+.stepinactive::after {
+  content: "";
+  border-top: 2px solid #00a0e3;
+  width: 84px;
+  height: 10px;
+  position: absolute;
+  left: -80px;
+  top: 28px;
+
 }
 
-@media (width<768px) {
+.stepinactive::after {
+  border-top: 2px solid #ffffff !important;
+
+}
+
+.lastnum::after {
+  display: none;
+}
+
+
+@media (width < 1200px) {
+
+
+  .stepactive::after,
+  .stepinactive::after {
+
+    left: 93px;
+
+  }
+
+}
+
+
+@media (width < 768px) {
   .stepwrapperTop {
     gap: 10px;
     overflow-x: auto;
@@ -138,19 +149,23 @@
     scroll-behavior: smooth;
     scrollbar-width: thin;
   }
+
   .stepwrapperTop p {
     margin-bottom: 0 !important;
   }
+
   .stepactive :where(p, span),
   .stepinactive :where(p, span) {
     font-size: 11px !important;
   }
+
   .stepactive p,
   .stepinactive p {
     word-break: normal;
     overflow-wrap: normal;
     white-space: nowrap;
   }
+
   .stepactive span,
   .stepinactive span {
     width: 35px;
@@ -159,7 +174,7 @@
 }
 
 
-@media (width<576px) {
+@media (width < 576px) {
   .stepwrapperTop {
     gap: 10px;
     overflow-x: auto;
@@ -170,19 +185,23 @@
     scroll-behavior: smooth;
     scrollbar-width: thin;
   }
+
   .stepwrapperTop p {
     margin-bottom: 0 !important;
   }
+
   .stepactive :where(p, span),
   .stepinactive :where(p, span) {
     font-size: 11px !important;
   }
+
   .stepactive p,
   .stepinactive p {
     word-break: normal;
-    overflow-wrap: normal; 
+    overflow-wrap: normal;
     white-space: nowrap;
   }
+
   .stepactive span,
   .stepinactive span {
     width: 35px;

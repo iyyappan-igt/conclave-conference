@@ -61,7 +61,7 @@ const Membership = ({ handleNext, conferenceData }) => {
     },
   });
 
-  console.log(isalreadyregistered, isverified);
+  console.log(isalreadyregistered, isverified , conferenceData);
 
   useEffect(() => {
     if (firstLoad.current) {

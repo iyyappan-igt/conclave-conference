@@ -1,8 +1,7 @@
-
 /* PriceSummary.module.css */
 .summaryBox {
   background: #fff;
-  padding: 1.5rem 1.5rem 1rem; 
+  padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -31,25 +30,26 @@
   margin-top: 0.5rem;
 }
 
-.button{
-    width: 100%;
-    gap:12px;
-}
-.button button{
-    width: 100%;
+.button {
+  width: 100%;
+  gap: 12px;
 }
 
-.summaryItem span{
-    font-size: 14.5px;
+.button button {
+  width: 100%;
 }
 
-.total p{
-    font-size: 12.5px;
-    color: gray;
+.summaryItem span {
+  font-size: 14.5px;
 }
 
-.subTotal{
-      display: flex;
+.total p {
+  font-size: 12.5px;
+  color: gray;
+}
+
+.subTotal {
+  display: flex;
   justify-content: space-between;
   font-size: 0.9rem;
   margin-top: 0.5rem;
@@ -57,22 +57,35 @@
 
 
 
-@media (width < 992px){
-    .summaryBox {
-    position: fixed; /* Stick to bottom */
+@media (width < 992px) {
+
+  .summaryBox,
+  .summaryBox2 {
+    position: fixed;
+    /* Stick to bottom */
     bottom: 0;
     left: 0;
     right: 0;
     top: unset;
-    border-radius: 12px 12px 0 0; /* Rounded top corners only */
+    border-radius: 12px 12px 0 0;
+    /* Rounded top corners only */
     min-width: 100%;
-      margin-bottom: 0;
+    margin-bottom: 0;
     padding: 1rem;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1); /* Shadow from top */
-    z-index: 999; /* Make sure it's above other elements */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    /* Shadow from top */
+    z-index: 999;
+    /* Make sure it's above other elements */
+    background-color: #fff;
   }
-  .button button{
+
+
+  .summaryBox2 {
+    height: 78px;
+  }
+
+  .button button {
     height: 55px;
     width: 100%;
-}
+  }
 }

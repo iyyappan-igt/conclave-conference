@@ -60,6 +60,9 @@ const RoundTable = ({
             <SessionCard
             id={data?.id}
               type={data?.event_type}
+               non_member_amount={
+                personalData?.current_membership == "Life" ? data?.price : ""
+              }
               amount={
                 personalData?.current_membership == "Life"
                   ? data?.life_member_price

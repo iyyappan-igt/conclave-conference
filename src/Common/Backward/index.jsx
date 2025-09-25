@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 const Backward = () => {
   return (
     <button type="button" className={styles.backButton}>
-      <DynamicIcon name="arrow-left" size={42} />
+      <DynamicIcon name="arrow-left" size={30} />
     </button>
   );
 };

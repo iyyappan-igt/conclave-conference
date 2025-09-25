@@ -2,10 +2,13 @@
 import { useAuth } from "@/redux/selectors/auth/authSelector";
 import Button from "../Button";
 import styles from "./styles.module.css";
+import { DynamicIcon } from "lucide-react/dynamic";
+import { useState } from "react";
 
 const SummarySticky = ({ handleNext, conferenceData }) => {
   const { conference, events, userdetails } = useAuth();
   const eventsArray = events ? Object.values(events) : [];
+  const [arrowToggle, setarrowToggle] = useState(false);
 
   const conferenceRegistrationAmount = conference?.conference_amount
     ? Number(String(conference.conference_amount).replace(/[^\d.-]/g, "")) || 0
@@ -14,22 +17,22 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
   const workShopsPrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "workshop"
       ? total +
-      (Number(
-        userdetails?.current_membership == "Life"
-          ? event?.life_member_price
-          : event?.price
-      ) ?? 0)
+          (Number(
+            userdetails?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price
+          ) ?? 0)
       : total;
   }, 0);
 
   const roundTablePrice = eventsArray.reduce((total, event) => {
     return event?.event_type === "roundtable"
       ? total +
-      (Number(
-        userdetails?.current_membership == "Life"
-          ? event?.life_member_price
-          : event?.price
-      ) ?? 0)
+          (Number(
+            userdetails?.current_membership == "Life"
+              ? event?.life_member_price
+              : event?.price
+          ) ?? 0)
       : total;
   }, 0);
 
@@ -42,8 +45,9 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
   }, 0);
 
   const totalPrice =
-  conference?.conference_amount_type === "standard" ?
-    conferenceRegistrationAmount + workShopsPrice + roundTablePrice : conferenceRegistrationAmount;
+    conference?.conference_amount_type === "standard"
+      ? conferenceRegistrationAmount + workShopsPrice + roundTablePrice
+      : conferenceRegistrationAmount;
 
   return (
     <aside>
@@ -87,9 +91,30 @@ const SummarySticky = ({ handleNext, conferenceData }) => {
       </div>
 
       {/* ✅ Mobile version stays the same but uses parsed values */}
-      <div className={`${styles.summaryBox} d-block d-lg-none`}>
-        <h4 className={styles.summaryTitle}>Registration Summary</h4>
-        <p>{conferenceData?.title || "Ophthall Conference"}</p>
+      <div
+        className={`${
+          arrowToggle ? styles.summaryBox : styles.summaryBox2
+        } d-block d-lg-none`}
+      >
+        <div className="d-flex justify-content-between">
+          <div>
+            <h4 className={styles.summaryTitle}>Registration Summary</h4>
+            <p>{conferenceData?.title || "Ophthall Conference"}</p>
+          </div>
+          <div
+            className={styles.arrowicon}
+            onClick={() => {
+              setarrowToggle(!arrowToggle);
+            }}
+          >
+            {arrowToggle ? (
+              <DynamicIcon name="chevron-down" size={30} />
+            ) : (
+              <DynamicIcon name="chevron-up" size={30} />
+            )}
+          </div>
+        </div>
+
         <hr />
         <div className={styles.summaryItem}>
           <span>Conference Registration</span>

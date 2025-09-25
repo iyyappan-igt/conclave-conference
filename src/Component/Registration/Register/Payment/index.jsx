@@ -159,7 +159,9 @@ const Payment = ({
                   conferenceRegisterMutate(
                     { values: payload },
                     {
-                      onSuccess: () => {},
+                      onSuccess: () => {
+                        handleNext(1);
+                      },
                     }
                   );
                 },
@@ -255,7 +257,7 @@ const Payment = ({
               <h4>Medical Council Reg No</h4>
               <p>
                 {personalData?.medical_council_regno
-                  ? personalData?.medical_council_no
+                  ? personalData?.medical_council_regno
                   : "----"}
               </p>
             </div>
@@ -285,6 +287,11 @@ const Payment = ({
                 <SessionCard
                   id={data?.id}
                   type={data?.event_type}
+                  non_member_amount={
+                    personalData?.current_membership == "Life"
+                      ? data?.price
+                      : ""
+                  }
                   amount={
                     personalData?.current_membership == "Life"
                       ? data?.life_member_price
@@ -299,6 +306,7 @@ const Payment = ({
                   designation={data?.coordinator_designation}
                   status={data?.status}
                   isselectbtn={false}
+                  isSelected={true}
                 />
               </div>
             ))}

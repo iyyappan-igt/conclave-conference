@@ -27,7 +27,6 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
   };
 
   const handleWorkshopRemove = (workshopId) => {
-
     const currentSelected = eventAuth || [];
 
     const updatedEvents = currentSelected.filter((e) => e.id !== workshopId);
@@ -53,13 +52,13 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
 
       <div className="row">
         {workshoplist?.map((data, i) => (
-          <div
-            className="col-lg-6 mb-4"
-            key={i}
-          >
+          <div className="col-lg-6 mb-4" key={i}>
             <SessionCard
               id={data?.id}
               type={data?.event_type}
+              non_member_amount={
+                personalData?.current_membership == "Life" ? data?.price : ""
+              }
               amount={
                 personalData?.current_membership == "Life"
                   ? data?.life_member_price
@@ -75,9 +74,7 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
               status={data?.status}
               addEvents={(id) => handleWorkshopAdd(id)}
               removeEvents={(id) => handleWorkshopRemove(id)}
-              isSelected={
-                eventAuth?.some((event) => event?.id == data?.id)
-              }
+              isSelected={eventAuth?.some((event) => event?.id == data?.id)}
               isselectbtn={true}
             />
           </div>
