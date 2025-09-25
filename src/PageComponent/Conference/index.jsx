@@ -3,8 +3,10 @@ import AssociatePartner from "@/Component/Conference/AssociatePartner";
 import ConferenceBanner from "@/Component/Conference/ConferenceBanner";
 import ConferenceHightlights from "@/Component/Conference/ConferenceHighlights";
 import ForWhom from "@/Component/Conference/ForWhom";
+import HandsOnWorkshops from "@/Component/Conference/HandsOnWorkshops";
 import JoinOphthall from "@/Component/Conference/JoinOphthall";
 import OrganizingChairman from "@/Component/Conference/OrganizingChairman";
+import RoundtableSessions from "@/Component/Conference/RoundtableSessions";
 import Speakers from "@/Component/Conference/speakers";
 import VenueDetails from "@/Component/Conference/VenueDetails";
 import WhatYouLearn from "@/Component/Conference/WhatYouLearn";
@@ -16,6 +18,8 @@ const ConferencePageComponent = () => {
       <AssociatePartner data={conferenceData?.participants} />
       <AboutOphthall data={conferenceData?.aboutOphthall} />
       <ConferenceHightlights data={conferenceData?.conferenceHightlights} />
+      <HandsOnWorkshops />
+      <RoundtableSessions />
       <ForWhom data={conferenceData?.forwhom} />
       <Speakers data={conferenceData?.speakers} />
       <WhatYouLearn data={conferenceData?.WhatYouLearn} />
