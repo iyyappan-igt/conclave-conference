@@ -136,7 +136,7 @@ const SessionCard = ({
           <div className="d-flex align-items-center">
             <DynamicIcon
               name="clock"
-              size={18.5}
+              size={18}
               className={isSelected ? styles.iconSelected : styles.iconPrimary}
             />
             <span className={`${styles.durationText} ms-1 ${isSelected ? styles.textSelected : ''}`}>

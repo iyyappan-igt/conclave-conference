@@ -295,6 +295,8 @@ const Payment = ({
                   startdate={data?.start_date_time}
                   enddate={data?.end_date_time}
                   speaker={data?.coordinator_name}
+                  speakerImage={data?.coordinator_image}
+                  designation={data?.coordinator_designation}
                   status={data?.status}
                   isselectbtn={false}
                 />
