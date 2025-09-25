@@ -54,7 +54,7 @@ const RoundTable = ({
       <div className="row">
         {roundtablelist?.map((data, i) => (
           <div
-            className="col-lg-6 mb-4"
+            className="col-lg-6  mb-4"
             key={i}
           >
             <SessionCard
@@ -71,6 +71,8 @@ const RoundTable = ({
               enddate={data?.end_date_time}
               time={data?.time}
               speaker={data?.coordinator_name}
+              speakerImage={data?.coordinator_image}
+              designation={data?.coordinator_designation}
               status={data?.status}
               addEvents={(id)=>handleRountableAdd(id)}
               removeEvents={(id) => handleRoundtableRemove(id)}

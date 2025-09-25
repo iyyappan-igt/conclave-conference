@@ -1,73 +1,519 @@
-.sessioncardwrapper {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    height: 530px;
-
-}
-
+.sessioncardwrapper,
 .sessioncardwrapper2 {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    height: 100%;
+  padding: 28px;
+  border-radius: 24px;
+  box-shadow: 0px 12px 35px rgba(0, 54, 90, 0.1);
+  background: #fff;
+  position: relative;
+  transition: all 0.1s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.cardhead h4,
-.selectcard h6 {
-    font-size: 16px;
-    font-weight: 600;
+.sessioncardwrapper::after,
+.sessioncardwrapper2::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 160, 227, 0.05);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 18px;
 }
 
-.cardhead h6 {
-    font-size: 18px;
-    font-weight: 700;
+
+.selectedCard {
+  background-color: #002f42;
+  border: 2px solid #00a0e3;
+  box-shadow: 0px 15px 35px rgba(0, 47, 66, 0.5);
+  transform: translateY(-2px);
 }
 
-.cardbody h4 {
-    font-size: 20px;
-    font-weight: 700;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
+
+.selectedCard::before {
+  width: 4px;
+  height: 100% !important;
+  background: #00a0e3;
+}
+
+.selectedCard::after {
+  background: rgba(0, 160, 227, 0.1);
+  opacity: 1;
+}
+
+.cardBadge {
+  position: absolute;
+  top: 0;
+  right: 28px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  color: white;
+  letter-spacing: 0.8px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+  z-index: 10;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+
+.workshopBadge {
+  background-color: #00a0e3;
+}
+
+.conferenceBadge {
+  background-color: #2E8B57;
+}
+
+.roundtableBadge {
+  background-color: #00a0e3;
+}
+
+.selectedCard .workshopBadge {
+  background-color: #00a0e3;
+  /* box-shadow: 0 4px 10px rgba(0, 160, 227, 0.3); */
+}
+
+.selectedCard .roundtableBadge {
+  background-color: #00a0e3;
+  box-shadow: 0 4px 10px rgba(0, 47, 66, 0.3);
+}
+
+.cardhead {
+  margin-bottom: 24px;
+  margin-top: 10px;
+}
+
+.cardhead h4 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.typeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: #e6f5fc;
+  margin-right: 10px;
+  transition: all 0.1s ease;
+  box-shadow: 0 3px 8px rgba(0, 160, 227, 0.1);
+}
+
+
+.selectedCard .typeIcon {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeInfo {
+  background-color: #e6f5fc;
+  padding: 9px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 8px rgba(0, 160, 227, 0.12);
+}
+
+.timeInfoNoBackground {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.1s ease;
+}
+
+
+.selectedCard .timeInfo {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.daysLeft {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #00a0e3;
+}
+
+.seatsLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f9fd;
+  padding: 8px 12px;
+  border-radius: 10px;
+  /* box-shadow: 0 3px 8px rgba(0, 160, 227, 0.1); */
+}
+
+.selectedCard .seatsLeft {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.seatsNumber {
+  font-size: 24px;
+  font-weight: 700;
+  color: #00a0e3;
+  line-height: 1;
+}
+.selectedCard .daysText{
+color: #e7e7e7;
+}
+.daysText {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  text-transform: lowercase;
+}
+
+.cardbody {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardbody .title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #00a0e3;
+  margin-bottom: 18px;
+  letter-spacing: -0.3px;
+  transition: all 0.1s ease;
+  text-shadow: 0 1px 1px rgba(0, 160, 227, 0.1);
+}
+
+
+.titleSelected {
+  color: #00a0e3 !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.dateContainer {
+  margin-bottom: 0;
+  background-color: #f0f9fd;
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: inline-flex;
+  width: auto;
+  transition: all 0.1s ease;
+  box-shadow: 0 3px 8px rgba(0, 160, 227, 0.08);
+}
+
+.selectedCard .dateContainer {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.calendarIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dateText {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.speakerContainer {
+  margin-bottom: 24px;
+  gap: 14px;
+  transition: transform 0.1s ease;
+}
+
+
+.avatarWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.09);
+  transition: all 0.1s ease;
+  border: 2px solid #fff;
+  flex-shrink: 0;
+}
+
+
+.selectedCard .avatarWrapper {
+  /* border-color: #00a0e3; */
+  box-shadow: 0 4px 10px rgba(0, 160, 227, 0.1);
+}
+
+.speakerAvatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.speakerName {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 0.2px;
+  margin: 0 0 2px 0;
+}
+
+.speakerTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: 0.2px;
+  margin: 0;
+  font-style: normal;
+}
+
+.titleSelected {
+  color: white !important;
 }
 
 .cardbody p {
-    font-size: 16px;
-    font-weight: 400;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    height: 72px;
-
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
-.cardbody h6,
-.cardfooter h6 {
-    color: #9d9d9d;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0px;
+.overview {
+  color: #444;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 20px;
+  font-size: 15px;
+  flex-grow: 1;
+  line-height: 1.6;
+  transition: all 0.1s ease;
+  letter-spacing: 0.2px;
 }
 
+.footerRow {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.cardfooter {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cardfooter .iconSelected{
+  color: #00a0e3 !important;
+}
+
+.selectedCard .footerRow {
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+.durationContainer {
+  background-color: #e6f5fc;
+  padding: 9px 16px;
+  border-radius: 12px;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 8px rgba(0, 160, 227, 0.12);
+}
+
+.selectedCard .durationContainer {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.durationText {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #00a0e3;
+}
+
+.priceBadge {
+  background-color: #d8f0fa;
+  padding: 9px 16px;
+  border-radius: 12px;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 8px rgba(0, 160, 227, 0.15);
+}
+
+.selectedCard .priceBadge {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.priceText {
+  font-size: 16px;
+  font-weight: 700;
+  color: #00a0e3;
+  letter-spacing: 0.3px;
+}
+
+.timeLeftText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  margin-left: 6px;
+}
+
+.currencySymbol {
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-right: 2px;
+  position: relative;
+  top: -1px;
+}
+
+.textMuted {
+  color: #999;
+  font-size: 14px;
+}
+
+.cardstatus {
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.buttonContainer {
+  margin-top: 30px;
+  position: relative;
+  z-index: 5;
+}
 
 .selectcard {
-    padding: 15px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    border: none;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
+  background-color: #00a0e3;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
 }
 
-.cardstatus h6 {
-    margin: 0px;
-    color: #fff;
-    padding: 7.5px 17px;
-    border-radius: 15px;
-    font-size: 14px;
+
+.addbtn {
+  background-color: #00a0e3;
+  background-image: linear-gradient(135deg, #00a0e3, #0090d0);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.removebtn {
+  background-color: #f0f9fd;
+  color: #00a0e3;
+  border: 1px solid #00a0e3;
+  box-shadow: 0 4px 10px rgba(0, 160, 227, 0.10);
+}
+
+
+.selectedCard .removebtn {
+  background-color: white;
+  color: #002f42;
+  border: 1px solid #00a0e3;
+  font-weight: 700;
+}
+
+.iconPrimary {
+  color: #00a0e3;
+}
+
+.iconSecondary {
+  color: #555;
+}
+
+.textPrimary {
+  color: #00a0e3;
+}
+
+.textSecondary {
+  color: #555;
+}
+
+.textTertiary {
+  color: #666;
+}
+
+.textSelected {
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.iconSelected {
+  color: white !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.dateText {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.durationText {
+  font-size: 16px;
+  font-weight: 600;
+  color: #00a0e3;
+  margin-left: 6px;
+}
+
+.timeLeftText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  margin-left: 6px;
+}
+
+.priceText {
+  font-size: 17px;
+  font-weight: 700;
+  color: #00a0e3;
+  margin-left: 6px;
+}
+
+.speakerText {
+  font-size: 15px;
+  font-weight: 600;
 }

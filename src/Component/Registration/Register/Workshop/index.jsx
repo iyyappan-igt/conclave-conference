@@ -70,6 +70,8 @@ const Workshop = ({ workshoplist, handleNext, personalData, eventAuth }) => {
               startdate={data?.start_date_time}
               enddate={data?.end_date_time}
               speaker={data?.coordinator_name}
+              speakerImage={data?.coordinator_image}
+              designation={data?.coordinator_designation}
               status={data?.status}
               addEvents={(id) => handleWorkshopAdd(id)}
               removeEvents={(id) => handleWorkshopRemove(id)}

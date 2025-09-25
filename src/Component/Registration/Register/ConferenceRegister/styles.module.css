@@ -11,7 +11,7 @@
   margin-top: 20px;
   padding: 20px 18px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #ffffff, #fbe6c2);
+  background: linear-gradient(210deg,#03c0ff,#002f42);
   border: 1px solid rgba(255, 215, 0, 0.4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   cursor: pointer;
@@ -29,30 +29,24 @@
 }
 
 .iconlife {
-  background: linear-gradient(135deg, #ffd700, #ffcc66);
+  background: linear-gradient(210deg,#03c0ff,#002f42);
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 2px 6px linear-gradient(210deg,#03c0ff,#002f42);;
 }
 
 /* Title Styling */
 .lifeMemberContent h6 {
   font-size: 1rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #a67c00, #ffbf00);
+  color: white;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: #fff;
   margin-bottom: 4px;
-}
-
-/* Paragraph Styling */
-.lifeMemberContent p {
-  color: #5a5a5a;
-  font-size: 0.9rem;
 }
 
 .cardContainer {
@@ -94,7 +88,7 @@
 
 .lifeMemberContent p {
   font-size: 16px;
-  color: #6c757d;
+  color: #e6e6e6;
   margin-top: 8px;
   margin-bottom: 0;
 }
