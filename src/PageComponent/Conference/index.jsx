@@ -52,7 +52,7 @@ const ConferencePageComponent = () => {
     }
   }, [conference?.id]);
 
-  console.log("fff" , speakerList)
+  console.log("fff", speakerList);
 
   return (
     <>

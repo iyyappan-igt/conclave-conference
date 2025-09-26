@@ -93,7 +93,7 @@ const Payment = ({
     console.log("submited");
     try {
       const sendata = {
-        amount: 1,
+        amount: totalPrice,
       };
 
       razorpayOrderMutation(
@@ -109,7 +109,7 @@ const Payment = ({
             } else {
               const options = {
                 key: process.env.RAZORPAY_KEY_ID,
-                amount: 1 * 100,
+                amount: totalPrice * 100,
                 currency: "INR",
                 name: personalData?.name,
                 order_id: orderId,
