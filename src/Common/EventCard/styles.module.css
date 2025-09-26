@@ -22,12 +22,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: 30px 0px;
 }
 
 .cardBadge {
   position: absolute;
-  top: 0;
-  right: 28px;
+  top: 0px;
+  left: 30px;
   padding: 8px 18px;
   font-size: 12px;
   font-weight: 700;
@@ -91,6 +92,7 @@
   background-color: rgba(255, 255, 255, 0.2);
   padding: 10px 14px;
   border-radius: 10px;
+  margin-bottom: 30px;
 }
 
 .daysNumber {
@@ -122,7 +124,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: white;
-  margin-bottom: 18px;
+  margin-bottom: 40px;
   letter-spacing: -0.3px;
   transition: all 0.3s ease;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -138,10 +140,13 @@
   transition: all 0.3s ease;
   align-items: center;
   gap: 8px;
+  color: #fff;
 }
-.cardHeader div > .dateContainer:nth-child(3) {
-    gap: 1px;
+
+.cardHeader div>.dateContainer:nth-child(3) {
+  gap: 1px;
 }
+
 .calendarIcon {
   display: flex;
   align-items: center;
@@ -210,10 +215,6 @@
 
 .overview {
   color: #e7e7e7;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
   margin-bottom: 24px;
   font-size: 15px;
   flex-grow: 1;
@@ -261,6 +262,7 @@
   font-size: 13px;
   margin-left: 6px;
 }
+
 .currencySymbol {
   font-size: 14px;
   font-weight: 600;
@@ -268,9 +270,11 @@
   margin-right: 2px;
   position: relative;
 }
-.currencySymbolLarge{
-        font-size: 17px;
+
+.currencySymbolLarge {
+  font-size: 17px;
 }
+
 .iconSelected {
   color: white !important;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
@@ -286,19 +290,19 @@
   .eventCardWrapper {
     padding: 20px;
   }
-  
+
   .title {
     font-size: 20px;
   }
-  
+
   .cardHeader h4 {
     font-size: 16px;
   }
-  
+
   .daysNumber {
     font-size: 18px;
   }
-  
+
   .overview {
     -webkit-line-clamp: 2;
   }

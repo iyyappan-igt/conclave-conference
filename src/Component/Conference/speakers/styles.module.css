@@ -20,10 +20,12 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+
 .speakerCard img {
   height: 100px;
   width: 140px;
 }
+
 .speakerCard {
   margin-top: 80px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
@@ -34,6 +36,7 @@
   transform: scale(0.99);
   transition: all 0.5s ease-in;
   cursor: pointer;
+  width: 700px;
 }
 
 .speakerCard:hover {
@@ -49,9 +52,11 @@
   background: linear-gradient(210deg, #03c0ff, #002f42);
   padding: 75px 0px;
 }
+
 .image {
   border-radius: 50px;
 }
+
 .speakersec h2 {
   color: #fff !important;
 }
@@ -100,12 +105,13 @@
 }
 
 @media (max-width: 768px) {
-      .speakerCard {
+  .speakerCard {
     flex-direction: column;
     text-align: center;
     align-items: center !important;
     padding: 20px 12px;
   }
+
   .speakerCard img {
     height: 100px;
     width: 100px;

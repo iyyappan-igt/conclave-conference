@@ -5,14 +5,13 @@ import styles from "./styles.module.css";
 const Speakers = ({ data }) => {
   return (
     <section className={styles.speakersec}>
-      <div className="container">
+      <div className="container-fluid">
         <Title title={"Our Speakers"} />
 
         <div className={styles.speakerList}>
-          <div className="row">
+          <div className="d-flex flex-wrap justify-content-center gap-3">
             {data?.map((data, i) => (
-              <div className="col-md-6 col-lg-4" style={{ height: "230px" }}>
-                <div
+               <div
                   className={`d-flex align-items-center gap-3 ${styles.speakerCard}`}
                 >
                   <div className={styles.speakerimg}>
@@ -27,7 +26,6 @@ const Speakers = ({ data }) => {
                     <h6>{data?.designation}</h6>
                   </div>
                 </div>
-              </div>
             ))}
           </div>
         </div>

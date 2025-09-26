@@ -62,6 +62,8 @@ const Steps = () => {
       );
     }
   }, [conferenceData?.id]);
+
+  
   console.log("activeStepNumber", activeStepNumber);
 
   return (

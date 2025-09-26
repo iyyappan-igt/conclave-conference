@@ -23,27 +23,8 @@ const Header = () => {
               }}
             />
           </div>
-          {/* {userdetails ? (
-            <div className="d-flex align-items-center gap-2" onClick={()=>{router.replace("/register")}}>
-              <div className={styles.profileimg}>
-                <img src={userdetails?.profile} className="img-fluid" />
-              </div>
-              <div className={styles.profile}>
-                <h4>{userdetails?.name}</h4>
-                <h6>{userdetails?.obg_code}</h6>
-              </div>
-            </div>
-          ) : (
-            <Button
-              title={"Register Now"}
-              colors={"#ffff"}
-              bgcolor={"#00A0E3"}
-              link={"/register"}
-            />
-          )} */}
-
           <div
-          className={styles.buttonGroup}
+            className={styles.buttonGroup}
             onClick={() => {
               dispatch(setActiveStepNumber(1));
             }}
